@@ -224,4 +224,14 @@ describe Game, "victory" do
     @game.victory?("O").should be_true
   end
     
+  it "should not be a victory" do
+    @game.board[0] = "O"
+    @game.board[6] = "O"
+    @game.board[12] = "O"
+    @game.board[18] = "O"
+    @game.board[24] = "X"   
+    
+    @game.victory?("O").should be_false 
+  end  
+    
 end
