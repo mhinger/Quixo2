@@ -75,7 +75,6 @@ private #########
     end
     @col = @col - 1  
     return false
-  end
-    
+  end 
   
 end

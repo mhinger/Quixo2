@@ -2,33 +2,38 @@ require "spec_helper"
 require "game"
 require "turn"
 
-describe Turn, "Changing Turns" do
+describe Turn, "changing_turn" do
   
   before(:all) do
     @turn = Turn.new
   end
   
-  it "should remember the previous turn" do
-    @turn.prev_turn.should == "O"
-  end
- 
-  it "should recognize the current turn" do
-    @turn.current_turn.should == "X"
-    puts @turn.current_turn
-  end 
-
   it "should change turns" do
     @turn.change_turn("O").should be_true
+    puts "previous: #{@turn.prev_turn}"    
+    puts "current: #{@turn.current_turn}"
   end
-
-  it "should recognize the current turn" do
-    @turn.current_turn.should == "O"
-    puts @turn.current_turn
-  end  
   
-  it "should change turns" do
+  it "should remember the most recent turns" do
+    @turn.prev_turn.should == "X"
+  end
+  
+  it "should remember the current turn" do
+    @turn.current_turn.should == "O"    
+  end
+  
+  it "should change turns again" do
     @turn.change_turn("X").should be_true
-    @turn.change_turn("O")
+    puts "previous: #{@turn.prev_turn}"    
+    puts "current: #{@turn.current_turn}"   
+  end
+  
+  it "should remember prev again" do
+    @turn.prev_turn.should == "O"
+  end
+  
+  it "should remember current again" do
+    @turn.current_turn.should == "X"
   end
   
 end

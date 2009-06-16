@@ -5,15 +5,11 @@
 # For a complete listing of style attributes see: http://limelightwiki.8thlight.com/index.php/Style_Attributes
 
 default_scene {
-  background_color :red
+  background_color :saddle_brown
   horizontal_alignment :center
   vertical_alignment :center
   width "100%"
   height "100%"
-  gradient :on
-  gradient_angle 180
-  gradient_penetration 100
-  secondary_background_color :teal
   padding 90
 }
 

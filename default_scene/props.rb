@@ -5,17 +5,9 @@
 
 #root :text => "This is the Default Scene scene."
 
-turn = 1
-game_pieces = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
 
 board :id => "board", :turn => 1 do
   25.times do |i|
     pieces :id => i, :background_color => :tan, :text => "", :location => i
   end
 end
-
-next_turn
-turn = turn + 1
-#puts(turn)
-
