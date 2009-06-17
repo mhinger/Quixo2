@@ -26,7 +26,6 @@ class Game
     return false
   end
   
-  
 private #########
   
   def row_offset(row)

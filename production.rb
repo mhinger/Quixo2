@@ -8,4 +8,5 @@ name "Quixo2"
 
 #attribute :attribute_name
   attribute :turn
-  attribute :count
+  attribute :pull_position
+  attribute :push_position

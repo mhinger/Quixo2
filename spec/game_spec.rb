@@ -233,5 +233,13 @@ describe Game, "victory" do
     
     @game.victory?("O").should be_false 
   end  
+  
+  it "should change turns" do
+    puts "#{@game.current_turn}"
+    @game.change_turn.should be_true   
+    puts "#{@game.current_turn}"
+    @game.change_turn.should be_true   
+    puts "#{@game.current_turn}"
+  end
     
 end

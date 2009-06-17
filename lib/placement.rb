@@ -2,14 +2,6 @@ require "game"
 
 class Placement
   
-  def row_find(pos)
-    return pos / 5
-  end
-  
-  def col_find(pos)
-    return pos % 5
-  end
-  
   def legal_pull_position(pos)
     if row_find(pos) == 0 || row_find(pos) == 4 || col_find(pos) == 0 || col_find(pos) == 4
       return true
@@ -53,6 +45,16 @@ class Placement
     else
       return false
     end
+  end
+  
+private ################
+  
+  def row_find(pos)
+    return pos / 5
+  end
+  
+  def col_find(pos)
+    return pos % 5
   end
   
 end

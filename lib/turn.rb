@@ -3,8 +3,8 @@ class Turn
   attr_reader :current_turn
   
   def initialize
+    @prev_turn = "O"    
     @current_turn = "X"
-    @prev_turn = "O"
   end
   
   def change_turn(new_turn)
