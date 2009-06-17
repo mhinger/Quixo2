@@ -5,7 +5,7 @@
 # For a complete listing of style attributes see: http://limelightwiki.8thlight.com/index.php/Style_Attributes
 
 default_scene {
-  background_color :saddle_brown
+  background_color :fire_brick #:saddle_brown
   horizontal_alignment :center
   vertical_alignment :center
   width "100%"
@@ -29,6 +29,8 @@ pieces {
   height 70
   margin 2
   font_size 40
+  text_color :steel_blue
+  font_style :italic
   vertical_alignment :center
   horizontal_alignment :center
 }
