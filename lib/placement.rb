@@ -20,8 +20,10 @@ class Placement
           return true
         elsif col == 4 && (new_pos == 0 || new_pos == 24)
           return true
-        elsif (new_pos == 0 || new_pos == 4 || new_pos == (orig_pos + 20))
-          return true      
+        elsif col >=1 && col <=3 && (new_pos == 0 || new_pos == 4 || new_pos == (orig_pos + 20))
+          return true  
+        else
+          return false    
         end
         
       elsif row == 4
@@ -29,11 +31,13 @@ class Placement
           return true
         elsif col == 4 && (new_pos == 20 || new_pos == 4)
           return true
-        elsif (new_pos == 20 || new_pos == 24 || new_pos == (orig_pos - 20))
+        elsif col >= 1 && col <=3 && (new_pos == 20 || new_pos == 24 || new_pos == (orig_pos - 20))
           return true
+        else
+          return false
         end
     
-      elsif row >=1
+      elsif row >=1 && row <=3
         if col == 0 && (new_pos == 0 || new_pos == 20 || new_pos == (orig_pos + 4))
           return true
         elsif col == 4 && (new_pos == 4 || new_pos == 24 || new_pos == (orig_pos - 4))

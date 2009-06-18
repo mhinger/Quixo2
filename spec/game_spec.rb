@@ -234,12 +234,18 @@ describe Game, "victory" do
     @game.victory?("O").should be_false 
   end  
   
-  it "should change turns" do
-    puts "#{@game.current_turn}"
-    @game.change_turn.should be_true   
-    puts "#{@game.current_turn}"
-    @game.change_turn.should be_true   
-    puts "#{@game.current_turn}"
+  it "should not be a victory" do
+    @game.board[0] = "O"
+    @game.board[1] = "O"
+    @game.board[2] = "O"
+    @game.board[4] = "X"
+    @game.board[9] = "X"
+    @game.board[14] = "X"
+    @game.board[21] = "O"
+    @game.board[24] = "X"   
+    
+    @game.victory?("X").should be_false 
   end
+  
     
 end

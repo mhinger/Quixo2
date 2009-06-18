@@ -12,15 +12,22 @@ class Game
   end
   
   def victory?(mark)
+    puts "BOARD: #{@board}"
     5.times do |row|
-      5.times do |col|  
-        if horizontal_victory?(row, mark) or vertical_victory?(col, mark)
-          return true 
-        end
-      end
+      if horizontal_victory?(row, mark) # or vertical_victory?(col, mark)
+        puts "#{mark} WINS!! #{mark} WINS!!!"          
+        return true     
+      end  
       
       if diagonal_down_right_victory?(row, mark) or diagonal_up_right_victory?(row, mark)
+        puts "#{mark} WINS!! #{mark} WINS!!"
         return true 
+      end      
+    end
+    5.times do |col|  
+      if vertical_victory?(col, mark)
+        puts "#{mark} WINS!! #{mark} WINS!!!"
+        return true
       end
     end
     return false

@@ -3,5 +3,6 @@ module DefaultScene
     production.turn = Turn.new
     production.pull_position = nil
     production.push_position = nil
+    production.game2 = Game.new
   end
 end

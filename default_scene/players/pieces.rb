@@ -7,7 +7,7 @@ module Pieces
   def mouse_clicked(e)
   
     place = Placement.new
-    game = Game.new
+    # game = Game.new
 
     if production.pull_position == nil
       if place.legal_pull_position((self.id).to_i)
@@ -23,27 +23,36 @@ module Pieces
         self.text = "O"
         production.turn.change_turn("X")
       end
-      
-      25.times do |i|
-        prop = scene.find(i.to_s)
-        game.board[i] = prop.text
+
+      production.game2.board[(self.id).to_i] = self.text
+     
+      if production.turn.current_turn == "X"
+        production.game2.victory?("O")
+      elsif production.turn.current_turn == "O" 
+        production.game2.victory?("X")   
       end
       
-      if production.turn.current_turn == "O"
-        if game.victory?("X")
-          puts "X WINS!!"
-        end
-      elsif production.turn.current_turn == "X"
-        if game.victory?("O")
-          puts "O WINS!!"
-        end
-      end       
+      # 25.times do |i|
+      #   prop = scene.find(i.to_s)
+      #   game.board[i] = prop.text
+      # end
+      # 
+      # puts "game: #{game.board}"
+      # 
+      # if production.turn.current_turn == "O"
+      #   # if production.game.victory?("X")
+      #   if game.victory?("X")
+      #     puts "X WINS!!"
+      #   end
+      # elsif production.turn.current_turn == "X"
+      #   # if production.game.victory?("O")
+      #   if game.victory?("O")
+      #     puts "O WINS!!"
+      #   end
+      # end   
+              
       production.pull_position = nil
     end
   end 
   
-  def cool(d)
-    return d+50
-  end
-     
 end
