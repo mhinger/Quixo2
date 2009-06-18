@@ -9,6 +9,31 @@ class Game
     @current_turn = "X"
   end
   
+  def shift_board(pull_pos, push_pos, mark)
+    puts ""
+    puts "orig: #{@board}"
+    x = (pull_pos - push_pos).abs / 5
+    
+    if pull_pos > push_pos
+      puts "vertically down"
+      @board[pull_pos] = @board[pull_pos - 5]
+      @board[pull_pos - 5] = @board[pull_pos - 10]
+      @board[pull_pos - 10] = @board[push_pos]
+      @board[push_pos] = mark      
+    elsif pull_pos < push_pos
+      puts "vertically up"
+      @board[pull_pos] = @board[pull_pos + 5]
+      @board[pull_pos + 5] = @board[pull_pos +10]
+      @board[pull_pos + 10] = @board[push_pos]
+      @board[push_pos] = mark
+    end
+    
+
+    puts "new: #{@board}"
+    return true
+    
+  end
+  
   def change_turn(new_turn)
     if new_turn == "X"
       @prev_turn = "O"

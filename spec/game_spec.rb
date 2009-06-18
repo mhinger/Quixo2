@@ -247,5 +247,34 @@ describe Game, "victory" do
     @game.victory?("O").should be_false 
   end
   
+  it "should shift the board" do
+    @game.board[0] = "X "
+    @game.board[1] = "1 "
+    @game.board[2] = "O "
+    @game.board[3] = "3 "
+    @game.board[4] = "4 "
+    @game.board[5] = "O "  
+    @game.board[6] = "6 "
+    @game.board[7] = "7 "
+    @game.board[8] = "8 "
+    @game.board[9] = "9 "     
+    @game.board[10] = "X "
+    @game.board[11] = "11 "    
+    @game.board[12] = "12 "
+    @game.board[13] = "13 "
+    @game.board[14] = "14 "
+    @game.board[15] = "15 "
+    @game.board[16] = "16 "
+    @game.board[17] = "O "
+    @game.board[18] = "18 "
+    @game.board[19] = "19 "
+    @game.board[20] = "20 "
+    @game.board[21] = "21 "
+    @game.board[22] = "X "
+    @game.board[23] = "23 "
+    @game.board[24] = "24 "
+    @game.shift_board(5,20,"X ").should be_true
+  end
+  
     
 end

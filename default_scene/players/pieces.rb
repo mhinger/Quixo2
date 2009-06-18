@@ -1,5 +1,4 @@
 require "game"
-# require "turn"
 require "placement"
 
 module Pieces
@@ -14,6 +13,12 @@ module Pieces
       end
     elsif place.legal_push_position(production.pull_position, (self.id).to_i)
       production.push_position = (self.id).to_i 
+      
+      puts "#{production.game.board[production.pull_position]}"
+      
+      if production.game.board[production.pull_position] == "X" || production.game.board[production.pull_position] == "O"
+        puts "cool"
+      end
       
       if text == "" && production.game.current_turn == "X"
         self.text = "X"
