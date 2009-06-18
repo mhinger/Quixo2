@@ -8,6 +8,6 @@
 
 board :id => "board", :turn => 1 do
   25.times do |i|
-    pieces :id => i, :background_color => :tan, :text => "", :location => i
+    pieces :id => i, :background_color => :tan, :text => ""
   end
 end

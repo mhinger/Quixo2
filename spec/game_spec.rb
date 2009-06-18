@@ -235,16 +235,16 @@ describe Game, "victory" do
   end  
   
   it "should not be a victory" do
-    @game.board[0] = "O"
-    @game.board[1] = "O"
-    @game.board[2] = "O"
     @game.board[4] = "X"
-    @game.board[9] = "X"
+    @game.board[0] = "O"
+    @game.board[21] = "X"
+    @game.board[22] = "X"
+    @game.board[23] = "X"
+    @game.board[24] = "O"
     @game.board[14] = "X"
-    @game.board[21] = "O"
-    @game.board[24] = "X"   
+    @game.board[19] = "O" 
     
-    @game.victory?("X").should be_false 
+    @game.victory?("O").should be_false 
   end
   
     
