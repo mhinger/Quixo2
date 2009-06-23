@@ -5,28 +5,29 @@ module Pieces
   
   prop_reader :board
   
-  def mouse_clicked(e)    
-    place = Placement.new        
+  def mouse_clicked(e)  
+    place = Placement.new   
     if production.pull_position == nil
       if place.legal_pull_position((self.id).to_i)
         if production.game.board[(self.id).to_i] == "X"
-          puts "Wow an X was pulled"
           if production.game.current_turn == "X"
-            puts "Its even X's turn"
+            puts "An X was pulled"
+            puts ""
             production.pull_position = (self.id).to_i
           elsif production.game.current_turn == "O"  
             puts "You can't do that it's Os turn"
           end
         elsif production.game.board[(self.id).to_i] =="O"
-          puts "Wow an O was pulled"
           if production.game.current_turn == "O"
-            puts "Its even O's turn"
+            puts "An O was pulled"
+            puts ""
             production.pull_position = (self.id).to_i
           elsif production.game.current_turn == "X"  
             puts "You can't do that it's Xs turn"
           end
         else
-          puts "Wow a blank piece was pulled"
+          puts "A blank piece was pulled"
+          puts ""
           production.pull_position = (self.id).to_i         
         end
       end
@@ -37,18 +38,19 @@ module Pieces
       production.game.board[production.push_position] = self.text
       production.pull_position = nil
       production.game.change_turn
-      if production.game.current_turn == "X"
-        production.game.victory?("O")
-      elsif production.game.current_turn == "O" 
-        production.game.victory?("X")   
-      end  
-      puts "Row 1: #{production.game.board[0]}, #{production.game.board[1]}, #{production.game.board[2]}, #{production.game.board[3]}, #{production.game.board[4]}"
-      puts "Row 2: #{production.game.board[5]}, #{production.game.board[6]}, #{production.game.board[7]}, #{production.game.board[8]}, #{production.game.board[9]}"
-      puts "Row 3: #{production.game.board[10]}, #{production.game.board[11]}, #{production.game.board[12]}, #{production.game.board[13]}, #{production.game.board[14]}"
-      puts "Row 4: #{production.game.board[15]}, #{production.game.board[16]}, #{production.game.board[17]}, #{production.game.board[18]}, #{production.game.board[19]}"
-      puts "Row 5: #{production.game.board[20]}, #{production.game.board[21]}, #{production.game.board[22]}, #{production.game.board[23]}, #{production.game.board[24]}"
-      puts ""      
-          
+            
+      production.game.victory?("O")
+      production.game.victory?("X")   
+      
+      # puts "Row 1: #{production.game.board[0]}, #{production.game.board[1]}, #{production.game.board[2]}, #{production.game.board[3]}, #{production.game.board[4]}"
+      # puts "Row 2: #{production.game.board[5]}, #{production.game.board[6]}, #{production.game.board[7]}, #{production.game.board[8]}, #{production.game.board[9]}"
+      # puts "Row 3: #{production.game.board[10]}, #{production.game.board[11]}, #{production.game.board[12]}, #{production.game.board[13]}, #{production.game.board[14]}"
+      # puts "Row 4: #{production.game.board[15]}, #{production.game.board[16]}, #{production.game.board[17]}, #{production.game.board[18]}, #{production.game.board[19]}"
+      # puts "Row 5: #{production.game.board[20]}, #{production.game.board[21]}, #{production.game.board[22]}, #{production.game.board[23]}, #{production.game.board[24]}"
+      # puts ""      
+    
+      board.update
+      puts "Its Now #{production.game.current_turn}'s Turn"
     end
 
 
@@ -141,8 +143,6 @@ module Pieces
  #     end
     
     #board.update
- # end 
-  
-  
-  
+ # end   
 end
+

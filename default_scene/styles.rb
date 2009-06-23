@@ -5,7 +5,7 @@
 # For a complete listing of style attributes see: http://limelightwiki.8thlight.com/index.php/Style_Attributes
 
 default_scene {
-  background_image "/Users/MHinger/Projects/quixo2/104.jpg"
+  background_image "/Users/MHinger/Projects/quixo2/wood.jpg"
   horizontal_alignment :center
   vertical_alignment :center
   width "100%"
@@ -40,10 +40,74 @@ pieces {
 }
 
 side_bar {
-  background_color :Fire_Brick #{}"#8EB7A8"
+  background_color :Fire_Brick #"#8EB7A8"
   width "20%"
   height "100%"
+  top_padding 40
+  left_padding 10
+  right_padding 10
 }
 
+game_name {
+  vertical_alignment :center
+  horizontal_alignment :center
+  font_size 46
+  font_face :didot
+  width "100%"
+  height 60
+  margin 5
+}
 
+small_buffer {
+  width "100%"
+  height 50
+}
 
+player {
+  background_color :tan
+  vertical_alignment :center
+  horizontal_alignment :center
+  font_size 18
+  font_face :didot
+  width "100%"
+  height 40
+  margin 5
+}
+
+buffer {
+  width "100%"
+  height 150
+}
+
+turn {
+  background_color :tan
+  vertical_alignment :center
+  horizontal_alignment :center  
+  font_size 18
+  font_face :didot
+  width "100%"
+  height 40
+  margin 5
+}
+
+timer {
+  background_color :tan
+  vertical_alignment :center
+  horizontal_alignment :center  
+  font_size 18
+  font_face :didot
+  width "100%"
+  height 40
+  margin 5 
+}
+
+status {
+  background_color :tan
+  vertical_alignment :center
+  horizontal_alignment :center  
+  font_size 18
+  font_face :didot
+  width "100%"
+  height 40
+  margin 5  
+}

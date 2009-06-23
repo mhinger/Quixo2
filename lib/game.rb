@@ -4,13 +4,13 @@ class Game
   attr_reader :current_turn
   attr_reader :player1
   attr_reader :player2
-  
-  def initialize 
+    
+  def initialize
     @board = []
     @prev_turn = "O"
     @current_turn = "X"
-    @player1 = ""
-    @player2 = ""
+    @player1 = "Matt"
+    @player2 = "Joe"
   end
   
   def shift_board(pull_pos, push_pos, mark)
@@ -58,7 +58,7 @@ class Game
       @current_turn = "O"
     elsif @current_turn == "O"
       @prev_turn = "O"
-      @current_turn = "X"    
+      @current_turn = "X"
     else
       return false
     end
