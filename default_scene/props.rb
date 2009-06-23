@@ -5,9 +5,5 @@
 
 #root :text => "This is the Default Scene scene."
 
-
-board :id => "board", :turn => 1 do
-  25.times do |i|
-    pieces :id => i, :background_color => :tan, :text => ""
-  end
-end
+board :id => "board", :text => "QUIXO"
+side_bar

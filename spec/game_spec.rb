@@ -1,13 +1,13 @@
 require 'spec_helper'
 require "game"
 
-describe Game, "victory" do
+describe Game do
   
   before(:each) do
     @game = Game.new
   end
   
-  it "should have board array" do         
+  it "should have board array" do
     @game.board.should == [] 
   end
   
@@ -247,20 +247,136 @@ describe Game, "victory" do
     @game.victory?("O").should be_false 
   end
   
-  it "should shift the board" do
+  # it "should have basic vertical shifts of the board" do
+  #    @game.board[0] = "X "
+  #    @game.board[1] = "1 "
+  #    @game.board[2] = "2 "
+  #    @game.board[3] = "3 "
+  #    @game.board[4] = "4 "
+  #    @game.board[5] = "O "  
+  #    @game.board[6] = "6 "
+  #    @game.board[7] = "X "
+  #    @game.board[8] = "8 "
+  #    @game.board[9] = "9 "     
+  #    @game.board[10] = "X "
+  #    @game.board[11] = "11 "    
+  #    @game.board[12] = "O "
+  #    @game.board[13] = "13 "
+  #    @game.board[14] = "14 "
+  #    @game.board[15] = "15 "
+  #    @game.board[16] = "16 "
+  #    @game.board[17] = "O "
+  #    @game.board[18] = "18 "
+  #    @game.board[19] = "19 "
+  #    @game.board[20] = "20 "
+  #    @game.board[21] = "21 "
+  #    @game.board[22] = "X "
+  #    @game.board[23] = "23 "
+  #    @game.board[24] = "24 "
+  #    @game.shift_board(22,2,"X ").should be_true
+  #  end
+
+  # it "should have basic horizontal shifts of the board" do
+  #   @game.board[0] = "X "
+  #   @game.board[1] = "O "
+  #   @game.board[2] = "X "
+  #   @game.board[3] = "O "
+  #   @game.board[4] = "4 "
+  #   @game.board[5] = "O "  
+  #   @game.board[6] = "6 "
+  #   @game.board[7] = "X "
+  #   @game.board[8] = "8 "
+  #   @game.board[9] = "9 "     
+  #   @game.board[10] = "X "
+  #   @game.board[11] = "11 "    
+  #   @game.board[12] = "O "
+  #   @game.board[13] = "13 "
+  #   @game.board[14] = "14 "
+  #   @game.board[15] = "15 "
+  #   @game.board[16] = "16 "
+  #   @game.board[17] = "O "
+  #   @game.board[18] = "18 "
+  #   @game.board[19] = "19 "
+  #   @game.board[20] = "20 "
+  #   @game.board[21] = "21 "
+  #   @game.board[22] = "X "
+  #   @game.board[23] = "23 "
+  #   @game.board[24] = "24 "
+  #   @game.shift_board(4,0,"O ").should be_true
+  # end 
+  
+  # it "should have complex vertical shifts of the board" do
+  #   @game.board[0] = "X "
+  #   @game.board[1] = "O "
+  #   @game.board[2] = "X "
+  #   @game.board[3] = "O "
+  #   @game.board[4] = "4 "
+  #   @game.board[5] = "O "  
+  #   @game.board[6] = "6 "
+  #   @game.board[7] = "X "
+  #   @game.board[8] = "8 "
+  #   @game.board[9] = "9 "     
+  #   @game.board[10] = "X "
+  #   @game.board[11] = "11 "    
+  #   @game.board[12] = "O "
+  #   @game.board[13] = "13 "
+  #   @game.board[14] = "14 "
+  #   @game.board[15] = "15 "
+  #   @game.board[16] = "16 "
+  #   @game.board[17] = "O "
+  #   @game.board[18] = "18 "
+  #   @game.board[19] = "19 "
+  #   @game.board[20] = "20 "
+  #   @game.board[21] = "21 "
+  #   @game.board[22] = "X "
+  #   @game.board[23] = "23 "
+  #   @game.board[24] = "24 "
+  #   @game.shift_board(14,24,@game.board[14]).should be_true
+  # end   
+  
+  # it "should have complex vertical shifts of the board" do
+  #   @game.board[0] = "X "
+  #   @game.board[1] = "O "
+  #   @game.board[2] = "X "
+  #   @game.board[3] = "O "
+  #   @game.board[4] = "4 "
+  #   @game.board[5] = "O "  
+  #   @game.board[6] = "6 "
+  #   @game.board[7] = "X "
+  #   @game.board[8] = "8 "
+  #   @game.board[9] = "9 "     
+  #   @game.board[10] = "X "
+  #   @game.board[11] = "11 "    
+  #   @game.board[12] = "O "
+  #   @game.board[13] = "13 "
+  #   @game.board[14] = "14 "
+  #   @game.board[15] = "15 "
+  #   @game.board[16] = "16 "
+  #   @game.board[17] = "O "
+  #   @game.board[18] = "18 "
+  #   @game.board[19] = "19 "
+  #   @game.board[20] = "20 "
+  #   @game.board[21] = "21 "
+  #   @game.board[22] = "X "
+  #   @game.board[23] = "23 "
+  #   @game.board[24] = "24 "
+  #   @game.shift_board(21,20,@game.board[21]).should be_true
+  # end
+  
+  it "should be able to handle all the legal shifts of the board" do
     @game.board[0] = "X "
-    @game.board[1] = "1 "
-    @game.board[2] = "O "
-    @game.board[3] = "3 "
+    @game.board[1] = "O "
+    @game.board[2] = "X "
+    @game.board[3] = "O "
     @game.board[4] = "4 "
     @game.board[5] = "O "  
     @game.board[6] = "6 "
-    @game.board[7] = "7 "
+    @game.board[7] = "X "
     @game.board[8] = "8 "
     @game.board[9] = "9 "     
     @game.board[10] = "X "
     @game.board[11] = "11 "    
-    @game.board[12] = "12 "
+    @game.board[12] = "O "
     @game.board[13] = "13 "
     @game.board[14] = "14 "
     @game.board[15] = "15 "
@@ -273,8 +389,7 @@ describe Game, "victory" do
     @game.board[22] = "X "
     @game.board[23] = "23 "
     @game.board[24] = "24 "
-    @game.shift_board(5,20,"X ").should be_true
+    @game.shift_board(0,20,@game.board[0]).should be_true
   end
-  
     
 end

@@ -6,6 +6,7 @@ class Placement
     if row_find(pos) == 0 || row_find(pos) == 4 || col_find(pos) == 0 || col_find(pos) == 4
       return true
     else
+      puts "Illegal Pull Position"
       return false
     end
   end
@@ -47,6 +48,7 @@ class Placement
       end
       
     else
+      puts "Illegal Push Position"
       return false
     end
   end

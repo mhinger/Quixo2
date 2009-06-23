@@ -5,21 +5,24 @@
 # For a complete listing of style attributes see: http://limelightwiki.8thlight.com/index.php/Style_Attributes
 
 default_scene {
-  background_color :fire_brick #:saddle_brown
+  background_image "/Users/MHinger/Projects/quixo2/104.jpg"
   horizontal_alignment :center
   vertical_alignment :center
   width "100%"
   height "100%"
-  padding 90
 }
 
 board {
-  width "94%"
+  width "80%"
   height "100%"
   background_color :black
   rounded_corner_radius 280
-  top_padding 110
-  left_padding 115
+  top_margin 100
+  bottom_margin 100
+  right_margin 120
+  left_margin 120
+  top_padding 100
+  left_padding 105
   right_padding 60
   bottom_padding 100
 }
@@ -29,10 +32,17 @@ pieces {
   height 70
   margin 2
   font_size 40
-  text_color :steel_blue
+  background_color :tan#"#F1E4B7"
+  text_color "#004358"
   font_style :italic
   vertical_alignment :center
   horizontal_alignment :center
+}
+
+side_bar {
+  background_color :Fire_Brick #{}"#8EB7A8"
+  width "20%"
+  height "100%"
 }
 
 

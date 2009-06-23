@@ -10,8 +10,8 @@
 #  end
 
 stage "default" do
-  default_scene "default_scene"
-  title "Limelight"
-  location [200, 25]
-  size [800, 800]
+  default_scene "start_up"#"default_scene"
+  title "QUIXO"
+  location [300, 0]
+  size [1000, 800]
 end
