@@ -1,5 +1,3 @@
-require "game"
-
 module StartUp
   prop_reader :player1
   prop_reader :player2

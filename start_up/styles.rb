@@ -22,7 +22,12 @@ buffer2 {
 
 buffer3 {
   height "100%"
-  width "45%"
+  width "36.5%"
+}
+
+buffer4 {
+  height "100%"
+  width 20
 }
 
 game_name {

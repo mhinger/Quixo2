@@ -2,6 +2,7 @@ require "game"
 
 module DefaultScene
   prop_reader :board
+  prop_reader :timer
   
   def scene_opened(event)
     production.pull_position = nil

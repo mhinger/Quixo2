@@ -18,5 +18,5 @@ side_bar {
   turn :id => "turn_bar", :text => "It's Now X's Turn"
   status :id => "status_bar", :text => ""
   buffer 
-  timer :text => "00:00"
+  timer :id => "timer", :text => "00:00"
 }

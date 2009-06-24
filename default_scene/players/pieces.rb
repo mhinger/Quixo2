@@ -17,6 +17,7 @@ module Pieces
           if production.game.current_turn == "X"
             status_bar.text = "An X was pulled"
             production.pull_position = (self.id).to_i
+            self.style.background_color = "black"
           elsif production.game.current_turn == "O"  
             status_bar.text = "Invalid Move"
           end
@@ -24,12 +25,14 @@ module Pieces
           if production.game.current_turn == "O"
             status_bar.text = "An O was pulled"
             production.pull_position = (self.id).to_i
+            self.style.background_color = "black"
           elsif production.game.current_turn == "X"  
             status_bar.text = "Invalid Move"
           end
         else
           status_bar.text = "Blank piece pulled"
-          production.pull_position = (self.id).to_i         
+          production.pull_position = (self.id).to_i  
+          self.style.background_color = "black"       
         end
       else
         status_bar.text = "Illegal Pull Position"
@@ -43,10 +46,10 @@ module Pieces
       production.game.change_turn            
       if production.game.victory?("O")
         status_bar.text = "#{production.player2} Wins!"
-        scene.load("default_scene")
+        # scene.load("default_scene")
       elsif production.game.victory?("X")     
         status_bar.text = "#{production.player1} Wins!"
-        scene.load("default_scene")
+        # scene.load("default_scene")
       end  
       board.update
       # puts "Its Now #{production.game.current_turn}'s Turn"

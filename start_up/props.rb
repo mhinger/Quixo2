@@ -14,5 +14,7 @@ default_container {
     buffer2
     buffer3
     button :id => 'begin_game', :players => 'start_up', :text => 'Begin Game'
+    buffer4
+    button :id => 'help', :players => 'instructions', :text => 'Instructions'
   }
 }
