@@ -9,13 +9,14 @@ board :id => "board", :text => "QUIXO"
 side_bar {
   game_name :text => "QUIXO"
   small_buffer
-  player :id => "player1", :text => "Player 1     X"
+  player :id => "player1", :text => "" 
+  mark :id => "mark1", :text => "X"
   small_buffer
-  player :id => "player2", :text => "Player 2     O"
-  playe
+  player :id => "player2", :text => "" 
+  mark :id => "mark2", :text => "O"
   buffer
-  turn :text => "Its X's Turn"
-  status :text => "Status Bar"
+  turn :id => "turn_bar", :text => "It's Now X's Turn"
+  status :id => "status_bar", :text => ""
   buffer 
   timer :text => "00:00"
 }

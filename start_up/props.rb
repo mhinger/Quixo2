@@ -12,6 +12,7 @@ default_container {
       input :id => "player2", :players => 'text_box', :width => 130
     }
     buffer2
+    buffer3
     button :id => 'begin_game', :players => 'start_up', :text => 'Begin Game'
   }
 }

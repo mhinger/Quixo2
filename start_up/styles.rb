@@ -1,12 +1,13 @@
 default_container {
   width "100%"
   height "100%"
-  background_color :red
-  secondary_background_color :black
-  gradient :on
-  gradient_angle 30
-  gradient_penetration 45
-  cyclic_gradient :on
+  # background_color :red
+  # secondary_background_color :black
+  # gradient :on
+  # gradient_angle 30
+  # gradient_penetration 45
+  # cyclic_gradient :on
+  background_image "/Users/MHinger/Projects/quixo2/wood.jpg"
 }
 
 buffer {
@@ -16,14 +17,19 @@ buffer {
 
 buffer2 {
   width "100%"
-  height "5%"
+  height 20
+}
+
+buffer3 {
+  height "100%"
+  width "45%"
 }
 
 game_name {
   width "100%"
   height "20%"
   font_size 78
-  text_color :white
+  text_color :black
   font_face :didot
   horizontal_alignment :center
 }
@@ -41,7 +47,7 @@ label {
   vertical_alignment :center
   width 112
   font_size 16
-  text_color :white
+  text_color :black
   font_face :didot
 }
 

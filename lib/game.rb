@@ -2,15 +2,11 @@ class Game
   attr_reader :board
   attr_reader :prev_turn
   attr_reader :current_turn
-  attr_reader :player1
-  attr_reader :player2
     
   def initialize
     @board = []
-    @prev_turn = "O"
+    @prev_turn = ""
     @current_turn = "X"
-    @player1 = "Matt"
-    @player2 = "Joe"
   end
   
   def shift_board(pull_pos, push_pos, mark)
@@ -67,18 +63,15 @@ class Game
   
   def victory?(mark)
     if diagonal_down_right_victory?(mark) or diagonal_up_right_victory?(mark)
-      puts "#{mark} Wins!"
       return true 
     end       
     5.times do |row|
       if horizontal_victory?(row, mark)
-        puts "#{mark} Wins!"
         return true     
       end         
     end
     5.times do |col|  
       if vertical_victory?(col, mark)
-        puts "#{mark} Wins!"
         return true
       end
     end

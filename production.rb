@@ -10,3 +10,5 @@ name "Quixo2"
   attribute :pull_position
   attribute :push_position
   attribute :game
+  attribute :player1
+  attribute :player2

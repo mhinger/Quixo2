@@ -37,6 +37,9 @@ pieces {
   font_style :italic
   vertical_alignment :center
   horizontal_alignment :center
+  hover {
+    background_color "#F1E4B7"
+  }
 }
 
 side_bar {
@@ -65,14 +68,24 @@ small_buffer {
 
 player {
   background_color :tan
+  width "70%"
+  height 24
+  vertical_alignment :center
+  font_size 18
+  font_face :didot  
+  left_padding 20
+}
+
+mark {
+  background_color :tan
+  width "30%"
+  height 24
   vertical_alignment :center
   horizontal_alignment :center
-  font_size 18
+  font_size 16
   font_face :didot
-  width "100%"
-  height 40
-  margin 5
 }
+
 
 buffer {
   width "100%"

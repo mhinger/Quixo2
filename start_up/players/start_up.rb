@@ -6,9 +6,9 @@ module StartUp
   
   def button_pressed(event)
     text1 = player1.text
-    puts "Player1: #{text1}"
+    production.player1 = text1
     text2 = player2.text
-    puts "Player2: #{text2}"
+    production.player2 = text2
     scene.load("default_scene")
   end
   

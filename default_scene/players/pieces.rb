@@ -6,30 +6,33 @@ module Pieces
   prop_reader :board
   
   def mouse_clicked(e)  
-    place = Placement.new   
+    place = Placement.new
+    
+    turn_bar = scene.find("turn_bar") 
+    status_bar = scene.find("status_bar")
+        
     if production.pull_position == nil
       if place.legal_pull_position((self.id).to_i)
         if production.game.board[(self.id).to_i] == "X"
           if production.game.current_turn == "X"
-            puts "An X was pulled"
-            puts ""
+            status_bar.text = "An X was pulled"
             production.pull_position = (self.id).to_i
           elsif production.game.current_turn == "O"  
-            puts "You can't do that it's Os turn"
+            status_bar.text = "Invalid Move"
           end
         elsif production.game.board[(self.id).to_i] =="O"
           if production.game.current_turn == "O"
-            puts "An O was pulled"
-            puts ""
+            status_bar.text = "An O was pulled"
             production.pull_position = (self.id).to_i
           elsif production.game.current_turn == "X"  
-            puts "You can't do that it's Xs turn"
+            status_bar.text = "Invalid Move"
           end
         else
-          puts "A blank piece was pulled"
-          puts ""
+          status_bar.text = "Blank piece pulled"
           production.pull_position = (self.id).to_i         
         end
+      else
+        status_bar.text = "Illegal Pull Position"
       end
     elsif place.legal_push_position(production.pull_position, (self.id).to_i) 
       production.push_position = (self.id).to_i
@@ -37,23 +40,22 @@ module Pieces
       production.game.shift_board(production.pull_position, production.push_position, self.text)
       production.game.board[production.push_position] = self.text
       production.pull_position = nil
-      production.game.change_turn
-            
-      production.game.victory?("O")
-      production.game.victory?("X")   
-      
-      # puts "Row 1: #{production.game.board[0]}, #{production.game.board[1]}, #{production.game.board[2]}, #{production.game.board[3]}, #{production.game.board[4]}"
-      # puts "Row 2: #{production.game.board[5]}, #{production.game.board[6]}, #{production.game.board[7]}, #{production.game.board[8]}, #{production.game.board[9]}"
-      # puts "Row 3: #{production.game.board[10]}, #{production.game.board[11]}, #{production.game.board[12]}, #{production.game.board[13]}, #{production.game.board[14]}"
-      # puts "Row 4: #{production.game.board[15]}, #{production.game.board[16]}, #{production.game.board[17]}, #{production.game.board[18]}, #{production.game.board[19]}"
-      # puts "Row 5: #{production.game.board[20]}, #{production.game.board[21]}, #{production.game.board[22]}, #{production.game.board[23]}, #{production.game.board[24]}"
-      # puts ""      
-    
+      production.game.change_turn            
+      if production.game.victory?("O")
+        status_bar.text = "#{production.player2} Wins!"
+        scene.load("default_scene")
+      elsif production.game.victory?("X")     
+        status_bar.text = "#{production.player1} Wins!"
+        scene.load("default_scene")
+      end  
       board.update
-      puts "Its Now #{production.game.current_turn}'s Turn"
+      # puts "Its Now #{production.game.current_turn}'s Turn"
+      turn_bar.text = "It's Now #{production.game.current_turn}'s Turn"
+    elsif place.legal_push_position(production.pull_position, (self.id).to_i) == false
+      status_bar.text = "Illegal Push Position"
     end
-
-
+  end
+end
     
     # if self.text == ""
     #   if production.game.current_turn == "X"
@@ -66,7 +68,7 @@ module Pieces
     # end
   
   
-  end
+
   
  #    place = Placement.new
  # 
@@ -144,5 +146,3 @@ module Pieces
     
     #board.update
  # end   
-end
-
