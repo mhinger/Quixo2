@@ -10,6 +10,7 @@ main_container {
   background_color :tan
   width 800
   height 409
+  rounded_corner_radius 20
 }
 
 instrs {
@@ -20,18 +21,13 @@ instrs {
 instrs2 {
   margin 30
   font_size 18
-  bottom_padding 3
-}
-
-buffer {
-  width 300
 }
 
 buffer2 {
-  height 902
-  width 700
+  height 100
+  width 680
 }
 
 button {
-  top_padding 7
+  margin 4
 }

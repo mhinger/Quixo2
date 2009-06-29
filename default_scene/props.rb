@@ -9,15 +9,17 @@ board :id => "board"
 side_bar {
   game_name :text => "QUIXO"
   small_buffer
-  player :id => "player1", :text => "" 
+  player :id => "p1", :text => ""
   mark :id => "mark1", :text => "X"
   small_buffer
-  player :id => "player2", :text => "" 
+  player :id => "p2", :text => "" 
   mark :id => "mark2", :text => "O"
   buffer
-  turn :id => "turn_bar", :text => ""#"It's Now X's Turn"
+  turn :id => "turn_bar", :text => ""
   status :id => "status_bar", :text => ""
-  buffer 
-  timer :id => "timer", :text => "00:00"
-  button :id => 'return', :players => 'back', :text => 'Back'
+  buffer2
+  timer :id => 'player1_timer', :text => "00:00"
+  timer :id => 'player2_timer', :text => "00:00"
+  button :id => 'restart', :text => 'Restart', :on_button_pressed => "scene.load('default_scene')"
+  button :id => 'return', :text => 'Back', :on_button_pressed => "scene.load('start_up')"
 }

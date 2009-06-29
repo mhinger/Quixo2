@@ -32,7 +32,7 @@ pieces {
   height 70
   margin 2
   font_size 40
-  background_color :tan#"#F1E4B7"
+  background_color :tan
   text_color "#004358"
   font_style :italic
   vertical_alignment :center
@@ -43,7 +43,7 @@ pieces {
 }
 
 side_bar {
-  background_color :Fire_Brick #"#8EB7A8"
+  background_color :Fire_Brick
   width "20%"
   height "100%"
   top_padding 40
@@ -72,12 +72,13 @@ smaller_buffer {
 }
 
 player {
-  background_color :tan
+  background_color :transparent
   width "70%"
   vertical_alignment :center
   font_size 18
   font_face :didot  
   left_padding 20
+  rounded_corner_radius 10
 }
 
 mark {
@@ -91,7 +92,12 @@ mark {
 
 buffer {
   width "100%"
-  height 150
+  height 140
+}
+
+buffer2 {
+  width "100%"
+  height 110
 }
 
 turn {
@@ -103,6 +109,7 @@ turn {
   width "100%"
   height 60
   bottom_margin 5
+  rounded_corner_radius 10
 }
 
 timer {
@@ -115,6 +122,7 @@ timer {
   height 40
   top_margin 5
   bottom_margin 5
+  rounded_corner_radius 10
 }
 
 status {
@@ -127,6 +135,7 @@ status {
   height 40
   top_margin 5
   bottom_margin 5
+  rounded_corner_radius 10
 }
 
 button {
