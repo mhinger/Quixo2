@@ -5,7 +5,7 @@
 
 #root :text => "This is the Default Scene scene."
 
-board :id => "board", :text => "QUIXO"
+board :id => "board"
 side_bar {
   game_name :text => "QUIXO"
   small_buffer
@@ -15,8 +15,9 @@ side_bar {
   player :id => "player2", :text => "" 
   mark :id => "mark2", :text => "O"
   buffer
-  turn :id => "turn_bar", :text => "It's Now X's Turn"
+  turn :id => "turn_bar", :text => ""#"It's Now X's Turn"
   status :id => "status_bar", :text => ""
   buffer 
   timer :id => "timer", :text => "00:00"
+  button :id => 'return', :players => 'back', :text => 'Back'
 }

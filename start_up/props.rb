@@ -3,12 +3,12 @@ default_container {
   game_name :text => "QUIXO"
   main_container {
     input_container {
-      label :text => "Player 1 Name: "
+      label :text => "Player 1 Name: ", :players => "player_type"
       input :id => "player1", :players => 'text_box', :width => 130
     }
     buffer2
     input_container {
-      label :text => "Player 2 Name: "
+      label :text => "Player 2 Name: ", :players => "player_type"
       input :id => "player2", :players => 'text_box', :width => 130
     }
     buffer2

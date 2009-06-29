@@ -6,146 +6,116 @@ module Pieces
   prop_reader :board
   
   def mouse_clicked(e)  
+    
     place = Placement.new
     
     turn_bar = scene.find("turn_bar") 
-    status_bar = scene.find("status_bar")
+    status_bar = scene.find("status_bar")  
         
     if production.pull_position == nil
-      if place.legal_pull_position((self.id).to_i)
-        if production.game.board[(self.id).to_i] == "X"
-          if production.game.current_turn == "X"
-            status_bar.text = "An X was pulled"
-            production.pull_position = (self.id).to_i
-            self.style.background_color = "black"
-          elsif production.game.current_turn == "O"  
-            status_bar.text = "Invalid Move"
-          end
-        elsif production.game.board[(self.id).to_i] =="O"
-          if production.game.current_turn == "O"
-            status_bar.text = "An O was pulled"
-            production.pull_position = (self.id).to_i
-            self.style.background_color = "black"
-          elsif production.game.current_turn == "X"  
-            status_bar.text = "Invalid Move"
-          end
-        else
-          status_bar.text = "Blank piece pulled"
-          production.pull_position = (self.id).to_i  
-          self.style.background_color = "black"       
-        end
-      else
-        status_bar.text = "Illegal Pull Position"
+       if place.legal_pull_position((self.id).to_i)
+         select_piece
+       else
+         status_bar.text = "Illegal Pull Position"
+       end  
+     
+     elsif place.legal_push_position(production.pull_position, (self.id).to_i) 
+       production.push_position = (self.id).to_i
+       shift
+       check_victory
+       board.update
+       change_turn
+     
+     elsif production.pull_position != nil
+       production.push_position = (self.id).to_i
+       if production.pull_position == production.push_position
+         self.style.background_color = "tan"
+         self.style.text_color = "teal"
+         board.update
+         production.pull_position = nil
+         status_bar.text = "Piece Returned"
+       end  
+       
+     end   
+  end
+  
+  
+private #########################
+  
+  def select_piece
+    status_bar = scene.find("status_bar")
+    
+    if production.game.board[(self.id).to_i] == "X"
+      if production.game.current_turn == "X"
+        status_bar.text = "An X was pulled"
+        pull_piece
+      elsif production.game.current_turn == "O"  
+        status_bar.text = "Invalid Move"
       end
-    elsif place.legal_push_position(production.pull_position, (self.id).to_i) 
-      production.push_position = (self.id).to_i
-      self.text = production.game.current_turn
-      production.game.shift_board(production.pull_position, production.push_position, self.text)
-      production.game.board[production.push_position] = self.text
-      production.pull_position = nil
-      production.game.change_turn            
-      if production.game.victory?("O")
-        status_bar.text = "#{production.player2} Wins!"
-        # scene.load("default_scene")
-      elsif production.game.victory?("X")     
-        status_bar.text = "#{production.player1} Wins!"
-        # scene.load("default_scene")
-      end  
-      board.update
-      # puts "Its Now #{production.game.current_turn}'s Turn"
-      turn_bar.text = "It's Now #{production.game.current_turn}'s Turn"
-    elsif place.legal_push_position(production.pull_position, (self.id).to_i) == false
-      status_bar.text = "Illegal Push Position"
+    elsif production.game.board[(self.id).to_i] =="O"
+      if production.game.current_turn == "O"
+        status_bar.text = "An O was pulled"
+        pull_piece
+      elsif production.game.current_turn == "X"  
+        status_bar.text = "Invalid Move"
+      end
+    else
+      status_bar.text = "Blank piece pulled"
+      pull_piece 
     end
   end
+  
+  def pull_piece
+    production.pull_position = (self.id).to_i
+    self.style.background_color = "black"
+    self.style.text_color = "black"
+  end
+  
+  def shift
+    self.text = production.game.current_turn
+    production.game.shift_board(production.pull_position, production.push_position, self.text)
+    production.game.board[production.push_position] = self.text
+    production.pull_position = nil
+    production.game.change_turn    
+  end
+  
+  def check_victory
+    status_bar = scene.find("status_bar")
+    
+    if production.game.victory?("O")
+      if production.player2 == ""
+        status_bar.text = "Player 2 Wins!"
+      else
+        status_bar.text = "#{production.player2} Wins!"
+      end
+      # scene.load("victory")
+    elsif production.game.victory?("X")
+      if production.player1 == ""
+        status_bar.text = "Player 1 Wins!"
+      else
+        status_bar.text = "#{production.player1} Wins!"
+      end
+      # scene.load("victory")
+    end    
+  end
+  
+  def change_turn
+    turn_bar = scene.find("turn_bar") 
+    
+    if production.game.current_turn == "X"
+      if production.player1 == ""
+        turn_bar.text = "It's #{production.game.current_turn}'s Turn"
+      else          
+        turn_bar.text = "It's #{production.player1}'s Turn"
+      end
+    else
+      if production.player2 == ""
+        turn_bar.text = "It's #{production.game.current_turn}'s Turn"
+      else
+        turn_bar.text = "It's #{production.player2}'s Turn"
+      end
+    end
+  end
+  
 end
-    
-    # if self.text == ""
-    #   if production.game.current_turn == "X"
-    #     self.text = "X" 
-    #     production.game.change_turn
-    #   elsif production.game.current_turn == "O"
-    #     self.text = "O"
-    #     production.game.change_turn
-    #   end
-    # end
-  
-  
-
-  
- #    place = Placement.new
- # 
- #     puts "turn: #{production.game.current_turn}"
- #   
- # 
- #     if production.pull_position == nil
- #       if place.legal_pull_position((self.id).to_i)
- #         production.pull_position = (self.id).to_i
- #       end
- #       
- #     elsif place.legal_push_position(production.pull_position, (self.id).to_i)
- #       production.push_position = (self.id).to_i     
- #       
- #       puts "pull #{production.pull_position}"
- #       puts "pull piece #{production.game.board[production.pull_position]}"
- #       puts "current_turn #{production.game.current_turn}"
- #       
- #       if production.game.board[production.pull_position] == "X" && production.game.current_turn == "X"
- #         puts "X pull"
- #         self.text = "X"
- #         production.game.board[production.pull_position] = ""
- # #       production.game.board[production.push_position] = "X"
- #         production.game.shift_board(production.pull_position, production.push_position, "X")
- #         production.game.change_turn 
- #       elsif production.game.board[production.pull_position] == "O" && production.game.current_turn == "O"
- #         puts "O pull"
- #         self.text = "O"
- #         production.game.board[production.pull_position] = ""        
- #  #      production.game.board[production.push_position] = "O" 
- #         production.game.shift_board(production.pull_position, production.push_position, "O")
- #         production.game.change_turn 
- #       elsif production.game.board[production.pull_position] == "" #self.text == ""
- #         puts "blank pull"
- #         self.text = production.game.current_turn
- #         production.game.board[production.pull_position] = ""
- #         production.game.shift_board(production.pull_position, production.push_position, production.game.current_turn) 
- #         production.game.change_turn     
- #       end
- #       
- #       
- #       # if production.game.board[production.pull_position] == "X" && production.game.board[production.push_position] == "O"
- #       #   production.game.board[production.push_position] = ""
- #       #   self.text = ""
- #       # elsif production.game.board[production.pull_position] == "O" && production.game.board[production.push_position] == "X"
- #       #   production.game.board[production.push_position] = ""
- #       #   self.text = ""
- #       # end  
- #       
- #       puts "push #{production.push_position}"
- #       puts "push piece #{production.game.board[production.push_position]}"      
- #             
- #       # production.game.change_turn      
- #             
- #       # if text == "" && production.game.current_turn == "X"
- #       #   self.text = "X"
- #       #   production.game.change_turn("O")
- #       # elsif text == "" && production.game.current_turn == "O"
- #       #   self.text = "O"
- #       #   production.game.change_turn("X")
- #       # end  
- #       
- #       puts "#{production.game.board}"
- #       production.game.board[(self.id).to_i] = self.text
- #       puts "#{production.game.board}"
- #       
- #       if production.game.current_turn == "X"
- #         production.game.victory?("O")
- #       elsif production.game.current_turn == "O" 
- #         production.game.victory?("X")   
- #       end
- #               
- #       production.pull_position = nil
- #     end
-    
-    #board.update
- # end   
+ 

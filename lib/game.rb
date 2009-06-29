@@ -10,8 +10,6 @@ class Game
   end
   
   def shift_board(pull_pos, push_pos, mark)
-    # puts ""
-    # puts "orig: #{@board}"
     x = (pull_pos - push_pos).abs / 5
 ###########Row Movement
     if x <= 4 && x >= 1
@@ -42,9 +40,6 @@ class Game
       end 
     end   
     @board[push_pos] = mark     
-
-    # puts "new:  #{@board}"
-    # return true
         
   end
   

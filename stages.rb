@@ -10,7 +10,7 @@
 #  end
 
 stage "default" do
-  default_scene "start_up"#"default_scene"
+  default_scene "start_up"
   title "QUIXO"
   location [300, 0]
   size [1000, 800]

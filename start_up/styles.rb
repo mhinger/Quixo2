@@ -44,15 +44,19 @@ input_container {
   horizontal_alignment :center
 }
 
-button {
-  width 125
-}
-
 label {
   vertical_alignment :center
   width 112
   font_size 16
   text_color :black
   font_face :didot
+  hover {
+    text_color :white
+  }
+}
+
+button {
+  width 125
+  top_padding 7
 }
 

@@ -9,7 +9,7 @@ default_container {
 main_container {
   background_color :tan
   width 800
-  height 600
+  height 409
 }
 
 instrs {
@@ -17,12 +17,21 @@ instrs {
   font_size 25
 }
 
+instrs2 {
+  margin 30
+  font_size 18
+  bottom_padding 3
+}
+
 buffer {
-  height 572
   width 300
 }
 
 buffer2 {
-  height 350
+  height 902
   width 700
+}
+
+button {
+  top_padding 7
 }

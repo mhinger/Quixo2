@@ -34,7 +34,7 @@ describe Placement, "Legal Placements" do
   end
   
   it "checks push positions" do
-    @place.legal_push_position(24, 24).should be_false
+    @place.legal_push_position(22, 21).should be_false
   end
   
 end

@@ -66,10 +66,14 @@ small_buffer {
   height 50
 }
 
+smaller_buffer {
+  width "100%"
+  height 40
+}
+
 player {
   background_color :tan
   width "70%"
-  height 24
   vertical_alignment :center
   font_size 18
   font_face :didot  
@@ -77,12 +81,10 @@ player {
 }
 
 mark {
-  background_color :tan
   width "30%"
-  height 24
   vertical_alignment :center
   horizontal_alignment :center
-  font_size 16
+  font_size 18
   font_face :didot
 }
 
@@ -99,8 +101,8 @@ turn {
   font_size 18
   font_face :didot
   width "100%"
-  height 40
-  margin 5
+  height 60
+  bottom_margin 5
 }
 
 timer {
@@ -111,7 +113,8 @@ timer {
   font_face :didot
   width "100%"
   height 40
-  margin 5 
+  top_margin 5
+  bottom_margin 5
 }
 
 status {
@@ -122,5 +125,11 @@ status {
   font_face :didot
   width "100%"
   height 40
-  margin 5  
+  top_margin 5
+  bottom_margin 5
+}
+
+button {
+  top_padding 7
+  width "100%"
 }
