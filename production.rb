@@ -12,3 +12,15 @@ name "Quixo2"
   attribute :game
   attribute :player1
   attribute :player2
+  attribute :game_length_min
+  attribute :game_length_sec
+  attribute :player1_turns
+  attribute :player2_turns
+  attribute :player1_min
+  attribute :player1_sec
+  attribute :player2_min
+  attribute :player2_sec
+  attribute :stop_time
+  attribute :start_time
+  attribute :new_game
+  attribute :timed_game

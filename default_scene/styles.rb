@@ -72,7 +72,7 @@ smaller_buffer {
 }
 
 player {
-  background_color :transparent
+  background_color :tan
   width "70%"
   vertical_alignment :center
   font_size 18
@@ -92,12 +92,12 @@ mark {
 
 buffer {
   width "100%"
-  height 140
+  height 130
 }
 
 buffer2 {
   width "100%"
-  height 110
+  height 100
 }
 
 turn {
@@ -132,9 +132,10 @@ status {
   font_size 18
   font_face :didot
   width "100%"
-  height 40
+  height 60
   top_margin 5
   bottom_margin 5
+  padding 5
   rounded_corner_radius 10
 }
 

@@ -1,12 +1,16 @@
 module StartUp
   prop_reader :player1
   prop_reader :player2
+  prop_reader :game_length
   
   def button_pressed(event)
     text1 = player1.text
     production.player1 = text1
     text2 = player2.text
     production.player2 = text2
+    length = game_length.text 
+    production.game_length_min = length.to_i
+    production.game_length_sec = 0
     scene.load("default_scene")
   end
   

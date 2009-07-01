@@ -9,17 +9,17 @@ default_container {
 main_container {
   background_color :tan
   width 800
-  height 409
+  height 490
   rounded_corner_radius 20
 }
 
 instrs {
-  margin 30
+  margin 25
   font_size 25
 }
 
 instrs2 {
-  margin 30
+  margin 25
   font_size 18
 }
 

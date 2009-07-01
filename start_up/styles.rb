@@ -44,15 +44,23 @@ input_container {
   horizontal_alignment :center
 }
 
-label {
+player_label {
   vertical_alignment :center
-  width 112
+  width 120
   font_size 16
   text_color :black
   font_face :didot
   hover {
     text_color :white
   }
+}
+
+time_label{
+  vertical_alignment :center
+  width 130
+  font_size 16
+  text_color :black
+  font_face :didot  
 }
 
 button {
