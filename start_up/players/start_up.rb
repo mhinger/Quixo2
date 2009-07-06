@@ -10,7 +10,6 @@ module StartUp
     production.player2 = text2
     length = game_length.text 
     production.game_length_min = length.to_i
-    production.game_length_sec = 0
     scene.load("default_scene")
   end
   

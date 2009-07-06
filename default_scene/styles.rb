@@ -143,3 +143,10 @@ button {
   top_padding 7
   width "100%"
 }
+
+victory {
+  width "100%"
+  height "100%"
+  background_color :blue
+  transparency 90
+}

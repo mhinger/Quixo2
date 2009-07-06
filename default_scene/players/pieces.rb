@@ -4,6 +4,7 @@ require "placement"
 module Pieces
   
   prop_reader :board
+  prop_reader :victory
   
   def mouse_clicked(e)  
     
@@ -34,9 +35,9 @@ module Pieces
       board.update
       change_turn
       highlight_previous_move
-      if production.timed_game == "Yes"  
-        timer_stop(production.game.prev_turn)   
-      end
+      # if production.timed_game == "Yes"  
+      #   # timer_stop(production.game.prev_turn)   
+      # end
       
     else
       if production.pull_position != nil
@@ -52,47 +53,103 @@ module Pieces
   
   
 private #########################
+
   def timer_start
-    production.start_time = Time.now
+    status_bar = scene.find("status_bar")
+    
+    # production.start_time = Time.now
+    production.player1_sec = 60
+    production.player1_min = production.game_length_min - 1
+    production.player2_sec = 60
+    production.player2_min = production.game_length_min - 1
+    production.animation = animate(:updates_per_second => 1) do
+      if production.game.current_turn == "X"
+        timer1 = scene.find("player1_timer")
+        if production.player1_sec == 0
+          production.player1_min = production.player1_min - 1
+          production.player1_sec = 60
+        end
+        production.player1_sec = production.player1_sec - 1
+        if production.player1_sec >= 10
+          timer1.text = "#{production.player1_min}:#{production.player1_sec}"
+        elsif production.player1_sec >= 0
+          timer1.text = "#{production.player1_min}:0#{production.player1_sec}"
+        end
+        if production.player1_sec == 0 && production.player1_min == 0
+          puts "Xs ran out of time"
+          puts "#{production.player1}'s Turns: #{production.player1_turns}"
+          puts "#{production.player2}'s Turns: #{production.player2_turns}"
+          status_bar.text = "#{production.player2} Wins, #{production.player1} Ran Out Of Time"
+          production.animation.stop 
+          
+          
+          # victory.style.transparency = 0
+        end
+      elsif production.game.current_turn == "O"
+        timer2 = scene.find("player2_timer")
+        if production.player2_sec == 0
+          production.player2_min = production.player2_min - 1
+          production.player2_sec = 60
+        end
+        production.player2_sec = production.player2_sec - 1
+        if production.player2_sec >= 10
+          timer2.text = "#{production.player2_min}:#{production.player2_sec}"
+        elsif production.player2_sec >= 0
+          timer2.text = "#{production.player2_min}:0#{production.player2_sec}"
+        end
+        if production.player2_sec == 0 && production.player2_min == 0
+          puts "Os ran out of time"
+          puts "#{production.player1}'s Turns: #{production.player1_turns}"
+          puts "#{production.player2}'s Turns: #{production.player2_turns}"
+          status_bar.text = "#{production.player1} Wins, #{production.player2} Ran Out Of Time"
+          production.animation.stop 
+          
+          
+          # victory.style.transparency = 0
+        end        
+        
+      end
+    end
+      
   end
   
   def timer_stop(turn)
-    timer1 = scene.find("player1_timer")
-    timer2 = scene.find("player2_timer")
-    production.stop_time = Time.now
-    diff = production.stop_time - production.start_time
-    min = (diff / 60).to_i
-    sec = (((diff / 60) - min) * 60).round
-    if turn == "X"
-      timer_start
-      if production.player1_sec < sec
-        production.player1_min = (production.player1_min - 1) - min
-        production.player1_sec = (production.player1_sec + 60) - sec
-      elsif (production.player1_sec - sec) >= 0
-        production.player1_min = production.player1_min - min
-        production.player1_sec = production.player1_sec - sec
-      end
-      if production.player1_sec < 10
-        timer1.text = "#{production.player1_min}:0#{production.player1_sec}"
-      else
-        timer1.text = "#{production.player1_min}:#{production.player1_sec}"
-      end
-
-    elsif turn == "O"
-      timer_start
-      if production.player2_sec < sec
-        production.player2_min = (production.player2_min - 1) - min
-        production.player2_sec = (production.player2_sec + 60) - sec
-      elsif (production.player2_sec - sec) >= 0
-        production.player2_min = production.player2_min - min
-        production.player2_sec = production.player2_sec - sec
-      end
-      if production.player2_sec < 10
-        timer2.text = "#{production.player2_min}:0#{production.player2_sec}"
-      else
-        timer2.text = "#{production.player2_min}:#{production.player2_sec}"
-      end
-    end
+    # timer1 = scene.find("player1_timer")
+    # timer2 = scene.find("player2_timer")
+    # production.stop_time = Time.now
+    # diff = production.stop_time - production.start_time
+    # min = (diff / 60).to_i
+    # sec = (((diff / 60) - min) * 60).round
+    # if turn == "X"
+    #   timer_start
+    #   if production.player1_sec < sec
+    #     production.player1_min = (production.player1_min - 1) - min
+    #     production.player1_sec = (production.player1_sec + 60) - sec
+    #   elsif (production.player1_sec - sec) >= 0
+    #     production.player1_min = production.player1_min - min
+    #     production.player1_sec = production.player1_sec - sec
+    #   end
+    #   if production.player1_sec < 10
+    #     timer1.text = "#{production.player1_min}:0#{production.player1_sec}"
+    #   else
+    #     timer1.text = "#{production.player1_min}:#{production.player1_sec}"
+    #   end
+    # 
+    # elsif turn == "O"
+    #   timer_start
+    #   if production.player2_sec < sec
+    #     production.player2_min = (production.player2_min - 1) - min
+    #     production.player2_sec = (production.player2_sec + 60) - sec
+    #   elsif (production.player2_sec - sec) >= 0
+    #     production.player2_min = production.player2_min - min
+    #     production.player2_sec = production.player2_sec - sec
+    #   end
+    #   if production.player2_sec < 10
+    #     timer2.text = "#{production.player2_min}:0#{production.player2_sec}"
+    #   else
+    #     timer2.text = "#{production.player2_min}:#{production.player2_sec}"
+    #   end
+    # end
   end
 
   def increment_turn
@@ -216,8 +273,8 @@ private #########################
         status_bar.text = "#{production.player2} Wins!"
       end
       board.update
-      puts "Player 1 Turns: #{production.player1_turns}"
-      puts "Player 2 Turns: #{production.player2_turns}"      
+      puts "#{production.player1}'s Turns: #{production.player1_turns}"
+      puts "#{production.player2}'s Turns: #{production.player2_turns}"     
       # scene.load("victory")
     elsif production.game.victory?("X")
       if production.player1 == ""
@@ -226,8 +283,8 @@ private #########################
         status_bar.text = "#{production.player1} Wins!"
       end
       board.update
-      puts "Player 1 Turns: #{production.player1_turns}"
-      puts "Player 2 Turns: #{production.player2_turns}"
+      puts "#{production.player1}'s Turns: #{production.player1_turns}"
+      puts "#{production.player2}'s Turns: #{production.player2_turns}"
       # scene.load("victory")
     end    
   end
@@ -242,8 +299,10 @@ private #########################
     if production.game.current_turn == "X"
       p1.style.background_color = 'teal'
       p2.style.background_color = 'tan'
-      timer1.style.background_color = 'teal'
-      timer2.style.background_color = 'tan'   
+      if production.timed_game == "Yes"
+        # timer1.style.background_color = 'teal'
+        # timer2.style.background_color = 'tan' 
+      end  
       if production.player1 == ""
         turn_bar.text = "It's #{production.game.current_turn}'s Turn"
       else          
@@ -252,8 +311,10 @@ private #########################
     else
       p1.style.background_color = 'tan'
       p2.style.background_color = 'teal'
-      timer1.style.background_color = 'tan'
-      timer2.style.background_color = 'teal'
+      if production.timed_game == "Yes"
+        # timer1.style.background_color = 'tan'
+        # timer2.style.background_color = 'teal'
+      end
       if production.player2 == ""
         turn_bar.text = "It's #{production.game.current_turn}'s Turn"
       else

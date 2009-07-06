@@ -23,12 +23,12 @@ module DefaultScene
     if production.game_length_min > 0
       production.player1_min = production.game_length_min
       production.player2_min = production.game_length_min 
-      production.player1_sec = production.game_length_sec
-      production.player2_sec = production.game_length_sec    
+      production.player1_sec = 0
+      production.player2_sec = 0 
       timer1.text = "#{production.player1_min}:00"
       timer2.text = "#{production.player2_min}:00"
-      timer1.style.background_color = "teal"
-      timer2.style.background_color = "tan"
+      # timer1.style.background_color = "teal"
+      # timer2.style.background_color = "tan"
       production.timed_game = "Yes"
     else
       production.timed_game = "No"
@@ -40,4 +40,5 @@ module DefaultScene
     end
     board.update
   end
+  
 end

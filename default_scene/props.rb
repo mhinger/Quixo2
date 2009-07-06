@@ -5,21 +5,22 @@
 
 #root :text => "This is the Default Scene scene."
 
+# victory
 board :id => "board"
 side_bar {
-  game_name :text => "QUIXO"
-  small_buffer
-  player :id => "p1", :text => ""
-  mark :id => "mark1", :text => "X"
-  small_buffer
-  player :id => "p2", :text => "" 
-  mark :id => "mark2", :text => "O"
-  buffer
-  turn :id => "turn_bar", :text => ""
-  status :id => "status_bar", :text => ""
-  buffer2
-  timer :id => 'player1_timer', :text => "00:00"
-  timer :id => 'player2_timer', :text => "00:00"
-  button :id => 'restart', :text => 'Restart', :on_button_pressed => "scene.load('default_scene')"
-  button :id => 'return', :text => 'Back', :on_button_pressed => "scene.load('start_up')"
+game_name :text => "QUIXO"
+small_buffer
+player :id => "p1", :text => ""
+mark :id => "mark1", :text => "X"
+small_buffer
+player :id => "p2", :text => "" 
+mark :id => "mark2", :text => "O"
+buffer
+turn :id => "turn_bar", :text => ""
+status :id => "status_bar", :text => ""
+buffer2
+timer :id => 'player1_timer', :text => "00:00"
+timer :id => 'player2_timer', :text => "00:00"
+button :id => 'restart', :text => 'Restart', :players => 'restart'
+button :id => 'return', :text => 'Back', :players => 'back'
 }
