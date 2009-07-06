@@ -10,6 +10,10 @@ module StartUp
     production.player2 = text2
     length = game_length.text 
     production.game_length_min = length.to_i
+    production.timer_started = "No"
+    if production.timed_game != "Yes"
+      production.timed_game = "No"
+    end
     scene.load("default_scene")
   end
   

@@ -30,6 +30,11 @@ buffer4 {
   width 20
 }
 
+buffer5 {
+  width "100%"
+  height 65
+}
+
 game_name {
   width "100%"
   height "20%"
@@ -60,11 +65,27 @@ time_label{
   width 130
   font_size 16
   text_color :black
-  font_face :didot  
+  font_face :didot 
+  transparency 100 
 }
 
 button {
   width 125
   top_padding 7
+}
+
+check_box {
+ float :on
+ x 495
+ y 85
+}
+
+check_box_label {
+  float :on
+  x 380
+  y 85
+  font_size 16
+  text_color :black
+  font_face :didot  
 }
 

@@ -5,7 +5,6 @@
 
 #root :text => "This is the Default Scene scene."
 
-# victory
 board :id => "board"
 side_bar {
 game_name :text => "QUIXO"
@@ -22,5 +21,5 @@ buffer2
 timer :id => 'player1_timer', :text => "00:00"
 timer :id => 'player2_timer', :text => "00:00"
 button :id => 'restart', :text => 'Restart', :players => 'restart'
-button :id => 'return', :text => 'Back', :players => 'back'
+button :id => 'return', :text => 'Home', :players => 'back'
 }

@@ -25,3 +25,4 @@ name "Quixo2"
   attribute :timed_game
   attribute :animation
   attribute :game_type
+  attribute :timer_started

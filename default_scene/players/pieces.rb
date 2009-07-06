@@ -17,6 +17,7 @@ module Pieces
       if place.legal_pull_position((self.id).to_i)
         if production.timed_game == "Yes"
           if production.new_game == "Yes"
+            production.timer_started = "Yes"
             timer_start
             production.new_game = "No"
           end
@@ -57,7 +58,6 @@ private #########################
   def timer_start
     status_bar = scene.find("status_bar")
     
-    # production.start_time = Time.now
     production.player1_sec = 60
     production.player1_min = production.game_length_min - 1
     production.player2_sec = 60
@@ -112,45 +112,6 @@ private #########################
     end
       
   end
-  
-  def timer_stop(turn)
-    # timer1 = scene.find("player1_timer")
-    # timer2 = scene.find("player2_timer")
-    # production.stop_time = Time.now
-    # diff = production.stop_time - production.start_time
-    # min = (diff / 60).to_i
-    # sec = (((diff / 60) - min) * 60).round
-    # if turn == "X"
-    #   timer_start
-    #   if production.player1_sec < sec
-    #     production.player1_min = (production.player1_min - 1) - min
-    #     production.player1_sec = (production.player1_sec + 60) - sec
-    #   elsif (production.player1_sec - sec) >= 0
-    #     production.player1_min = production.player1_min - min
-    #     production.player1_sec = production.player1_sec - sec
-    #   end
-    #   if production.player1_sec < 10
-    #     timer1.text = "#{production.player1_min}:0#{production.player1_sec}"
-    #   else
-    #     timer1.text = "#{production.player1_min}:#{production.player1_sec}"
-    #   end
-    # 
-    # elsif turn == "O"
-    #   timer_start
-    #   if production.player2_sec < sec
-    #     production.player2_min = (production.player2_min - 1) - min
-    #     production.player2_sec = (production.player2_sec + 60) - sec
-    #   elsif (production.player2_sec - sec) >= 0
-    #     production.player2_min = production.player2_min - min
-    #     production.player2_sec = production.player2_sec - sec
-    #   end
-    #   if production.player2_sec < 10
-    #     timer2.text = "#{production.player2_min}:0#{production.player2_sec}"
-    #   else
-    #     timer2.text = "#{production.player2_min}:#{production.player2_sec}"
-    #   end
-    # end
-  end
 
   def increment_turn
     if production.game.current_turn == "X"
@@ -164,7 +125,7 @@ private #########################
     if production.game.prev_turn != ""
       pos = production.push_position
       game_piece = scene.find(pos)
-      game_piece.style.background_color = "#CCFFFF"#"light_sky_blue"
+      game_piece.style.background_color = "#CCFFFF"
     end
   end
   
@@ -299,10 +260,6 @@ private #########################
     if production.game.current_turn == "X"
       p1.style.background_color = 'teal'
       p2.style.background_color = 'tan'
-      if production.timed_game == "Yes"
-        # timer1.style.background_color = 'teal'
-        # timer2.style.background_color = 'tan' 
-      end  
       if production.player1 == ""
         turn_bar.text = "It's #{production.game.current_turn}'s Turn"
       else          
@@ -311,10 +268,6 @@ private #########################
     else
       p1.style.background_color = 'tan'
       p2.style.background_color = 'teal'
-      if production.timed_game == "Yes"
-        # timer1.style.background_color = 'tan'
-        # timer2.style.background_color = 'teal'
-      end
       if production.player2 == ""
         turn_bar.text = "It's #{production.game.current_turn}'s Turn"
       else

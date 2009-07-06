@@ -20,18 +20,17 @@ module DefaultScene
     timer1 = scene.find("player1_timer")
     timer2 = scene.find("player2_timer")
     production.new_game = "Yes"
-    if production.game_length_min > 0
+    production.timer_started = "No"    
+    if production.timed_game == "Yes"
       production.player1_min = production.game_length_min
       production.player2_min = production.game_length_min 
       production.player1_sec = 0
       production.player2_sec = 0 
       timer1.text = "#{production.player1_min}:00"
       timer2.text = "#{production.player2_min}:00"
-      # timer1.style.background_color = "teal"
-      # timer2.style.background_color = "tan"
-      production.timed_game = "Yes"
-    else
-      production.timed_game = "No"
+    elsif production.timed_game == "No"
+      timer1.style.transparency = 100
+      timer2.style.transparency = 100
     end
     if production.player1 == ""
       turn_bar.text = "It's #{production.game.current_turn}'s Turn"
