@@ -1,4 +1,5 @@
 require "game"
+require "ai"
 
 module DefaultScene
   prop_reader :board
@@ -10,6 +11,7 @@ module DefaultScene
     production.player1_turns = 0
     production.player2_turns = 0
     production.game = Game.new
+    production.comp_player = Ai.new
     p1 = scene.find("p1")
     p2 = scene.find("p2")
     turn_bar = scene.find("turn_bar")
@@ -20,7 +22,11 @@ module DefaultScene
     timer1 = scene.find("player1_timer")
     timer2 = scene.find("player2_timer")
     production.new_game = "Yes"
-    production.timer_started = "No"    
+    production.timer_started = "No"  
+    if production.game_type == "One Player Game"
+      production.timed_game = "No"
+    end  
+    
     if production.timed_game == "Yes"
       production.player1_min = production.game_length_min
       production.player2_min = production.game_length_min 
@@ -32,11 +38,12 @@ module DefaultScene
       timer1.style.transparency = 100
       timer2.style.transparency = 100
     end
+    
     if production.player1 == ""
       turn_bar.text = "It's #{production.game.current_turn}'s Turn"
     else
       turn_bar.text = "It's #{production.player1}'s Turn"
-    end
+    end    
     board.update
   end
   

@@ -26,3 +26,4 @@ name "Quixo2"
   attribute :animation
   attribute :game_type
   attribute :timer_started
+  attribute :comp_player

@@ -2,6 +2,7 @@ class Game
   attr_reader :board
   attr_reader :prev_turn
   attr_reader :current_turn
+
     
   def initialize
     @board = []

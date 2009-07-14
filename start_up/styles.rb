@@ -32,7 +32,12 @@ buffer4 {
 
 buffer5 {
   width "100%"
-  height 65
+  height 25
+}
+
+buffer6 {
+  width "100%"
+  height 10
 }
 
 game_name {
@@ -49,15 +54,20 @@ input_container {
   horizontal_alignment :center
 }
 
+timer_input_container {
+  left_padding 376
+  # horizontal_alignment :center
+}
+
 player_label {
   vertical_alignment :center
   width 120
   font_size 16
   text_color :black
   font_face :didot
-  hover {
-    text_color :white
-  }
+  # hover {
+  #   text_color :white
+  # }
 }
 
 time_label{
@@ -74,16 +84,7 @@ button {
   top_padding 7
 }
 
-check_box {
- float :on
- x 495
- y 85
-}
-
 check_box_label {
-  float :on
-  x 380
-  y 85
   font_size 16
   text_color :black
   font_face :didot  

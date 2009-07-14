@@ -7,49 +7,115 @@ module Pieces
   prop_reader :victory
   
   def mouse_clicked(e)  
-    
     place = Placement.new
-    
     turn_bar = scene.find("turn_bar") 
     status_bar = scene.find("status_bar")
     
-    if production.pull_position == nil 
-      if place.legal_pull_position((self.id).to_i)
-        if production.timed_game == "Yes"
-          if production.new_game == "Yes"
-            production.timer_started = "Yes"
-            timer_start
-            production.new_game = "No"
+        
+    if production.game_type == "Two Player Game"
+    
+      if production.pull_position == nil 
+        if place.legal_pull_position((self.id).to_i)
+          if production.timed_game == "Yes"
+            if production.new_game == "Yes"
+              production.timer_started = "Yes"
+              timer_start
+              production.new_game = "No"
+            end
+          end
+          select_piece
+          find_legal_moves
+        else
+          status_bar.text = "Illegal Pull Position"
+        end  
+     
+      elsif place.legal_push_position(production.pull_position, (self.id).to_i)
+        production.push_position = (self.id).to_i
+        increment_turn
+        shift
+        check_victory
+        board.update
+        change_turn
+        highlight_previous_move
+      
+      else
+        if production.pull_position != nil
+          if production.pull_position == (self.id).to_i
+            undo_move
+          else
+            status_bar.text = "Illegal Push Position"
+          end
+        end  
+        highlight_previous_move
+      end 
+    
+    #Human vs AI
+    elsif production.game_type == "One Player Game"            
+      if production.pull_position == nil        
+        if production.game.current_turn == "O"          
+          ###Need to provide the comp_player with some intelligence instead of just random
+          pull_pos = production.comp_player.generate_legal_pull_pos(production.game.board)
+          
+          if place.legal_pull_position(pull_pos)
+            if production.game.board[pull_pos] == "O"
+              production.pull_position = pull_pos
+            elsif production.game.board[pull_pos] == nil
+              production.pull_position = pull_pos
+            end 
+          end
+        elsif production.game.current_turn == "X"
+          if place.legal_pull_position((self.id).to_i)
+            select_piece
+            find_legal_moves            
+          else
+            status_bar.text = "Illegal Pull Position"
+          end
+        end  
+        
+      elsif place.legal_push_position(production.pull_position, (self.id).to_i) && production.game.current_turn == "X"
+            
+        production.comp_player.set_prev_board(production.game.board)        
+        
+        production.push_position = (self.id).to_i
+        increment_turn
+        shift
+        check_victory
+        board.update          
+        
+        production.comp_player.set_current_board(production.game.board)
+        
+        change_turn
+        highlight_previous_move
+        
+      elsif production.game.current_turn == "O"
+        ##instead of doing a random push given a random pull, make the comp_player have logic
+        push_pos = production.comp_player.generate_legal_push_pos(production.pull_position)
+        
+        if place.legal_push_position(production.pull_position, push_pos)
+          production.push_position = push_pos
+          increment_turn
+          status_bar.text = "Piece Placed"
+          production.game.shift_board(production.pull_position, production.push_position, "O")
+          production.game.board[production.push_position] = "O"
+          production.pull_position = nil
+          production.game.change_turn
+          check_victory
+          board.update          
+          change_turn
+          highlight_previous_move
+        end
+        
+      else
+        if production.pull_position != nil
+          if production.pull_position == (self.id).to_i
+            undo_move
+          else
+            status_bar.text = "Illegal Push Position"
           end
         end
-        select_piece
-        find_legal_moves
-      else
-        status_bar.text = "Illegal Pull Position"
-      end  
-     
-    elsif place.legal_push_position(production.pull_position, (self.id).to_i)
-      production.push_position = (self.id).to_i
-      increment_turn
-      shift
-      check_victory
-      board.update
-      change_turn
-      highlight_previous_move
-      # if production.timed_game == "Yes"  
-      #   # timer_stop(production.game.prev_turn)   
-      # end
-      
-    else
-      if production.pull_position != nil
-        if production.pull_position == (self.id).to_i
-          undo_move
-        else
-          status_bar.text = "Illegal Push Position"
-        end
-      end  
-      highlight_previous_move
-    end   
+      end
+    end
+    
   end
   
   
