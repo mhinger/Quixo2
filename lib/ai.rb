@@ -28,57 +28,306 @@ class Ai < Game
     @col_of_xs = nil
     @row_middle = nil
     @col_middle = nil
+    @row_counts = []
+    @col_counts = []
+    @win_row = nil
+    @win_col = nil
+    @chance_to_win_horz = false
+    @chance_to_win_vert = false
   end
 
   def generate_legal_pull_pos(board)
     @count = @count + 1
-
-    puts "prev prev: "
-    print_board(@prev_prev_board)
-    puts "prev:"
-    print_board(@prev_board)
-    puts "current:"
-    print_board(@current_board)
     
     find_last_x_move
     find_open_moves
     x_row = check_for_xrows
     x_col = check_for_xcols
-      
-    puts "x_col: #{x_col}"  
-                      
-    if x_row != nil
+    
+    # puts "X_Row: #{x_row}"
+    # puts "X_Col: #{x_col}"
+    # puts "Row Counts: #{@row_counts}"
+    # puts "Col Counts: #{@col_counts}"
+    
+    row_middle = find_xs_in_row(x_row)
+    # puts "Row_Middle: #{row_middle}"
+    col_middle = find_xs_in_col(x_col)
+    # puts "Col_Middle: #{col_middle}"
+        
+    if row_middle != nil   #x_row != nil
+      num = rand(2) * 4
       @row_of_xs = x_row
-      middle = find_xs_in_row(x_row)
-      if middle != nil
-        if x_row == 0 
-          pos = find_pull_row(4,x_row,middle)
-        elsif x_row == 1
-          pos = find_pull_row(4,x_row,middle)
-        elsif x_row == 2
-          pos = find_pull_row(4,x_row,middle)
-        elsif x_row == 3
-          pos = find_pull_row(0,x_row,middle)
-        elsif x_row == 4
-          pos = find_pull_row(0,x_row,middle)
-        else
-          pos = pull_game_logic
-        end
+      if x_row == 0 
+        pos = find_pull_row(4,x_row,row_middle)
+      elsif x_row == 1
+        pos = find_pull_row(num,x_row,row_middle)
+      elsif x_row == 2
+        pos = find_pull_row(num,x_row,row_middle)
+      elsif x_row == 3
+        pos = find_pull_row(num,x_row,row_middle)
+      elsif x_row == 4
+        pos = find_pull_row(0,x_row,row_middle)
       else
         pos = pull_game_logic
       end
-    
-    elsif x_col != nil
+
+    elsif col_middle != nil#x_col != nil
       @col_of_xs = x_col
-      middle = find_xs_in_col(x_col)
-      puts "middle of col: #{middle}"
-      pos = pull_game_logic
-    
-    else   
-      pos = pull_game_logic
+      if x_col == 0
+        pos = find_pull_col(4,x_col,col_middle)
+      elsif x_col == 1
+        pos = find_pull_col(4,x_col,col_middle)
+      elsif x_col == 2
+        pos = find_pull_col(4,x_col,col_middle)
+      elsif x_col == 3
+        pos = find_pull_col(0,x_col,col_middle)
+      elsif x_col == 4
+        pos = find_pull_col(0,x_col,col_middle)
+      else
+        pos = pull_game_logic
+      end
+                
+    else 
+      if @count == 1
+        pos = pull_game_logic
+      else 
+        pos = try_and_win_horz
+        if pos == nil
+          pos = try_and_win_vert
+          if pos == nil
+            pos = pull_game_logic
+          end
+        end 
+      end
+      # pos = pull_game_logic
       @row_of_xs = nil
-    end   
+    end  
+     
     return pos
+  end
+  
+  def try_and_win_vert
+    board = @current_board.clone
+    positions = []
+    loc = 0
+    pos = nil
+    25.times do |i|
+      if board[i] == "O"
+        positions[loc] = i
+        loc = loc + 1
+      end
+    end
+    vert_spaces_to_win = check_vert_win(positions)
+    puts "Spaces to Win Vertical: #{vert_spaces_to_win}"
+    pos = vert_spaces_to_win[rand(vert_spaces_to_win.length)]
+    puts "Pull Pos: #{pos}"
+    if vert_spaces_to_win != nil && pos != nil
+      puts "Vert Pos: #{pos}"
+      col = col_find(pos.to_i)
+      puts "Vert Col: #{col}"
+      if col == 0 
+        pos = pos + 4
+      elsif col == 1 
+        pos = pos + 3
+      elsif col == 2
+        pos = pos + 2
+      elsif col == 3
+        pos = pos - 3
+      elsif col == 4
+        pos = pos - 4
+      end
+      if @current_board[pos] == "X"
+        col = col_find(pos)
+        if col == 0
+          pos = pos + 4
+        elsif col == 4
+          pos = pos - 4
+        end
+      end
+      @chance_to_win_vert = true
+      return pos
+    end
+    return nil
+  end
+  
+  def try_and_win_horz
+    board = @current_board.clone
+    positions = []
+    loc = 0
+    pos = nil
+    25.times do |i|
+      if board[i] == "O"
+        positions[loc] = i
+        loc = loc + 1
+      end
+    end
+    horiz_spaces_to_win = check_horz_win(positions)
+    puts "Spaces to Win Horiz: #{horiz_spaces_to_win}"
+    pos = horiz_spaces_to_win[rand(horiz_spaces_to_win.length)]
+    if horiz_spaces_to_win != nil && pos != nil
+      puts "Pos: #{pos}"
+      row = row_find(pos.to_i)
+      puts "Row: #{row}"
+      if row == 0 
+        pos = pos + 20
+      elsif row == 1 
+        pos = pos + 15
+      elsif row == 2
+        pos = pos + 10
+      elsif row == 3
+        pos = pos - 15
+      elsif row == 4
+        pos = pos - 20
+      end
+      if @current_board[pos] == "X"
+        row = row_find(pos)
+        if row == 0
+          pos = pos + 20
+        elsif row == 4
+          pos = pos - 20
+        end
+      end
+      @chance_to_win_horiz = true
+      return pos
+    end
+    return nil
+  end
+  
+  def check_horz_win(pos)
+    rows = [0,0,0,0,0]
+    row = nil
+    moves = []
+    loc = 0
+    spaces = []
+    (pos.length).times do |i|
+      row = row_find(pos[i])
+      if row == 0
+        rows[0] = rows[0] + 1
+      elsif row == 1
+        rows[1] = rows[1] + 1
+      elsif row == 2
+        rows[2] = rows[2] + 1
+      elsif row == 3
+        rows[3] = rows[3] + 1  
+      elsif row == 4
+        rows[4] = rows[4] + 1
+      end
+    end
+    5.times do |i|
+      if rows[i] >= 3
+        (pos.length).times do |j|
+          if row_find(pos[j]) == i
+            moves[loc] = pos[j]
+            loc = loc + 1
+          end
+        end
+      end 
+    end
+    if moves[0] != nil
+      @win_row = (moves[0]).to_i / 5
+      5.times do |i|
+        spaces[i] = @win_row * 5 + i
+      end   
+      5.times do |i|
+        (moves.length).times do |j|
+          if moves[j] == spaces[i]
+            spaces.slice!(i)
+          end
+        end
+      end
+    end  
+    return spaces
+  end
+  
+  def check_vert_win(pos)
+    cols = [0,0,0,0,0]
+    col = nil
+    moves = []
+    loc = 0
+    spaces = []
+    (pos.length).times do |i|
+      col = col_find(pos[i])
+      if col == 0
+        cols[0] = cols[0] + 1
+      elsif col == 1
+        cols[1] = cols[1] + 1
+      elsif col == 2
+        cols[2] = cols[2] + 1
+      elsif col == 3
+        cols[3] = cols[3] + 1  
+      elsif col == 4
+        cols[4] = cols[4] + 1
+      end
+    end
+    5.times do |i|
+      if cols[i] >= 3
+        (pos.length).times do |j|
+          if col_find(pos[j]) == i
+            moves[loc] = pos[j]
+            loc = loc + 1
+          end
+        end
+      end 
+    end
+    if moves[0] != nil
+      @win_col = (moves[0]).to_i / 5
+      5.times do |i|
+        spaces[i] = @win_col + 5 * i
+      end   
+      5.times do |i|
+        (moves.length).times do |j|
+          if moves[j] == spaces[i]
+            spaces.slice!(i)
+          end
+        end
+      end
+    end  
+    return spaces
+  end
+  
+  def find_pull_col(col,xcol,middle)
+    if col == 0 
+      if xcol == 3
+        middle = middle - 3
+      elsif xcol == 4
+        middle = middle - 4
+      end
+    elsif col == 4
+      if xcol == 0
+        middle = middle + 4
+      elsif xcol == 1
+        middle = middle + 3
+      elsif xcol == 2
+        middle = middle + 2
+      end
+    end
+    
+    if @current_board[middle] != "X"
+      return middle
+    elsif @current_board[middle - 5] != "X"
+      return middle - 5
+    elsif @current_board[middle + 5] != "X"
+      return middle + 5
+    elsif col == 0
+      if @current_board[middle + 4] != "X"
+        return middle + 4
+      elsif @current_board[middle - 1] != "X"
+        return middle - 1
+      elsif @current_board[middle + 9] != "X"
+        return middle + 9
+      end
+    elsif col == 4
+      if @current_board[middle - 4] != "X"
+        return middle - 4
+      elsif @current_board[middle + 1] != "X"
+        return middle + 1
+      elsif @current_board[middle - 9] != "X"
+        return middle - 9
+      end
+    else
+      return pull_game_logic
+    end
+    
   end
   
   def find_pull_row(row,xrow,middle)
@@ -100,65 +349,123 @@ class Ai < Game
     
     if @current_board[middle] != "X"
       return middle  
-    else
+    elsif @current_board[middle - 1] != "X"
       return middle - 1
+    elsif @current_board[middle + 1] != "X"
+      return middle + 1
+    elsif row == 0
+      if @current_board[middle + 20] != "X"
+        return middle + 20
+      elsif @current_board[middle + 21] != "X"
+        return middle + 21
+      elsif @current_board[middle + 19] != "X"
+        return middle + 19
+      end
+    elsif row == 4
+      if @current_board[middle - 20] != "X"
+        return middle - 20
+      elsif @current_board[middle - 21] != "X"
+        return middle - 21
+      elsif @current_board[middle - 19] != "X"
+        return middle - 19
+      end
+    else
+      return pull_game_logic        
     end
-    
   end
   
   def find_xs_in_col(xcol)
-    board = @current_board.clone
-    start = xcol
-    b = []
-    5.times do |i|
-      b[i] = board[start + 5 * i]
-    end
-    board = b.clone
-    count = 0
-    (board.length).times do |i|
-      if board[i] == "X"
-        count = count + 1
-      else
-        count = 0
+    if xcol == nil
+      return nil
+    else
+      board = @current_board.clone
+      start = xcol
+      b = []
+      5.times do |i|
+        b[i] = board[start + 5 * i]
       end
-    end
+      board = b.clone
+      count = 0
+      (board.length).times do |i|
+        if board[i] == "X"
+          count = count + 1
+        else
+          count = 0
+        end
+        if (i + 1) < 5
+          if count >= 3 && board[i + 1] != "X"
+            break
+          end
+        end
+      end
     
-    puts "#{board}"
-  
+      if count >= 3
+        middle = find_middle_col(xcol,count,board)
+        @col_middle = middle
+        return middle
+      else
+        @col_middle = nil
+      end  
+    end
   end
   
   def find_xs_in_row(xrow)
-    board = @current_board.clone
-    start = xrow * 5
-    b = []
-    5.times do |i|
-      b[i] = board[i + start]
-    end
-    board = b.clone
-    count = 0 
-    (board.length).times do |i|
-      if board[i] == "X"
-        count = count + 1
-      else
-        count = 0
+    if xrow == nil
+      return nil
+    else
+      board = @current_board.clone
+      start = xrow * 5
+      b = []
+      5.times do |i|
+        b[i] = board[i + start]
       end
-      if (i + 1) < 5
-        if count >= 3 && board[i+1] != "X"
-          break
+      board = b.clone
+      count = 0 
+      (board.length).times do |i|
+        if board[i] == "X"
+          count = count + 1
+        else
+          count = 0
+        end
+        if (i + 1) < 5
+          if count >= 3 && board[i+1] != "X"
+            break
+          end
         end
       end
-    end
       
-    if count >= 3
-      middle = find_middle(xrow,count,board)
-      @row_middle = middle
-      return middle
-    else
-      @row_middle = nil
+      if count >= 3
+        middle = find_middle_row(xrow,count,board)
+        @row_middle = middle
+        return middle
+      else
+        @row_middle = nil
+        return nil ### just added may or may not work
+      end
     end
   end
   
-  def find_middle(xrow,count,board)
+  def find_middle_col(xcol,count,board)
+    pos = []
+    loc = 0
+    5.times do |i|
+      if board[i] == "X"
+        pos[loc] = xcol + 5 * i
+        loc = loc + 1
+      end
+    end
+    
+    (pos.length).times do |i|
+      if (i - 1) >= 0
+        if pos[i] != (pos[i-1] + 5)
+          pos.slice!(i)
+        end
+      end
+    end
+    return pos[pos.length/2]
+  end
+  
+  def find_middle_row(xrow,count,board)
     pos = []
     loc = 0
     5.times do |i|
@@ -196,7 +503,8 @@ class Ai < Game
       if x_count[i] == 4 || x_count[i] == 3
         x_col = i
       end
-    end
+    end   
+    @col_counts = x_count.clone
     return x_col
   end
   
@@ -221,6 +529,7 @@ class Ai < Game
         x_row = i
       end
     end    
+    @row_counts = x_count.clone
     return x_row
   end
   
@@ -243,29 +552,50 @@ class Ai < Game
     @possible_moves[18] = false
   end
   
-  def generate_legal_push_pos(pull)
-    
-    pull_row = row_find(pull)
-    pull_col = col_find(pull)
-    
+  def generate_legal_push_pos(pull)    
     puts "Pull for legal_push_pos: #{pull}"
-    puts "row of xs from legal_push_pos: #{@row_of_xs}"
+    # puts "row of xs from legal_push_pos: #{@row_of_xs}"
+    # puts "col of xs from legal_push_pos: #{@col_of_xs}"
+    # puts "Row Middle: #{@row_middle}"
+    # puts "Col Middle: #{@col_middle}"
     
-    ############ Problem lies in these two cases
     
-    if @row_middle != nil
-      mid_row = row_find(@row_middle)
-      mid_col = col_find(@row_middle)
-      if mid_row == 0 || mid_row == 1 || mid_row == 2     
-        push = pull - 20 
-      elsif mid_row == 4 || mid_row == 3
+################ Working on the vertical win opportunity for AI !!!!!!    
+    
+    if @chance_to_win_horiz == false && @chance_to_win_vert == false
+      if @row_middle != nil
+        mid_row = row_find(@row_middle)
+        if mid_row == 0 || mid_row == 1 || mid_row == 2     
+          push = pull - 20 
+        elsif mid_row == 4 || mid_row == 3
+          push = pull + 20
+        end 
+        @row_middle = nil
+      elsif @col_middle != nil
+        mid_col = col_find(@col_middle)
+        if mid_col == 0 || mid_col == 1 || mid_col == 2     
+          push = pull - 4
+        elsif mid_col == 4 || mid_col == 3
+          push = pull + 4
+        end  
+        @col_middle = nil      
+      else
+        push = push_game_logic(pull)
+      end    
+    elsif @chance_to_win_horiz == true
+      row = row_find(pull)
+      if row == @win_row
+        push = row * 5
+      elsif row == 0
         push = pull + 20
-      end 
-    elsif @col_middle != nil
+      elsif row == 4
+        push = pull - 20
+      end
+    elsif @chance_to_win_vert == true
+      col = col_find(pull)
+      puts "#{col}"
       
-    else
-      push = push_game_logic(pull)
-    end    
+    end
     
     return push
   end
