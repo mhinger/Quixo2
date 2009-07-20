@@ -287,6 +287,9 @@ private #########################
       else
         status_bar.text = "#{production.player2} Wins!"
       end
+
+      # strike_victory
+
       board.update
       puts "#{production.player1}'s Turns: #{production.player1_turns}"
       puts "#{production.player2}'s Turns: #{production.player2_turns}"     
@@ -297,11 +300,70 @@ private #########################
       else
         status_bar.text = "#{production.player1} Wins!"
       end
+
+      # strike_victory
+
       board.update
       puts "#{production.player1}'s Turns: #{production.player1_turns}"
       puts "#{production.player2}'s Turns: #{production.player2_turns}"
       # scene.load("victory")
     end    
+  end
+  
+  def strike_victory
+    strike = scene.find("strike_through")
+    strike.style.transparency = 0
+    if production.game.win_row == 0
+      production.style.width = 346
+      production.style.height = 10
+      production.style.x = 227
+      production.style.y = 230
+    elsif production.game.win_row == 1
+      production.style.width = 346
+      production.style.height = 10
+      production.style.x = 227
+      strike.style.y = 300
+    elsif production.game.win_row == 2
+      production.style.width = 346
+      production.style.height = 10
+      production.style.x = 227
+      strike.style.y = 370
+    elsif production.game.win_row == 3
+      production.style.width = 346
+      production.style.height = 10
+      production.style.x = 227
+      strike.style.y = 440
+    elsif production.game.win_row == 4
+      production.style.width = 346
+      production.style.height = 10
+      production.style.x = 227
+      strike.style.y = 510
+    elsif production.game.win_col == 0
+      strike.style.width = 10
+      strike.style.height = 346
+      strike.style.x = 254
+      strike.style.y = 202
+    elsif production.game.win_col == 1
+      strike.style.width = 10
+      strike.style.height = 346
+      strike.style.x = 324
+      strike.style.y = 202      
+    elsif production.game.win_col == 2
+      strike.style.width = 10
+      strike.style.height = 346
+      strike.style.x = 394
+      strike.style.y = 202
+    elsif production.game.win_col == 3
+      strike.style.width = 10
+      strike.style.height = 346
+      strike.style.x = 464
+      strike.style.y = 202
+    elsif production.game.win_col == 4
+      strike.style.width = 10
+      strike.style.height = 346
+      strike.style.x = 534
+      strike.style.y = 202
+    end
   end
   
   def change_turn

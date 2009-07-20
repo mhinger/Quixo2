@@ -2,12 +2,15 @@ class Game
   attr_reader :board
   attr_reader :prev_turn
   attr_reader :current_turn
-
+  attr_reader :win_row
+  attr_reader :win_col
     
   def initialize
     @board = []
     @prev_turn = ""
     @current_turn = "X"
+    @win_row = nil
+    @win_col = nil
   end
   
   def shift_board(pull_pos, push_pos, mark)
@@ -63,17 +66,19 @@ class Game
     end       
     5.times do |row|
       if horizontal_victory?(row, mark)
+        @win_row = row
         return true     
       end         
     end
     5.times do |col|  
       if vertical_victory?(col, mark)
+        @win_col = col
         return true
       end
     end
     return false
   end
-  
+
 private #########
   
   def row_offset(row)

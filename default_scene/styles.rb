@@ -144,9 +144,8 @@ button {
   width "100%"
 }
 
-victory {
-  width "100%"
-  height "100%"
+strike_through {
+  transparency 100
+  float :on
   background_color :blue
-  transparency 90
 }
