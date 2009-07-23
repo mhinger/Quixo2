@@ -21,6 +21,8 @@ module StartUp
     production.game_length_min = length.to_i
     production.timer_started = "No"    
     
+    puts production.timed_game
+    
     if production.timed_game != "Yes"
       production.timed_game = "No"
     end    

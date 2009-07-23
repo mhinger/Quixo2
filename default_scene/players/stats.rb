@@ -1,10 +1,10 @@
-module Restart
+module Stats
   
   def mouse_clicked(event)
     if production.timer_started == "Yes"
       production.animation.stop
     end
-    scene.load("default_scene")
+    scene.load("stats_screen")
   end
   
 end

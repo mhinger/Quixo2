@@ -22,17 +22,25 @@ module Pieces
 ###Human vs AI
     elsif production.game_type == "One Player Game"            
       if production.pull_position == nil        
-        if production.game.current_turn == "O"          
-          computer_pull_piece(place)      
-        elsif production.game.current_turn == "X"
+        # if production.game.current_turn == "O"          
+        #   # computer_pull_piece(place)
+        #   # highlight_comp_pull(production.pull_position)     
+        if production.game.current_turn == "X"
           pulling_of_piece(place,status_bar)
         end         
       elsif place.legal_push_position(production.pull_position, (self.id).to_i) && production.game.current_turn == "X"     
         production.comp_player.set_prev_board(production.game.board)     
         pushing_of_piece
-        production.comp_player.set_current_board(production.game.board)        
-      elsif production.game.current_turn == "O"
-        computer_push_piece(status_bar,place)       
+        check_victory
+        production.comp_player.set_current_board(production.game.board)
+        if check_victory == false
+          make_computer_move(place)  
+        end
+        check_victory    
+      # elsif production.game.current_turn == "O"
+      #   # highlight_comp_pull(production.pull_position)
+      #   # computer_push_piece(status_bar,place)
+      #   # check_victory
       else
         check_for_undo(status_bar)
       end
@@ -40,15 +48,30 @@ module Pieces
   end
     
 private #########################
+  def make_computer_move(place)
+    status_bar = scene.find("status_bar")
+    while (production.pull_position == nil) || (place.legal_pull_position(production.pull_position) != true)
+      computer_pull_piece(place)
+    end
+    highlight_comp_pull
+    computer_push_piece(status_bar,place)
+    highlight_comp_pull
+    check_victory
+  end
+
+
   def computer_pull_piece(place)
     pull_pos = production.comp_player.generate_legal_pull_pos(production.game.board)
-    if place.legal_pull_position(pull_pos)
+
+    if place.legal_pull_position(pull_pos) && pull_pos != nil
       if production.game.board[pull_pos] == "O"
         production.pull_position = pull_pos
       elsif production.game.board[pull_pos] == nil
         production.pull_position = pull_pos
       end 
     end
+    
+    production.comp_pull = production.pull_position
   end
 
   def computer_push_piece(status_bar,place)
@@ -111,7 +134,8 @@ private #########################
 
   def timer_start
     status_bar = scene.find("status_bar")
-    
+    no_time = scene.find("no_time")
+    stats_button = scene.find('stats')
     production.player1_sec = 60
     production.player1_min = production.game_length_min - 1
     production.player2_sec = 60
@@ -130,14 +154,13 @@ private #########################
           timer1.text = "#{production.player1_min}:0#{production.player1_sec}"
         end
         if production.player1_sec == 0 && production.player1_min == 0
-          puts "Xs ran out of time"
-          puts "#{production.player1}'s Turns: #{production.player1_turns}"
-          puts "#{production.player2}'s Turns: #{production.player2_turns}"
           status_bar.text = "#{production.player2} Wins, #{production.player1} Ran Out Of Time"
           production.animation.stop 
           
-          
-          # victory.style.transparency = 0
+          stats_button.style.width = 90
+          stats_button.style.height = 25
+          no_time.style.width = 354
+          no_time.style.height = 354
         end
       elsif production.game.current_turn == "O"
         timer2 = scene.find("player2_timer")
@@ -152,14 +175,13 @@ private #########################
           timer2.text = "#{production.player2_min}:0#{production.player2_sec}"
         end
         if production.player2_sec == 0 && production.player2_min == 0
-          puts "Os ran out of time"
-          puts "#{production.player1}'s Turns: #{production.player1_turns}"
-          puts "#{production.player2}'s Turns: #{production.player2_turns}"
           status_bar.text = "#{production.player1} Wins, #{production.player2} Ran Out Of Time"
           production.animation.stop 
-          
-          
-          # victory.style.transparency = 0
+ 
+          stats_button.style.width = 90
+          stats_button.style.height = 25
+          no_time.style.width = 354
+          no_time.style.height = 354      
         end        
         
       end
@@ -173,6 +195,13 @@ private #########################
     elsif production.game.current_turn == "O"
       production.player2_turns = production.player2_turns + 1
     end
+  end
+
+  def highlight_comp_pull
+    pos = production.comp_pull
+    game_piece = scene.find(pos)
+    game_piece.style.background_color = "#990000" #"#004358"
+    game_piece.style.text_color = "tan"
   end
 
   def highlight_previous_move
@@ -282,87 +311,98 @@ private #########################
     status_bar = scene.find("status_bar")
     
     if production.game.victory?("O")
+      if production.timed_game == "Yes"
+        production.animation.stop
+      end
       if production.player2 == ""
         status_bar.text = "Player 2 Wins!"
       else
         status_bar.text = "#{production.player2} Wins!"
       end
-
-      # strike_victory
-
-      board.update
-      puts "#{production.player1}'s Turns: #{production.player1_turns}"
-      puts "#{production.player2}'s Turns: #{production.player2_turns}"     
-      # scene.load("victory")
+      strike_victory
+      board.update 
+      return true
     elsif production.game.victory?("X")
+      if production.timed_game == "Yes"
+        production.animation.stop
+      end
       if production.player1 == ""
         status_bar.text = "Player 1 Wins!"
       else
         status_bar.text = "#{production.player1} Wins!"
       end
-
-      # strike_victory
-
+      strike_victory
       board.update
-      puts "#{production.player1}'s Turns: #{production.player1_turns}"
-      puts "#{production.player2}'s Turns: #{production.player2_turns}"
-      # scene.load("victory")
-    end    
+      return true
+    end 
+    return false   
   end
   
   def strike_victory
+    stats_button = scene.find('stats')
+    stats_button.style.width = 90
+    stats_button.style.height = 25
     strike = scene.find("strike_through")
-    strike.style.transparency = 0
+    strike.style.transparency = 20
+    strike.style.width = 354
+    strike.style.height = 354
     if production.game.win_row == 0
-      production.style.width = 346
-      production.style.height = 10
-      production.style.x = 227
-      production.style.y = 230
+      strike.style.top_padding = 30
+      strike.style.left_padding = 4
+      strike.style.right_padding = 4
+      strike.rotation = 0
     elsif production.game.win_row == 1
-      production.style.width = 346
-      production.style.height = 10
-      production.style.x = 227
-      strike.style.y = 300
+      strike.style.top_padding = 100
+      strike.style.left_padding = 4
+      strike.style.right_padding = 4
+      strike.rotation = 0
     elsif production.game.win_row == 2
-      production.style.width = 346
-      production.style.height = 10
-      production.style.x = 227
-      strike.style.y = 370
+      strike.style.top_padding = 170
+      strike.style.left_padding = 4
+      strike.style.right_padding = 4
+      strike.rotation = 0
     elsif production.game.win_row == 3
-      production.style.width = 346
-      production.style.height = 10
-      production.style.x = 227
-      strike.style.y = 440
+      strike.style.top_padding = 240
+      strike.style.left_padding = 4
+      strike.style.right_padding = 4
+      strike.rotation = 0
     elsif production.game.win_row == 4
-      production.style.width = 346
-      production.style.height = 10
-      production.style.x = 227
-      strike.style.y = 510
+      strike.style.top_padding = 310
+      strike.style.left_padding = 4
+      strike.style.right_padding = 4
+      strike.rotation = 0
     elsif production.game.win_col == 0
-      strike.style.width = 10
-      strike.style.height = 346
-      strike.style.x = 254
-      strike.style.y = 202
+      strike.style.top_padding = 4
+      strike.style.left_padding = 30
+      strike.style.bottom_padding = 4
+      strike.rotation = 90
     elsif production.game.win_col == 1
-      strike.style.width = 10
-      strike.style.height = 346
-      strike.style.x = 324
-      strike.style.y = 202      
+      strike.style.top_padding = 4
+      strike.style.left_padding = 100
+      strike.style.bottom_padding = 4  
+      strike.rotation = 90    
     elsif production.game.win_col == 2
-      strike.style.width = 10
-      strike.style.height = 346
-      strike.style.x = 394
-      strike.style.y = 202
+      strike.style.top_padding = 4
+      strike.style.left_padding = 170
+      strike.style.bottom_padding = 4
+      strike.rotation = 90
     elsif production.game.win_col == 3
-      strike.style.width = 10
-      strike.style.height = 346
-      strike.style.x = 464
-      strike.style.y = 202
+      strike.style.top_padding= 4
+      strike.style.left_padding = 240
+      strike.style.bottom_padding = 4
+      strike.rotation = 90
     elsif production.game.win_col == 4
-      strike.style.width = 10
-      strike.style.height = 346
-      strike.style.x = 534
-      strike.style.y = 202
+      strike.style.top_padding = 4
+      strike.style.left_padding = 310
+      strike.style.bottom_padding = 4
+      strike.rotation = 90
+    elsif production.game.diag_win == "down_right"
+      strike.style.padding = 4
+      strike.rotation = 45
+    elsif production.game.diag_win == "up_right"
+      strike.style.left_padding = 4
+      strike.style.top_padding = 4
+      strike.rotation = 135
     end
   end
   

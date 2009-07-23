@@ -1,10 +1,12 @@
-module Restart
+module Home
   
   def mouse_clicked(event)
     if production.timer_started == "Yes"
       production.animation.stop
     end
-    scene.load("default_scene")
+    production.timed_game = "No"
+    production.game_type = "One Player Game"
+    scene.load("start_up")
   end
   
 end

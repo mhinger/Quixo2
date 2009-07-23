@@ -1,9 +1,3 @@
-# This file, (styles.rb) inside a scene, should define any styles specific to the containing scene.
-# It makes use of the StyleBuilder DSL.
-#
-# For more information see: http://limelightwiki.8thlight.com/index.php/A_Cook%27s_Tour_of_Limelight#Styling_with_styles.rb
-# For a complete listing of style attributes see: http://limelightwiki.8thlight.com/index.php/Style_Attributes
-
 default_scene {
   background_image "/Users/MHinger/Projects/quixo2/wood.jpg"
   horizontal_alignment :center
@@ -97,7 +91,7 @@ buffer {
 
 buffer2 {
   width "100%"
-  height 100
+  height 70
 }
 
 turn {
@@ -145,7 +139,73 @@ button {
 }
 
 strike_through {
-  transparency 100
   float :on
-  background_color :blue
+  x 223 
+  y 198 
+}
+
+ran_out_time {
+  float :on
+  x 223
+  y 198
+}
+
+restart {
+  background_color :cornflower_blue
+  secondary_background_color :royal_blue#:dodger_blue
+  gradient :on
+  gradient_penetration 90
+  width 90
+  height 25
+  float :on
+  x 45
+  y 620
+  horizontal_alignment :center
+  vertical_alignment :center
+  rounded_corner_radius 12
+  font_size 14
+  font_face :didot
+  hover {
+    transparency 9
+  }  
+}
+
+home {
+  background_color :cornflower_blue
+  secondary_background_color :royal_blue#:dodger_blue
+  gradient :on
+  gradient_penetration 90
+  width 90
+  height 25
+  float :on
+  x 45
+  y 650
+  horizontal_alignment :center
+  vertical_alignment :center
+  rounded_corner_radius 12
+  font_size 14
+  font_face :didot
+  hover {
+    transparency 9
+  }  
+}
+
+stats {
+  background_color :cornflower_blue
+  secondary_background_color :royal_blue#:dodger_blue
+  gradient :on
+  gradient_penetration 90
+  width 90
+  height 25
+  float :on
+  x 355
+  y 570
+  horizontal_alignment :center
+  vertical_alignment :center
+  rounded_corner_radius 12
+  font_size 14
+  font_face :didot
+  hover {
+    transparency 9
+  }
 }

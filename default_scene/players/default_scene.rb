@@ -10,6 +10,7 @@ module DefaultScene
     production.push_position = nil
     production.player1_turns = 0
     production.player2_turns = 0
+    production.comp_pull = nil
     production.game = Game.new
     production.comp_player = Ai.new
     p1 = scene.find("p1")

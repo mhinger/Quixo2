@@ -20,8 +20,10 @@ whole_scene {
     buffer2
     timer :id => 'player1_timer', :text => "00:00"
     timer :id => 'player2_timer', :text => "00:00"
-    button :id => 'restart', :text => 'Restart', :players => 'restart'
-    button :id => 'return', :text => 'Home', :players => 'back'
+    restart :id => 'restart', :text => 'Restart', :players => 'restart'
+    home :id => 'return', :text => 'Home', :players => 'back'
   }
-  strike_through :id => "strike_through"
+  strike_through :id => "strike_through", :players => "image", :image => "/Users/MHinger/Projects/quixo2/rectangle.jpg", :transparency => 100, :scaled => false, :rotation => 0, :width => 0, :height => 0#, :width => 354, :height => 354
+  ran_out_time :id => "no_time", :width => 0, :height => 0
+  stats :id => 'stats', :players => 'stats', :text => 'Game Stats', :width => 0, :height => 0
 }

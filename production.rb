@@ -27,3 +27,6 @@ name "Quixo2"
   attribute :game_type
   attribute :timer_started
   attribute :comp_player
+  attribute :player1_wins
+  attribute :player2_wins
+  attribute :comp_pull

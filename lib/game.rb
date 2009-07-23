@@ -4,6 +4,8 @@ class Game
   attr_reader :current_turn
   attr_reader :win_row
   attr_reader :win_col
+  attr_reader :diag_win
+  attr_reader :winning_mark
     
   def initialize
     @board = []
@@ -11,6 +13,8 @@ class Game
     @current_turn = "X"
     @win_row = nil
     @win_col = nil
+    @diag_win = ""
+    @winning_mark = ""
   end
   
   def shift_board(pull_pos, push_pos, mark)
@@ -61,18 +65,26 @@ class Game
   end
   
   def victory?(mark)
-    if diagonal_down_right_victory?(mark) or diagonal_up_right_victory?(mark)
+    if diagonal_down_right_victory?(mark)
+      @diag_win = "down_right"
+      @winning_mark = mark
       return true 
+    elsif diagonal_up_right_victory?(mark)
+      @diag_win = "up_right"
+      @winning_mark = mark
+      return true
     end       
     5.times do |row|
       if horizontal_victory?(row, mark)
         @win_row = row
-        return true     
+        @winning_mark = mark
+        return true
       end         
     end
     5.times do |col|  
       if vertical_victory?(col, mark)
         @win_col = col
+        @winning_mark = mark
         return true
       end
     end

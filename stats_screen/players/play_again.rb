@@ -1,6 +1,6 @@
-module Restart
+module PlayAgain
   
-  def mouse_clicked(event)
+  def mouse_clicked(e)
     if production.timer_started == "Yes"
       production.animation.stop
     end
