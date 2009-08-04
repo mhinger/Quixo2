@@ -1,12 +1,6 @@
 default_container {
   width "100%"
   height "100%"
-  # background_color :red
-  # secondary_background_color :black
-  # gradient :on
-  # gradient_angle 30
-  # gradient_penetration 45
-  # cyclic_gradient :on
   background_image "/Users/MHinger/Projects/quixo2/wood.jpg"
 }
 
@@ -54,9 +48,21 @@ input_container {
   horizontal_alignment :center
 }
 
+unchecked {
+  background_image "/Users/MHinger/Projects/quixo2/open_check.png"
+  width 14
+  height 14
+}
+
+checked {
+  background_image "/Users/MHinger/Projects/quixo2/check.png"
+  width 15
+  height 16
+  transparency 100  
+}
+
 timer_input_container {
   left_padding 376
-  # horizontal_alignment :center
 }
 
 player_label {
@@ -65,9 +71,6 @@ player_label {
   font_size 16
   text_color :black
   font_face :didot
-  # hover {
-  #   text_color :white
-  # }
 }
 
 time_label{
@@ -88,5 +91,45 @@ check_box_label {
   font_size 16
   text_color :black
   font_face :didot  
+}
+
+help {
+  background_color :cornflower_blue
+  secondary_background_color :royal_blue#:dodger_blue
+  gradient :on
+  gradient_penetration 90
+  width 90
+  height 25
+  float :on
+  x 510
+  y 200
+  horizontal_alignment :center
+  vertical_alignment :center
+  rounded_corner_radius 12
+  font_size 14
+  font_face :didot
+  hover {
+    transparency 9
+  }
+}
+
+instrs {
+  background_color :cornflower_blue
+  secondary_background_color :royal_blue#:dodger_blue
+  gradient :on
+  gradient_penetration 90
+  width 90
+  height 25
+  float :on
+  x 390
+  y 200
+  horizontal_alignment :center
+  vertical_alignment :center
+  rounded_corner_radius 12
+  font_size 14
+  font_face :didot
+  hover {
+    transparency 9
+  }
 }
 

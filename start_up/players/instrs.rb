@@ -1,10 +1,9 @@
-module StartUp
+module Instrs
   prop_reader :player1
   prop_reader :player2
   prop_reader :game_length
   
-  def button_pressed(event)
-
+  def mouse_clicked(event)
     if production.game_type == nil #production.game_type != "Two Player Game"
       production.game_type = "One Player Game"
     end
@@ -25,8 +24,9 @@ module StartUp
     
     if production.timed_game != "Yes"
       production.timed_game = "No"
-    end    
-    scene.load("default_scene")    
+    end
+    scene.load('default_scene')
   end
+  
   
 end

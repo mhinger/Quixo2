@@ -14,12 +14,12 @@ whole_scene {
     small_buffer
     player :id => "p2", :text => "" 
     mark :id => "mark2", :text => "O"
-    buffer
+    # buffer
     turn :id => "turn_bar", :text => ""
     status :id => "status_bar", :text => ""
-    buffer2
-    timer :id => 'player1_timer', :text => "00:00"
-    timer :id => 'player2_timer', :text => "00:00"
+    # buffer2
+    timer :id => 'player1_timer', :text => "00:00", :y => 500
+    timer :id => 'player2_timer', :text => "00:00", :y => 540
     restart :id => 'restart', :text => 'Restart', :players => 'restart'
     home :id => 'return', :text => 'Home', :players => 'back'
   }

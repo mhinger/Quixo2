@@ -25,12 +25,12 @@ stats_container{
 
 win_message {
   float :on
-  x 150
+  # x 150
   y 50
   font_size 28
   text_color :black
   font_face :didot
-  width 200
+  width "100%"
   horizontal_alignment :center
 }
 

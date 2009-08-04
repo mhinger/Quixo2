@@ -47,8 +47,43 @@ class Game
         end       
       end 
     end   
-    @board[push_pos] = mark     
-        
+    @board[push_pos] = mark          
+  end
+  
+  def board_shift(pull_pos, push_pos, mark, new_board)
+    board = new_board.clone
+    x = (pull_pos - push_pos).abs / 5
+###########Row Movement
+    if x <= 4 && x >= 1
+###########From any Row to Row 0 movement
+      if pull_pos > push_pos
+        x.times do |i|
+          board[pull_pos - (5 * i)] = board[pull_pos - (5 * (i+1))]
+        end
+###########From any Row to Row 4 movement   
+      elsif pull_pos < push_pos
+        x.times do |i|
+          board[pull_pos + (5 * i)] = board[pull_pos + (5 * (i+1))]
+        end
+      end
+##########Col Movement
+    elsif x == 0
+##########From any Col to Col 4 movement  
+      y = (pull_pos - push_pos).abs
+      if pull_pos < push_pos
+        y.times do |i|
+          board[pull_pos + i] = board[pull_pos + (i + 1)]
+        end
+##########From any Col to Col 0 movement        
+      elsif pull_pos > push_pos
+        y.times do |i|
+          board[pull_pos - i] = board[pull_pos - (i + 1)]
+        end       
+      end 
+    end   
+    board[push_pos] = mark
+    
+    return board.clone       
   end
   
   def change_turn

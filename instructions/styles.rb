@@ -31,3 +31,23 @@ buffer2 {
 button {
   margin 4
 }
+
+back {
+  background_color :cornflower_blue
+  secondary_background_color :royal_blue#:dodger_blue
+  gradient :on
+  gradient_penetration 90
+  width 90
+  height 25
+  float :on
+  x 700
+  y 450
+  horizontal_alignment :center
+  vertical_alignment :center
+  rounded_corner_radius 12
+  font_size 14
+  font_face :didot
+  hover {
+    transparency 9
+  }
+}

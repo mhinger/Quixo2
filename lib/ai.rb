@@ -59,72 +59,6 @@ class Ai < Game
 
 
 
-
-  def legal_moves(pos)
-    if pos != nil
-      if pos == 0
-        legals = [4,20]
-      elsif pos == 1
-        legals = [0, 4, 21]
-      elsif pos == 2
-        legals = [0, 4, 22]
-      elsif pos == 3
-        legals = [0, 4, 23]
-      elsif pos == 4
-        legals = [0, 24]  
-      elsif pos == 5
-        legals = [0, 9, 20]  
-      elsif pos == 9
-        legals = [4, 5, 24]  
-      elsif pos == 10
-        legals = [0, 14, 20]
-      elsif pos == 14
-        legals = [4, 10, 24]
-      elsif pos == 15
-        legals = [0, 19, 20]
-      elsif pos == 19
-        legals = [4, 15, 24]
-      elsif pos == 20
-        legals = [0, 24]
-      elsif pos == 21
-        legals = [1, 20, 24]
-      elsif pos == 22
-        legals = [2, 20, 24]
-      elsif pos == 23
-        legals = [3, 20, 24]
-      elsif pos == 24
-        legals = [4, 20]    
-      end
-    end
-    return legals
-  end
-  
-  def set_prev_board(board)
-    @prev_prev_board = @prev_board.clone
-    @prev_board = board.clone
-  end
-  
-  def set_current_board(board)
-    @current_board = board.clone
-  end
-  
-  def print_board(board)
-    puts "#{board[0]},#{board[1]},#{board[2]},#{board[3]},#{board[4]}"
-    puts "#{board[5]},#{board[6]},#{board[7]},#{board[8]},#{board[9]}"
-    puts "#{board[10]},#{board[11]},#{board[12]},#{board[13]},#{board[14]}"
-    puts "#{board[15]},#{board[16]},#{board[17]},#{board[18]},#{board[19]}"
-    puts "#{board[20]},#{board[21]},#{board[22]},#{board[23]},#{board[24]}"
-    puts ""
-  end
-  
-  
-    
-  
-  
-
-
-
-
   def generate_legal_pull_pos(board)
     @count = @count + 1
         
@@ -282,7 +216,8 @@ class Ai < Game
       else
         pos = pull_game_logic
       end
-              
+         
+        
     else 
       # puts "Making a normal move"
       if @count == 1
@@ -301,6 +236,7 @@ class Ai < Game
         end 
       end
       @row_of_xs = nil
+      @col_of_xs = nil
     end  
      
     if @current_board[pos] == "X"
@@ -397,9 +333,9 @@ class Ai < Game
 ####Checks to see if the necessary pull piece is an X
       if @current_board[pos] == "X"
         # puts "in current_board[pos] == 'X'"
-        puts "pos #{pos}"
+        # puts "pos #{pos}"
         pull_col = col_find(pos)
-        puts "col #{pull_col}"
+        # puts "col #{pull_col}"
         ### col is the column of the possible pull position, pos is the pull pos
         if pull_col == 0
           pos = pos + 4
@@ -407,9 +343,9 @@ class Ai < Game
           pos = pos - 4
         end
 ####After finding out the necessary pull piece was an X, try the opposite piece
-        print_board(@current_board)
+        # print_board(@current_board)
         pull_row = row_find(pos)
-        puts "Pull Row #{pull_row}"
+        # puts "Pull Row #{pull_row}"
         if pull_row == 0 
           5.times do |i|
             if @current_board[i] != "X"
@@ -428,7 +364,7 @@ class Ai < Game
         
 ############ NOT DONE YET
         if @current_board[pos] == "X"
-          puts "Youre going to have to try and shift the column of O's"
+          # puts "Youre going to have to try and shift the column of O's"
           if @win_col == 0 || @win_col == 4
             ### ???????
             if @current_board[@win_col] != "X" && pos <= 10
@@ -437,7 +373,7 @@ class Ai < Game
               pos = pos + 5
             end
           else
-            puts "win col: #{@win_col}"
+            # puts "win col: #{@win_col}"
             if @current_board[@win_col] == "O"
               pos = @win_col
             elsif @current_board[@win_col + 20] == "O"
@@ -920,18 +856,39 @@ class Ai < Game
         @possible_moves[i] = "false"
       end
     end
-    @possible_moves[6] = false
-    @possible_moves[7] = false
-    @possible_moves[8] = false
-    @possible_moves[11] = false
-    @possible_moves[12] = false
-    @possible_moves[13] = false
-    @possible_moves[16] = false
-    @possible_moves[17] = false
-    @possible_moves[18] = false
+    @possible_moves[6] = "false"
+    @possible_moves[7] = "false"
+    @possible_moves[8] = "false"
+    @possible_moves[11] = "false"
+    @possible_moves[12] = "false"
+    @possible_moves[13] = "false"
+    @possible_moves[16] = "false"
+    @possible_moves[17] = "false"
+    @possible_moves[18] = "false"
   end
   
-  def generate_legal_push_pos(pull)    
+  def open_moves(board)
+    possible_moves = []
+    25.times do |i|
+      if board[i] != "X"
+        possible_moves[i] = true
+      else
+        possible_moves[i] = false
+      end
+    end
+    possible_moves[6] = false
+    possible_moves[7] = false
+    possible_moves[8] = false
+    possible_moves[11] = false
+    possible_moves[12] = false
+    possible_moves[13] = false
+    possible_moves[16] = false
+    possible_moves[17] = false
+    possible_moves[18] = false    
+    return possible_moves
+  end
+  
+  def generate_legal_push_pos(pull)
     # puts "\nFinal Pull Position: #{pull}"  
      
 ################ Working on the vertical win opportunity for AI !!!!!!    
@@ -1110,8 +1067,6 @@ class Ai < Game
     return pos
   end
 
-  
-
   def generate_rand_pos
     return rand(25)
   end
@@ -1132,6 +1087,70 @@ class Ai < Game
     end
     return false
   end
+
+
+
+
+  def legal_moves(pos)
+    if pos != nil
+      if pos == 0
+        legals = [4,20]
+      elsif pos == 1
+        legals = [0, 4, 21]
+      elsif pos == 2
+        legals = [0, 4, 22]
+      elsif pos == 3
+        legals = [0, 4, 23]
+      elsif pos == 4
+        legals = [0, 24]  
+      elsif pos == 5
+        legals = [0, 9, 20]  
+      elsif pos == 9
+        legals = [4, 5, 24]  
+      elsif pos == 10
+        legals = [0, 14, 20]
+      elsif pos == 14
+        legals = [4, 10, 24]
+      elsif pos == 15
+        legals = [0, 19, 20]
+      elsif pos == 19
+        legals = [4, 15, 24]
+      elsif pos == 20
+        legals = [0, 24]
+      elsif pos == 21
+        legals = [1, 20, 24]
+      elsif pos == 22
+        legals = [2, 20, 24]
+      elsif pos == 23
+        legals = [3, 20, 24]
+      elsif pos == 24
+        legals = [4, 20]    
+      end
+    end
+    return legals
+  end
+  
+  def set_prev_board(board)
+    @prev_prev_board = @prev_board.clone
+    @prev_board = board.clone
+  end
+  
+  def set_current_board(board)
+    @current_board = board.clone
+  end
+  
+  def print_board(board)
+    puts "#{board[0]},#{board[1]},#{board[2]},#{board[3]},#{board[4]}"
+    puts "#{board[5]},#{board[6]},#{board[7]},#{board[8]},#{board[9]}"
+    puts "#{board[10]},#{board[11]},#{board[12]},#{board[13]},#{board[14]}"
+    puts "#{board[15]},#{board[16]},#{board[17]},#{board[18]},#{board[19]}"
+    puts "#{board[20]},#{board[21]},#{board[22]},#{board[23]},#{board[24]}"
+    puts ""
+  end
+  
+  
+    
+
 
 private ###########
   def row_find(pos)

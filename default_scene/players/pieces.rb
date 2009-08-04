@@ -1,5 +1,6 @@
 require "game"
 require "placement"
+require "minimax"
 
 module Pieces
   
@@ -49,19 +50,31 @@ module Pieces
     
 private #########################
   def make_computer_move(place)
+    minmax = Minimax.new
+    best_move = []
     status_bar = scene.find("status_bar")
-    while (production.pull_position == nil) || (place.legal_pull_position(production.pull_position) != true)
-      computer_pull_piece(place)
-    end
+    best_move = minmax.evaluate_possible_moves(production.game.board,"O")
+    puts best_move
+    
+    # while (production.pull_position == nil) || (place.legal_pull_position(production.pull_position) != true)
+    #   # best_move = minmax.evaluate_possible_moves(production.game.board,"O")
+    #   # puts best_move
+    #   # production.pull_position = best_move[0]
+    #   computer_pull_piece(place)
+    #   
+    # end
+    
+    computer_pull_piece(place,best_move[0])
     highlight_comp_pull
-    computer_push_piece(status_bar,place)
+    computer_push_piece(status_bar,place,best_move[1])
     highlight_comp_pull
     check_victory
   end
 
 
-  def computer_pull_piece(place)
-    pull_pos = production.comp_player.generate_legal_pull_pos(production.game.board)
+  def computer_pull_piece(place,pull)
+    pull_pos = pull
+    # pull_pos = production.comp_player.generate_legal_pull_pos(production.game.board)
 
     if place.legal_pull_position(pull_pos) && pull_pos != nil
       if production.game.board[pull_pos] == "O"
@@ -74,8 +87,9 @@ private #########################
     production.comp_pull = production.pull_position
   end
 
-  def computer_push_piece(status_bar,place)
-    push_pos = production.comp_player.generate_legal_push_pos(production.pull_position)   
+  def computer_push_piece(status_bar,place,push)
+    push_pos = push
+    # push_pos = production.comp_player.generate_legal_push_pos(production.pull_position)   
     if place.legal_push_position(production.pull_position, push_pos)
       production.push_position = push_pos
       increment_turn

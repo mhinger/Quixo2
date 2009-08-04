@@ -1,5 +1,5 @@
 default_scene {
-  background_image "/Users/MHinger/Projects/quixo2/wood.jpg"
+  background_image "wood.jpg"
   horizontal_alignment :center
   vertical_alignment :center
   width "100%"
@@ -91,7 +91,7 @@ buffer {
 
 buffer2 {
   width "100%"
-  height 70
+  height 40
 }
 
 turn {
@@ -100,6 +100,8 @@ turn {
   horizontal_alignment :center  
   font_size 18
   font_face :didot
+  float :on
+  y 330
   width "100%"
   height 60
   bottom_margin 5
@@ -110,6 +112,7 @@ timer {
   background_color :tan
   vertical_alignment :center
   horizontal_alignment :center  
+  float :on
   font_size 18
   font_face :didot
   width "100%"
@@ -125,6 +128,8 @@ status {
   horizontal_alignment :center  
   font_size 18
   font_face :didot
+  float :on
+  y 400
   width "100%"
   height 60
   top_margin 5
