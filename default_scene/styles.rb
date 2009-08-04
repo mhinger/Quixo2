@@ -83,7 +83,6 @@ mark {
   font_face :didot
 }
 
-
 buffer {
   width "100%"
   height 130
@@ -177,7 +176,7 @@ restart {
 
 home {
   background_color :cornflower_blue
-  secondary_background_color :royal_blue#:dodger_blue
+  secondary_background_color :royal_blue
   gradient :on
   gradient_penetration 90
   width 90
@@ -197,7 +196,7 @@ home {
 
 stats {
   background_color :cornflower_blue
-  secondary_background_color :royal_blue#:dodger_blue
+  secondary_background_color :royal_blue
   gradient :on
   gradient_penetration 90
   width 90

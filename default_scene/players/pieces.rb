@@ -22,10 +22,7 @@ module Pieces
       end   
 ###Human vs AI
     elsif production.game_type == "One Player Game"            
-      if production.pull_position == nil        
-        # if production.game.current_turn == "O"          
-        #   # computer_pull_piece(place)
-        #   # highlight_comp_pull(production.pull_position)     
+      if production.pull_position == nil           
         if production.game.current_turn == "X"
           pulling_of_piece(place,status_bar)
         end         
@@ -38,10 +35,6 @@ module Pieces
           make_computer_move(place)  
         end
         check_victory    
-      # elsif production.game.current_turn == "O"
-      #   # highlight_comp_pull(production.pull_position)
-      #   # computer_push_piece(status_bar,place)
-      #   # check_victory
       else
         check_for_undo(status_bar)
       end
@@ -54,16 +47,6 @@ private #########################
     best_move = []
     status_bar = scene.find("status_bar")
     best_move = minmax.evaluate_possible_moves(production.game.board,"O")
-    puts best_move
-    
-    # while (production.pull_position == nil) || (place.legal_pull_position(production.pull_position) != true)
-    #   # best_move = minmax.evaluate_possible_moves(production.game.board,"O")
-    #   # puts best_move
-    #   # production.pull_position = best_move[0]
-    #   computer_pull_piece(place)
-    #   
-    # end
-    
     computer_pull_piece(place,best_move[0])
     highlight_comp_pull
     computer_push_piece(status_bar,place,best_move[1])
@@ -71,25 +54,20 @@ private #########################
     check_victory
   end
 
-
   def computer_pull_piece(place,pull)
     pull_pos = pull
-    # pull_pos = production.comp_player.generate_legal_pull_pos(production.game.board)
-
     if place.legal_pull_position(pull_pos) && pull_pos != nil
       if production.game.board[pull_pos] == "O"
         production.pull_position = pull_pos
       elsif production.game.board[pull_pos] == nil
         production.pull_position = pull_pos
       end 
-    end
-    
+    end 
     production.comp_pull = production.pull_position
   end
 
   def computer_push_piece(status_bar,place,push)
     push_pos = push
-    # push_pos = production.comp_player.generate_legal_push_pos(production.pull_position)   
     if place.legal_push_position(production.pull_position, push_pos)
       production.push_position = push_pos
       increment_turn
@@ -170,7 +148,6 @@ private #########################
         if production.player1_sec == 0 && production.player1_min == 0
           status_bar.text = "#{production.player2} Wins, #{production.player1} Ran Out Of Time"
           production.animation.stop 
-          
           stats_button.style.width = 90
           stats_button.style.height = 25
           no_time.style.width = 354
@@ -191,16 +168,13 @@ private #########################
         if production.player2_sec == 0 && production.player2_min == 0
           status_bar.text = "#{production.player1} Wins, #{production.player2} Ran Out Of Time"
           production.animation.stop 
- 
           stats_button.style.width = 90
           stats_button.style.height = 25
           no_time.style.width = 354
           no_time.style.height = 354      
         end        
-        
       end
     end
-      
   end
 
   def increment_turn
@@ -214,7 +188,7 @@ private #########################
   def highlight_comp_pull
     pos = production.comp_pull
     game_piece = scene.find(pos)
-    game_piece.style.background_color = "#990000" #"#004358"
+    game_piece.style.background_color = "#990000"
     game_piece.style.text_color = "tan"
   end
 
@@ -284,7 +258,6 @@ private #########################
   
   def select_piece
     status_bar = scene.find("status_bar")
-    
     if production.game.board[(self.id).to_i] == "X"
       if production.game.current_turn == "X"
         status_bar.text = "An X Was Pulled"
@@ -323,7 +296,6 @@ private #########################
   
   def check_victory
     status_bar = scene.find("status_bar")
-    
     if production.game.victory?("O")
       if production.timed_game == "Yes"
         production.animation.stop
@@ -425,8 +397,7 @@ private #########################
     timer2 = scene.find("player2_timer")
     turn_bar = scene.find("turn_bar") 
     p1 = scene.find("p1")
-    p2 = scene.find("p2")
-    
+    p2 = scene.find("p2") 
     if production.game.current_turn == "X"
       p1.style.background_color = 'teal'
       p2.style.background_color = 'tan'

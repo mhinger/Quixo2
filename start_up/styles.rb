@@ -1,7 +1,7 @@
 default_container {
   width "100%"
   height "100%"
-  background_image "/Users/MHinger/Projects/quixo2/wood.jpg"
+  background_image "wood.jpg"
 }
 
 buffer {
@@ -49,13 +49,13 @@ input_container {
 }
 
 unchecked {
-  background_image "/Users/MHinger/Projects/quixo2/open_check.png"
+  background_image "open_check.png"
   width 14
   height 14
 }
 
 checked {
-  background_image "/Users/MHinger/Projects/quixo2/check.png"
+  background_image "check.png"
   width 15
   height 16
   transparency 100  
@@ -95,7 +95,7 @@ check_box_label {
 
 help {
   background_color :cornflower_blue
-  secondary_background_color :royal_blue#:dodger_blue
+  secondary_background_color :royal_blue
   gradient :on
   gradient_penetration 90
   width 90
@@ -115,7 +115,7 @@ help {
 
 instrs {
   background_color :cornflower_blue
-  secondary_background_color :royal_blue#:dodger_blue
+  secondary_background_color :royal_blue
   gradient :on
   gradient_penetration 90
   width 90

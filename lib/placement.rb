@@ -13,7 +13,6 @@ class Placement
   def legal_push_position(orig_pos, new_pos)
     row = row_find(orig_pos)
     col = col_find(orig_pos)
-        
     if legal_pull_position(orig_pos) 
       if row == 0
         if col == 0 && (new_pos == 4 || new_pos == 20)
@@ -25,7 +24,6 @@ class Placement
         else
           return false    
         end
-        
       elsif row == 4
         if col == 0 && (new_pos == 24 || new_pos ==0)
           return true
@@ -36,23 +34,19 @@ class Placement
         else
           return false
         end
-    
       elsif row >=1 && row <=3
         if col == 0 && (new_pos == 0 || new_pos == 20 || new_pos == (orig_pos + 4))
           return true
         elsif col == 4 && (new_pos == 4 || new_pos == 24 || new_pos == (orig_pos - 4))
           return true
         end
-     
       end
-      
     else
       return false
     end
   end
   
 private ################
-  
   def row_find(pos)
     return pos / 5
   end

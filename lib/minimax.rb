@@ -58,45 +58,13 @@ class Minimax
     movements = get_locations(board)
     push_pull_score = []
     pos = 0
-    
     (movements.size).times do |i|
       (movements[i][1].size).times do |j|
         push_pull_score[pos] = [movements[i][0],movements[i][1][j],0]
         pos = pos + 1
       end
     end
-    
-    # (push_pull_score.size).times do |i|
-    #   puts "#{push_pull_score[i][0]}: #{push_pull_score[i][1]}, Score: #{push_pull_score[i][2]}"
-    # end
-      
     return push_pull_score
-        
-        # legal_pulls = movements[0]
-        # legal_pushes = movements[1]
-        # ai_board = []
-        # values = []
-        # (legal_pulls.length).times do |i|
-        #   ai_board[i] = board.clone
-        # end
-        # 
-        # (legal_pulls.length).times do |i|
-        #   ai_board[i][legal_pulls[i]] = "O"
-        # end
-        # 
-        # return movements
-        # 
-        # (ai_board.length).times do |i|
-        #   if ai_board[i][3] == "O"
-        #     values[i] = [3,20]
-        #   else
-        #     values[i] = [1,-20]
-        #   end
-        #   
-        #   # values << score_for(ai_board[i])
-        # end
-        # 
-        # return values
   end
   
   def evaluate_possible_moves(board,mark)
@@ -109,51 +77,15 @@ class Minimax
       possible_boards[pos] = new_board.clone
       pos = pos + 1
     end
-    
     (possible_boards.size).times do |i|
       push_pull_score[i][2] = score_for(possible_boards[i],mark)
     end    
-    
-    # if mark == "O"
-    #   best_move = []
-    #   (possible_boards.size).times do |i|
-    #     best_move[i] = evaluate_possible_moves(possible_boards[i],"X")
-    #   end
-    #   (best_move.size).times do |i|
-    #     puts "Pull: #{best_move[i][0]}, Push: #{best_move[i][1]}, Score: #{best_move[i][2]}"
-    #   end
-    # elsif mark == "X"
-    #   # evaluate_possible_moves(board,"O")  
-    # end
-    
     scores = []
-    
     (push_pull_score.size).times do |i|
-      # puts "pull: #{push_pull_score[i][0]}, push: #{push_pull_score[i][1]}, Score: #{push_pull_score[i][2]}"
       scores[i] = push_pull_score[i][2]
     end
-    
     best_move = find_best_move(push_pull_score,scores)
     return best_move
-    # # alpha_beta(tree,lvl,alpha,beta,total_levels)  
-    # max_score = alpha_beta(scores,0,-10000000000000000000,10000000000000000000,2)
-    #     
-    # ###best move has the push pull and score in an array [push, pull, score]
-    # best_move = nil
-    # possible_good_moves = []
-    # pos = 0
-    # (push_pull_score.size).times do |i|
-    #   if push_pull_score[i][2] == max_score
-    #     possible_good_moves[pos] = push_pull_score[i].clone
-    #     pos = pos + 1
-    #   end
-    # end
-    # 
-    # best_move = possible_good_moves[rand(possible_good_moves.size)]  
-    # return best_move
-        
-    ### possible_boards represents all the possible push/pull combos and the resulting shifted board of each move
-    # return possible_boards
   end
   
   def find_best_move(push_pull_score, scores)
@@ -179,23 +111,12 @@ class Minimax
             three_in_a_line(board, mark) * 100 +
             two_in_a_line(board, mark) * 5 +
             corner_pieces(board, mark) * 4 
-    # if mark == "O" 
-      score = score - five_in_a_line(board, "X") * 10000000000000000 -
-              four_in_a_line(board, "X") * 10000 -
-              three_in_a_line(board, "X") * 100 -
-              two_in_a_line(board, "X") * 5 -
-              corner_pieces(board, "X") * 4 
-    # elsif mark == "X"
-    #   score = score - five_in_a_line(board, "O") * 10000000000000000 -
-    #           four_in_a_line(board, "O") * 10000 -
-    #           three_in_a_line(board, "O") * 100 -
-    #           two_in_a_line(board, "O") * 5 -
-    #           corner_pieces(board, "O") * 4
-    # end                     
+    score = score - five_in_a_line(board, "X") * 10000000000000000 -
+            four_in_a_line(board, "X") * 10000 -
+            three_in_a_line(board, "X") * 100 -
+            two_in_a_line(board, "X") * 5 -
+            corner_pieces(board, "X") * 4                    
     return score
-    
-    # subtract out values for x's 
-    # start basic with this. one level deep and get values and then progress to more and more levels.
   end
   
   def five_in_a_line(board, mark)
@@ -348,7 +269,6 @@ class Minimax
          cols[col] = cols[col] + 1
        end
      end 
-
      5.times do |i|
        if board[i * 6] == mark
          diags[0] = diags[0] + 1
@@ -356,7 +276,6 @@ class Minimax
          diags[1] = diags[1] + 1
        end
      end
-
      5.times do |i|
        if rows[i] > 2
          5.times do |j|
@@ -364,8 +283,6 @@ class Minimax
          end
        end
      end
-
      return [rows,cols,diags]
-
    end
 end

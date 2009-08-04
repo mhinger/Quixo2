@@ -1,5 +1,5 @@
 default_container {
-  background_image "/Users/MHinger/Projects/quixo2/wood.jpg"
+  background_image "wood.jpg"
   width "100%"
   height "100%"
   horizontal_alignment :center
@@ -25,7 +25,6 @@ stats_container{
 
 win_message {
   float :on
-  # x 150
   y 50
   font_size 28
   text_color :black
@@ -58,7 +57,7 @@ turns {
 
 play_again {
   background_color :cornflower_blue
-  secondary_background_color :royal_blue#:dodger_blue
+  secondary_background_color :royal_blue
   gradient :on
   gradient_penetration 90
   width 90
@@ -78,7 +77,7 @@ play_again {
 
 home {
   background_color :cornflower_blue
-  secondary_background_color :royal_blue#:dodger_blue
+  secondary_background_color :royal_blue
   gradient :on
   gradient_penetration 90
   width 90

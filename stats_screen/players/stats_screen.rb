@@ -22,7 +22,6 @@ module StatsScreen
       end
       turn.text = "In #{production.player1_turns} Turns"
     end
-    
     if production.timed_game == "Yes"
       if production.game.winning_mark == "X"
         min_elapsed = production.game_length_min - production.player1_min - 1

@@ -7,10 +7,8 @@ describe Minimax do
   before(:each) do
     @minmax = Minimax.new
     @game = Game.new
-    # @tree = [[[[3,3,6],[7,7,7]],[[1,6,3],[-7,-4,-6]]]]
     @tree = [[[[[5, 11], [2, 7]], [[13, 16], [12, 10]]], [[[3, 9], [7, 12]], [[9, 11], [8, 16]]]]]
     @ai = Ai.new
-    
     @game.board[0] = ""
     @game.board[1] = ""
     @game.board[2] = ""
@@ -50,14 +48,6 @@ describe Minimax do
   
   it "should determine all possible moves for a board" do  
     moves = @minmax.evaluate_board(@game.board)
-    # locations = moves[0]
-    # legal_moves = moves[1]
-    # (moves.size).times do |i|
-    #   puts moves[i]
-    #   
-    # end  
-    # puts "Legal Pulls: #{locations}"
-    # puts "Legal Pushes: #{legal_moves}"
   end
 
   it "should determine a score for a given board" do
@@ -65,10 +55,7 @@ describe Minimax do
     score = @minmax.score_for(@game.board, "O")
     
   end
-  
-  # it should return an array with the pull/push position as well as the value of the pull/push move
-  # or possibly get an array that has the board with its corresponding position
-  
+    
   it "should determine how many rows have 5 pieces of the same mark in them" do
     five_in_line = @minmax.five_in_a_line(@game.board,"O")
   end
@@ -107,9 +94,6 @@ describe Minimax do
   
   it "should do all the possible push/pulls" do
     @minmax.evaluate_possible_moves(@game.board,"O")
-    # (possible_boards.size).times do |i|
-    #   @ai.print_board(possible_boards[i])
-    # end
   end
   
   it "should return the best possible move" do

@@ -82,7 +82,6 @@ class Game
       end 
     end   
     board[push_pos] = mark
-    
     return board.clone       
   end
   

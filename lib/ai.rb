@@ -1,4 +1,3 @@
-
 require "game"
 require "placement"
 
@@ -43,8 +42,6 @@ class Ai < Game
     @possible_pulls = [0,1,2,3,4,5,9,10,14,15,19,20,21,22,23,24]
   end
 
-
-
   def look_ahead
     tree = []
     (@possible_pulls.length).times do |i|
@@ -54,32 +51,20 @@ class Ai < Game
     puts "#{tree}"    
   end
   
-
-
-
-
-
   def generate_legal_pull_pos(board)
     @count = @count + 1
-        
     win_pos = 0
     pull = 0
-    
     find_last_x_move
     find_open_moves
     x_row = check_for_xrows
     x_col = check_for_xcols
-    
     o_row = check_for_orows
     o_col = check_for_ocols
-    
     win_chance = check_for_win
-      
     check_for_3_or_4
-    
     row_middle = find_xs_in_row(x_row)
     col_middle = find_xs_in_col(x_col)
-        
     if win_chance[0] == "row"
       @win_row = win_chance[1]
       win_pos = nil
@@ -91,11 +76,9 @@ class Ai < Game
           win_pos = i + row
         end
       end
-      
       if win_pos != nil
         win_col = win_pos % 5
       end
-          
       if win_chance[1] == 4
         open_spot = []
         loc = 0
@@ -105,15 +88,12 @@ class Ai < Game
             loc = loc + 1
           end
         end 
-        
         if win_pos != nil
           (open_spot.length).times do |i|
             if open_spot[i] == win_pos - 20
-              # puts "you can win. so do it"
               @chance_to_win_horiz = true
               return win_pos - 20
             else
-              # puts "you need to shift the win row"
               @shift_need = true
               if open_spot[i] == win_pos - 19
                 pull = 24
@@ -125,7 +105,6 @@ class Ai < Game
             end
           end
         end
-        
         if win_col == 0 || win_col == 4
           5.times do |i|
             if @current_board[5 * i + win_col] != "X"
@@ -134,18 +113,12 @@ class Ai < Game
             end
           end              
         end
-      
       end
-            
     elsif win_chance[0] == "col"
-      # puts "find way to win in this col: #{win_chance[1]}"
     end
-        
     if row_middle == nil
-      # puts "row middle nil"
       5.times do |i|
         if @row_counts[i] == 4
-          # puts "i gotta figure out how to block this row"
           row_middle = i * 5 + 1
           if x_row == 0
             if @current_board[row_middle + 20] != "X"
@@ -159,12 +132,9 @@ class Ai < Game
         end
       end
     end
-    
     if col_middle == nil
-      # puts "col middle nil"
         5.times do |i|
           if @col_counts[i] == 4
-            # puts "i gotta figure out how to block this col"
             col_middle =  i + 5
             if x_col == 0
               if @current_board[col_middle + 4] != "X"
@@ -174,14 +144,7 @@ class Ai < Game
           end
         end
       end
-    
-    # puts "mid: #{row_middle}"
-    # puts "xrow: #{x_row}"
-    # puts "cmid: #{col_middle}"
-    # puts "xcol: #{x_col}"
-            
-    if row_middle != nil   #x_row != nil
-      # puts "BLOCKING AN X ROW WIN ATTEMPT"
+    if row_middle != nil
       num = rand(2) * 4
       @row_of_xs = x_row
       if x_row == 0 
@@ -199,9 +162,7 @@ class Ai < Game
       else
         pos = pull_game_logic
       end
-
-    elsif col_middle != nil#x_col != nil
-      # puts "BLOCKING AN X COL WIN ATTEMPT"
+    elsif col_middle != nil
       @col_of_xs = x_col
       if x_col == 0
         pos = find_pull_col(4,x_col,col_middle)
@@ -216,12 +177,8 @@ class Ai < Game
       else
         pos = pull_game_logic
       end
-         
-        
     else 
-      # puts "Making a normal move"
       if @count == 1
-        # puts "in here"
         pos = pull_game_logic
       else
         if win_pos != nil 
@@ -230,7 +187,6 @@ class Ai < Game
         if pos == nil
           pos = try_and_win_vert
           if pos == nil
-            # puts "has to use pull_game_logic"
             pos = pull_game_logic
           end
         end 
@@ -238,70 +194,24 @@ class Ai < Game
       @row_of_xs = nil
       @col_of_xs = nil
     end  
-     
     if @current_board[pos] == "X"
       pos = pull_game_logic
     end 
-     
     return pos
   end
   
   def check_for_win
     5.times do |i|
       if @row_counts_o[i] == 4
-        # puts "CHANCE TO WIN ROW #{i}"
         return ["row", i]
       elsif @col_counts_o[i] == 4
-        # puts "CHANCE TO WIN COL #{i}"
         return ["col", i]
       end
     end
-    
     return ["",nil]
-    
-    
-    # x_row = [0,0,0,0,0]
-    #     x_col = [0,0,0,0,0]
-    #     o_col = [0,0,0,0,0]
-    #     o_row = [0,0,0,0,0]
-    #     25.times do |i|
-    #       if @current_board[i] == "X"
-    #         row = row_find(i)
-    #         col = col_find(i)
-    #         x_row[row] = x_row[row] + 1
-    #         x_col[col] = x_col[col] + 1
-    #       elsif @current_board[i] == "O"
-    #         row = row_find(i)
-    #         col = col_find(i)
-    #         o_row[row] = o_row[row] + 1
-    #         o_col[col] = o_col[col] + 1
-    #       end
-    #     end
-    # 
-    #     5.times do |i|
-    #       if x_row[i] >= 3
-    #         puts "AI NEEDS TO BLOCK row #{i}"
-    #       end
-    #       if x_col[i] >= 3
-    #         puts "AI NEEDS TO BLOCK col #{i}"
-    #       end
-    #       if o_row[i] >= 3
-    #         puts "AI CAN WIN IN row #{i}"
-    #       end
-    #       if o_col[i] >= 3
-    #         puts "AI CAN WIN IN col #{i}"
-    #       end
-    #       if o_row[i] == 4
-    #         puts "AI CAN WIN ON THIS TURN row #{i}"
-    #       end
-    #       if o_col[i] == 4
-    #         puts "AI CAN WIN ON THIS TURN col #{i}"
-    #       end
-    #     end
   end
   
   def try_and_win_vert
-    # puts "TRY AND WIN VERT"
     board = @current_board.clone
     positions = []
     loc = 0
@@ -313,10 +223,7 @@ class Ai < Game
       end
     end
     vert_spaces_to_win = check_vert_win(positions)
-    # puts "Spaces to Win Vertical: #{vert_spaces_to_win}"
     pos = vert_spaces_to_win[rand(vert_spaces_to_win.length)]
-    # puts "Pull Pos: #{pos}"
-    
     if vert_spaces_to_win != nil && pos != nil
       col = col_find(pos.to_i)
       if col == 0 
@@ -332,20 +239,14 @@ class Ai < Game
       end
 ####Checks to see if the necessary pull piece is an X
       if @current_board[pos] == "X"
-        # puts "in current_board[pos] == 'X'"
-        # puts "pos #{pos}"
         pull_col = col_find(pos)
-        # puts "col #{pull_col}"
-        ### col is the column of the possible pull position, pos is the pull pos
         if pull_col == 0
           pos = pos + 4
         elsif pull_col == 4
           pos = pos - 4
         end
 ####After finding out the necessary pull piece was an X, try the opposite piece
-        # print_board(@current_board)
         pull_row = row_find(pos)
-        # puts "Pull Row #{pull_row}"
         if pull_row == 0 
           5.times do |i|
             if @current_board[i] != "X"
@@ -361,19 +262,15 @@ class Ai < Game
             end
           end
         end
-        
 ############ NOT DONE YET
         if @current_board[pos] == "X"
-          # puts "Youre going to have to try and shift the column of O's"
           if @win_col == 0 || @win_col == 4
-            ### ???????
             if @current_board[@win_col] != "X" && pos <= 10
               pos = pos - 5
             elsif @current_board[@win_col + 20] != "X"
               pos = pos + 5
             end
           else
-            # puts "win col: #{@win_col}"
             if @current_board[@win_col] == "O"
               pos = @win_col
             elsif @current_board[@win_col + 20] == "O"
@@ -381,9 +278,7 @@ class Ai < Game
             end
           end
         end
-        
       end
-      # puts "Pull Pos From try_and_win_vert: #{pos}"
       @chance_to_win_vert = true
       return pos
     end
@@ -391,7 +286,6 @@ class Ai < Game
   end
   
   def try_and_win_horz(win_pos,pull)
-    # puts "TRY AND WIN HORZ"
     board = @current_board.clone
     positions = []
     loc = 0
@@ -403,13 +297,10 @@ class Ai < Game
       end
     end
     horiz_spaces_to_win = check_horz_win(positions)
-    # puts "Spaces to Win Horiz: #{horiz_spaces_to_win}"
     pos = horiz_spaces_to_win[rand(horiz_spaces_to_win.length)]
     if horiz_spaces_to_win != nil && pos != nil
-      # puts "Pos: #{pos}"
       row = row_find(pos.to_i)
       col = col_find(pos)
-      # puts "Row: #{row}"
       if row == 0 
         pos = pos + 20
       elsif row == 1 
@@ -421,27 +312,18 @@ class Ai < Game
       elsif row == 4
         pos = pos - 20
       end
-      
       if row == 0
         if col == 0
-          # puts "corner"
         elsif col == 4
-          # puts "corner"
         end
       elsif row == 4
         if col == 0
-          # puts "corner"
         elsif col == 4
-          # puts "corner"
         end
       end
-      
       if @current_board[pos] == "X"
-        # puts "Position in tryandwin: #{pos}"
         col = col_find(pos)
         row = row_find(pos)
-        # puts "Row in try and win: #{row}"
-        # puts "Col in try and win: #{col}"
         if col == 0 || col == 4
           5.times do |i|
             if @current_board[5 * i + col] != "X"
@@ -449,7 +331,6 @@ class Ai < Game
             end
           end
         else
-          # puts "need to shift"
         end
       end
       @chance_to_win_horiz = true
@@ -534,7 +415,6 @@ class Ai < Game
         end
       end 
     end
-    # puts "moves from checkvertwin: #{moves}"
     if moves[0] != nil
       @win_col = (moves[0]).to_i % 5
       5.times do |i|
@@ -548,7 +428,6 @@ class Ai < Game
         end
       end
     end  
-    # puts "final spaces: #{spaces}"
     return spaces
   end
   
@@ -568,7 +447,6 @@ class Ai < Game
         middle = middle + 2
       end
     end
-    
     if @current_board[middle] != "X"
       return middle
     elsif @current_board[middle - 5] != "X"
@@ -594,7 +472,6 @@ class Ai < Game
     else
       return pull_game_logic
     end
-    
   end
   
   def find_pull_row(row,xrow,middle)
@@ -613,7 +490,6 @@ class Ai < Game
         middle = middle + 10
       end
     end
-    
     if @current_board[middle] != "X"
       return middle  
     elsif @current_board[middle - 1] != "X"
@@ -665,7 +541,6 @@ class Ai < Game
           end
         end
       end
-    
       if count >= 3
         middle = find_middle_col(xcol,count,board)
         @col_middle = middle
@@ -700,14 +575,13 @@ class Ai < Game
           end
         end
       end
-      
       if count >= 3
         middle = find_middle_row(xrow,count,board)
         @row_middle = middle
         return middle
       else
         @row_middle = nil
-        return nil ### just added may or may not work
+        return nil
       end
     end
   end
@@ -721,7 +595,6 @@ class Ai < Game
         loc = loc + 1
       end
     end
-    
     (pos.length).times do |i|
       if (i - 1) >= 0
         if pos[i] != (pos[i-1] + 5)
@@ -741,7 +614,6 @@ class Ai < Game
         loc = loc + 1
       end
     end
-    
     (pos.length).times do |i|
       if (i - 1) >= 0
         if pos[i] != (pos[i - 1] + 1)
@@ -765,7 +637,6 @@ class Ai < Game
         end
       end
     end
-    
     5.times do |i|
       if x_count[i] == 4 || x_count[i] == 3
         x_col = i
@@ -788,7 +659,6 @@ class Ai < Game
         end
       end
     end
-    
     5.times do |i|
       if o_count[i] == 4 || o_count[i] == 3
         o_col = i
@@ -811,7 +681,6 @@ class Ai < Game
         end
       end
     end
-    
     5.times do |i|
       if x_count[i] == 4
         x_row = i
@@ -836,7 +705,6 @@ class Ai < Game
         end
       end
     end
-    
     5.times do |i|
       if o_count[i] == 4
         o_row = i
@@ -889,10 +757,7 @@ class Ai < Game
   end
   
   def generate_legal_push_pos(pull)
-    # puts "\nFinal Pull Position: #{pull}"  
-     
 ################ Working on the vertical win opportunity for AI !!!!!!    
-        
     if !@chance_to_win_horiz && !@chance_to_win_vert
       if @row_middle != nil
         mid_row = row_find(@row_middle)
@@ -903,18 +768,14 @@ class Ai < Game
         end 
         @row_middle = nil
       elsif @col_middle != nil
-        # puts "in col_middle != nil"
         mid_col = col_find(@col_middle)
-        # puts "#{mid_col}"
         if mid_col == 0 || mid_col == 1 || mid_col == 2     
           push = pull - 4
         elsif mid_col == 4 || mid_col == 3
           push = pull + 4
         end  
-        # puts "#{push}"
         @col_middle = nil      
       else
-        # puts "in the else"
         push = push_game_logic(pull)
       end    
     elsif @chance_to_win_horiz == true
@@ -935,14 +796,8 @@ class Ai < Game
       end
       @chance_to_win_horiz = false
     elsif @chance_to_win_vert == true      
-      # puts "IN chance to win vert push"
       col = col_find(pull)
       row = row_find(pull)
-      # puts "Col: #{col}"
-      # puts "Row: #{row}"
-      # puts "Win Col: #{@win_col}"
-      # puts "Pull before the changing of push: #{pull}"
-      # puts "Push before the changing of push: #{push}"
       if col == @win_col
         if col == 4
           if @current_board[pull - 4] != "X"
@@ -973,7 +828,6 @@ class Ai < Game
             push = 20 - pull
           end
         end
-      
       elsif col == 1
         push = 5 * row + @win_col
       elsif col == 2
@@ -983,33 +837,21 @@ class Ai < Game
       elsif col == 4
         push = pull - 4
       end
-      # puts "push from chance to win ver: #{push}"
       @chance_to_win_vert = false
     end
-    
-    # puts "Final Push Position: #{push}"
-    # puts ""
     return push
   end
   
   def check_for_3_or_4
     5.times do |i|
       if @row_counts[i] == 4
-        # @placement_values
       elsif @col_counts[i] == 4 
-
       elsif @row_counts_o[i] == 4 
-
       elsif @col_counts_o[i] == 4
-
       elsif @row_counts[i] == 3
-
       elsif @col_counts[i] == 3
-
       elsif @row_counts_o[i] == 3 
-
       elsif @col_counts_o[i] == 3
-
       end
     end
   end
@@ -1021,12 +863,8 @@ class Ai < Game
         pos = i
       end
     end
-    
     @prev2_x_move = @prev_x_move
     @prev_x_move = pos
-    
-    # puts "2 ago: #{@prev2_x_move}"
-    # puts "1 ago: #{@prev_x_move}"
   end
   
   def push_game_logic(pull)
@@ -1063,7 +901,6 @@ class Ai < Game
         end
       end
     end   
-    
     return pos
   end
 
@@ -1087,9 +924,6 @@ class Ai < Game
     end
     return false
   end
-
-
-
 
   def legal_moves(pos)
     if pos != nil
@@ -1147,10 +981,6 @@ class Ai < Game
     puts "#{board[20]},#{board[21]},#{board[22]},#{board[23]},#{board[24]}"
     puts ""
   end
-  
-  
-    
-
 
 private ###########
   def row_find(pos)
@@ -1209,5 +1039,4 @@ private ###########
     return false   
   end
 
-  
 end

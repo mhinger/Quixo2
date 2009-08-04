@@ -27,7 +27,6 @@ module DefaultScene
     if production.game_type == "One Player Game"
       production.timed_game = "No"
     end  
-    
     if production.timed_game == "Yes"
       production.player1_min = production.game_length_min
       production.player2_min = production.game_length_min 
@@ -39,7 +38,6 @@ module DefaultScene
       timer1.style.transparency = 100
       timer2.style.transparency = 100
     end
-    
     if production.player1 == ""
       turn_bar.text = "It's #{production.game.current_turn}'s Turn"
     else
