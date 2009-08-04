@@ -4,6 +4,17 @@ default_container {
   background_image "wood.jpg"
 }
 
+main_container {
+  background_color :tan
+  float :on
+  x 270
+  y 250
+  width 470
+  height 300
+  rounded_corner_radius 20
+  padding 25
+}
+
 buffer {
   width "100%"
   height "15%"
@@ -62,7 +73,7 @@ checked {
 }
 
 timer_input_container {
-  left_padding 376
+  left_padding 85
 }
 
 player_label {
@@ -101,8 +112,8 @@ help {
   width 90
   height 25
   float :on
-  x 510
-  y 200
+  x 240
+  y 210
   horizontal_alignment :center
   vertical_alignment :center
   rounded_corner_radius 12
@@ -121,8 +132,8 @@ instrs {
   width 90
   height 25
   float :on
-  x 390
-  y 200
+  x 100
+  y 210
   horizontal_alignment :center
   vertical_alignment :center
   rounded_corner_radius 12
