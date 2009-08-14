@@ -48,7 +48,9 @@ private #########################
     status_bar = scene.find("status_bar")
     best_move = minmax.evaluate_possible_moves(production.game.board,"O")
     computer_pull_piece(place,best_move[0])
-    highlight_comp_pull
+    # highlight_comp_pull
+    2000000.times do 
+    end
     computer_push_piece(status_bar,place,best_move[1])
     highlight_comp_pull
     check_victory
@@ -56,6 +58,9 @@ private #########################
 
   def computer_pull_piece(place,pull)
     pull_pos = pull
+    game_piece = scene.find(pull)
+    game_piece.style.background_color = "black"
+    game_piece.style.text_color = "tan"
     if place.legal_pull_position(pull_pos) && pull_pos != nil
       if production.game.board[pull_pos] == "O"
         production.pull_position = pull_pos
@@ -280,7 +285,7 @@ private #########################
   
   def pull_piece
     production.pull_position = (self.id).to_i
-    self.style.background_color = "#004358"
+    self.style.background_color = "black"#{}"#004358"
     self.style.text_color = "tan"
   end
   
@@ -306,7 +311,7 @@ private #########################
         status_bar.text = "#{production.player2} Wins!"
       end
       strike_victory
-      board.update 
+      # board.update 
       return true
     elsif production.game.victory?("X")
       if production.timed_game == "Yes"
@@ -318,7 +323,7 @@ private #########################
         status_bar.text = "#{production.player1} Wins!"
       end
       strike_victory
-      board.update
+      # board.update
       return true
     end 
     return false   
@@ -329,7 +334,7 @@ private #########################
     stats_button.style.width = 90
     stats_button.style.height = 25
     strike = scene.find("strike_through")
-    strike.style.transparency = 20
+    strike.style.transparency = 0
     strike.style.width = 354
     strike.style.height = 354
     if production.game.win_row == 0

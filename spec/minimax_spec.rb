@@ -9,31 +9,31 @@ describe Minimax do
     @game = Game.new
     @tree = [[[[[5, 11], [2, 7]], [[13, 16], [12, 10]]], [[[3, 9], [7, 12]], [[9, 11], [8, 16]]]]]
     @ai = Ai.new
-    @game.board[0] = ""
-    @game.board[1] = ""
-    @game.board[2] = ""
+    @game.board[0] = "O"
+    @game.board[1] = "X"
+    @game.board[2] = "X"
     @game.board[3] = "X"
-    @game.board[4] = ""
-    @game.board[5] = ""
+    @game.board[4] = "O"
+    @game.board[5] = "X"
     @game.board[6] = ""
     @game.board[7] = ""
-    @game.board[8] = ""
-    @game.board[9] = ""
-    @game.board[10] = ""
-    @game.board[11] = ""
-    @game.board[12] = ""
-    @game.board[13] = ""
-    @game.board[14] = ""
-    @game.board[15] = ""
-    @game.board[16] = ""
-    @game.board[17] = ""
-    @game.board[18] = ""
-    @game.board[19] = ""
-    @game.board[20] = ""
-    @game.board[21] = ""
-    @game.board[22] = ""
-    @game.board[23] = ""
-    @game.board[24] = ""
+    @game.board[8] = "X"
+    @game.board[9] = "X"
+    @game.board[10] = "X"
+    @game.board[11] = "O"
+    @game.board[12] = "O"
+    @game.board[13] = "O"
+    @game.board[14] = "X"
+    @game.board[15] = "X"
+    @game.board[16] = "O"
+    @game.board[17] = "X"
+    @game.board[18] = "X"
+    @game.board[19] = "O"
+    @game.board[20] = "O"
+    @game.board[21] = "X"
+    @game.board[22] = "X"
+    @game.board[23] = "X"
+    @game.board[24] = "O"
   end
 
   it "should minimax look through" do
@@ -97,13 +97,24 @@ describe Minimax do
   end
   
   it "should return the best possible move" do
-    puts ""
-    puts "Orig Board"
-    @ai.print_board(@game.board)
+    # puts ""
+    # puts "Orig Board"
+    # @ai.print_board(@game.board)
     best_move = @minmax.evaluate_possible_moves(@game.board,"O")
-    puts best_move
-    @game.shift_board(best_move[0],best_move[1],"O")
+    # puts best_move
+    # @game.shift_board(best_move[0],best_move[1],"O")
+    # @ai.print_board(@game.board)
+  end
+  
+  it "should see if there is a win opportunity FOR X on the next turn" do
+    puts ""
     @ai.print_board(@game.board)
+    # best_move = @minmax.evaluate_possible_moves(@game.board,"O")
+    # puts best_move[0]
+    # puts best_move[1]
+    # puts best_move[2]
+    best_move = @minmax.four_in_a_line_win_opportunity(@game.board,"X")
+    puts best_move
   end
 
 end

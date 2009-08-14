@@ -27,6 +27,8 @@ pieces {
   margin 2
   font_size 40
   background_color :tan
+  # background_image "3dquixov2 copy.png"
+  background_image_fill_strategy :static
   text_color "#004358"
   font_style :italic
   vertical_alignment :center
@@ -34,6 +36,17 @@ pieces {
   hover {
     background_color "#F1E4B7"
   }
+}
+
+square {
+  float :on
+  x 200
+  y 150
+  width 100
+  height 100
+  background_color :blue
+  
+  
 }
 
 side_bar {

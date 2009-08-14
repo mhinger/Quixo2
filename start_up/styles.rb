@@ -10,9 +10,10 @@ main_container {
   x 270
   y 250
   width 470
-  height 300
+  height 290
   rounded_corner_radius 20
   padding 25
+  transparency 40
 }
 
 buffer {
