@@ -23,7 +23,7 @@ whole_scene {
     restart :id => 'restart', :text => 'Restart', :players => 'restart'
     home :id => 'return', :text => 'Home', :players => 'back'
   }
-  strike_through :id => "strike_through", :players => "image", :image => "rectangle.jpg", :transparency => 100, :scaled => false, :rotation => 0, :width => 0, :height => 0
+  strike_through :id => "strike_through", :players => "image", :image => "rectangle.jpg", :transparency => 0, :scaled => false, :rotation => 45, :width => 0, :height => 0
   ran_out_time :id => "no_time", :width => 0, :height => 0
   stats :id => 'stats', :players => 'stats', :text => 'Game Stats', :width => 0, :height => 0
 }

@@ -293,8 +293,8 @@ class Minimax
         5.times do |j|
           if board[col[i] + j * 5] != mark
             row = (col[i] + j * 5) / 5
-            puts row
-            puts col[i]
+            # puts row
+            # puts col[i]
             winning_pull = check_row_for_winning_move(board,row,col[i],mark)
             # puts "Col.size: Winning Pull: #{winning_pull}"
             if winning_pull != nil

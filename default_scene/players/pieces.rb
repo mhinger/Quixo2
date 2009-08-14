@@ -7,7 +7,7 @@ module Pieces
   prop_reader :board
   prop_reader :victory
   
-  def mouse_clicked(e)  
+  def mouse_clicked(e)          
     place = Placement.new
     turn_bar = scene.find("turn_bar") 
     status_bar = scene.find("status_bar")
@@ -311,7 +311,7 @@ private #########################
         status_bar.text = "#{production.player2} Wins!"
       end
       strike_victory
-      # board.update 
+      board.update 
       return true
     elsif production.game.victory?("X")
       if production.timed_game == "Yes"
@@ -323,7 +323,7 @@ private #########################
         status_bar.text = "#{production.player1} Wins!"
       end
       strike_victory
-      # board.update
+      board.update
       return true
     end 
     return false   
@@ -334,9 +334,10 @@ private #########################
     stats_button.style.width = 90
     stats_button.style.height = 25
     strike = scene.find("strike_through")
-    strike.style.transparency = 0
+    strike.style.transparency = 20
     strike.style.width = 354
     strike.style.height = 354
+    
     if production.game.win_row == 0
       strike.style.top_padding = 30
       strike.style.left_padding = 4
