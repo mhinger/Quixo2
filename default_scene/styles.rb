@@ -9,7 +9,7 @@ default_scene {
 board {
   width "80%"
   height "100%"
-  background_color :black
+  background_color "#5E0900"
   rounded_corner_radius 280
   top_margin 100
   bottom_margin 100
@@ -24,29 +24,17 @@ board {
 pieces {
   width 70
   height 70
-  margin 2
+  margin 1
   font_size 40
-  background_color :tan
-  # background_image "3dquixov2 copy.png"
-  background_image_fill_strategy :static
-  text_color "#004358"
+  # background_color "#D99963" #:tan #9E6835
+  # background_image_fill_strategy :static
+  # text_color "#004358"
   font_style :italic
   vertical_alignment :center
   horizontal_alignment :center
   hover {
     background_color "#F1E4B7"
   }
-}
-
-square {
-  float :on
-  x 200
-  y 150
-  width 100
-  height 100
-  background_color :blue
-  
-  
 }
 
 side_bar {
@@ -66,6 +54,21 @@ game_name {
   width "100%"
   height 60
   margin 5
+}
+
+board_name {
+  width 80
+  height 25
+  font_size 20
+  font_face :didot
+  float :on
+  x 365
+  y 610
+  text_color :white
+}
+
+square {
+  background_color :black
 }
 
 small_buffer {

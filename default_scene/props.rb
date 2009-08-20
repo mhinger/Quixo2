@@ -4,10 +4,13 @@
 # For more information see: http://limelightwiki.8thlight.com/index.php/A_Cook%27s_Tour_of_Limelight#PropBuilder_DSL
 whole_scene {  
   board :id => "board" do
-    25.times do |i|
-      pieces :id => i
+    square do
+      25.times do |i|
+        pieces :id => i
+      end
     end
   end
+  board_name :text => "QUIXO"
   side_bar {
     game_name :text => "QUIXO"
     small_buffer
