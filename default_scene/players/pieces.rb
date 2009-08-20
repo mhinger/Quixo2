@@ -196,7 +196,7 @@ private #########################
   def highlight_comp_pull
     pos = production.comp_pull
     game_piece = scene.find(pos)
-    game_piece.style.background_color = "#990000"
+    game_piece.style.background_color = "#004358"
     game_piece.style.text_color = "tan"
   end
 
