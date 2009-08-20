@@ -343,53 +343,53 @@ private #########################
     
     if production.game.win_row == 0
       strike.style.top_padding = 30
-      strike.style.left_padding = 4
-      strike.style.right_padding = 4
+      strike.style.left_padding = 2
+      strike.style.right_padding = 2
       strike.rotation = 0
     elsif production.game.win_row == 1
       strike.style.top_padding = 100
-      strike.style.left_padding = 4
-      strike.style.right_padding = 4
+      strike.style.left_padding = 2
+      strike.style.right_padding = 2
       strike.rotation = 0
     elsif production.game.win_row == 2
       strike.style.top_padding = 170
-      strike.style.left_padding = 4
-      strike.style.right_padding = 4
+      strike.style.left_padding = 2
+      strike.style.right_padding = 2
       strike.rotation = 0
     elsif production.game.win_row == 3
       strike.style.top_padding = 240
-      strike.style.left_padding = 4
-      strike.style.right_padding = 4
+      strike.style.left_padding = 2
+      strike.style.right_padding = 2
       strike.rotation = 0
     elsif production.game.win_row == 4
       strike.style.top_padding = 310
-      strike.style.left_padding = 4
-      strike.style.right_padding = 4
+      strike.style.left_padding = 2
+      strike.style.right_padding = 2
       strike.rotation = 0
     elsif production.game.win_col == 0
-      strike.style.top_padding = 4
+      strike.style.top_padding = 2
       strike.style.left_padding = 30
-      strike.style.bottom_padding = 4
+      strike.style.bottom_padding = 2
       strike.rotation = 90
     elsif production.game.win_col == 1
-      strike.style.top_padding = 4
+      strike.style.top_padding = 2
       strike.style.left_padding = 100
-      strike.style.bottom_padding = 4  
+      strike.style.bottom_padding = 2  
       strike.rotation = 90    
     elsif production.game.win_col == 2
-      strike.style.top_padding = 4
+      strike.style.top_padding = 2
       strike.style.left_padding = 170
-      strike.style.bottom_padding = 4
+      strike.style.bottom_padding = 2
       strike.rotation = 90
     elsif production.game.win_col == 3
-      strike.style.top_padding= 4
+      strike.style.top_padding = 2
       strike.style.left_padding = 240
-      strike.style.bottom_padding = 4
+      strike.style.bottom_padding = 2
       strike.rotation = 90
     elsif production.game.win_col == 4
-      strike.style.top_padding = 4
+      strike.style.top_padding = 2
       strike.style.left_padding = 310
-      strike.style.bottom_padding = 4
+      strike.style.bottom_padding = 2
       strike.rotation = 90
     elsif production.game.diag_win == "down_right"
       strike.style.padding = 4

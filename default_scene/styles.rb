@@ -29,7 +29,8 @@ pieces {
   # background_color "#D99963" #:tan #9E6835
   # background_image_fill_strategy :static
   # text_color "#004358"
-  font_style :italic
+  # font_style :italic
+  font_face :didot
   vertical_alignment :center
   horizontal_alignment :center
   hover {
