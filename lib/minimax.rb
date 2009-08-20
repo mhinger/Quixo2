@@ -95,55 +95,170 @@ class Minimax
     if difficulty == "easy"
       percent = rand(8)
       if percent < 5
-        return_val = cut_max_score(pull_push_score,scores)
-        mod_pull_push_score = return_val[0].clone
-        mod_scores = return_val[1].clone
-        max_score = return_val[2]
-        if max_score > 0
-          return_val = cut_max_score(pull_push_score,scores)
-          mod_pull_push_score = return_val[0].clone
-          mod_scores = return_val[1].clone
-          max_score = return_val[2]
-        end
-        best_move = find_best_move(mod_pull_push_score,mod_scores)
-        
+        move = rand(3) + 5
+        best_move = find_fifth_to_seventh_best_move(pull_push_score,scores,move)
       elsif percent == 5
         best_move = find_best_move(pull_push_score,scores)
-        
       elsif percent == 6 || percent == 7
-        return_val = cut_max_score(pull_push_score,scores)
-        mod_pull_push_score = return_val[0].clone
-        mod_scores = return_val[1].clone
-        best_move = find_best_move(mod_pull_push_score,mod_scores)
+        move = rand(3) + 2
+        best_move = find_second_to_fourth_best_move(pull_push_score,scores,move)
       end
       
     elsif difficulty == "hard"
       percent = rand(10)
       if percent < 5
-        return_val = cut_max_score(pull_push_score,scores)
-        mod_pull_push_score = return_val[0].clone
-        mod_scores = return_val[1].clone
-        best_move = find_best_move(mod_pull_push_score,mod_scores)
+        move = rand(3) + 2
+        best_move = find_second_to_fourth_best_move(pull_push_score,scores,move)
       elsif percent == 5 || percent == 6
         best_move = find_best_move(pull_push_score,scores)
       elsif percent == 7 || percent == 8 || percent == 9
-        return_val = cut_max_score(pull_push_score,scores)
-        mod_pull_push_score = return_val[0].clone
-        mod_scores = return_val[1].clone
-        max_score = return_val[2]
-        if max_score > 0
-          return_val = cut_max_score(pull_push_score,scores)
-          mod_pull_push_score = return_val[0].clone
-          mod_scores = return_val[1].clone
-          max_score = return_val[2]
-        end
-        best_move = find_best_move(mod_pull_push_score,mod_scores)
+        move = rand(3) + 5
+        best_move = find_fifth_to_seventh_best_move(pull_push_score,scores,move)
       end
       
     elsif difficulty == "unbeatable"
       best_move = find_best_move(pull_push_score,scores)
     end
         
+    return best_move
+  end
+  
+  def find_fifth_to_seventh_best_move(pull_push_score,scores,move)
+    if move == 5
+      return_val = cut_max_score(pull_push_score,scores)
+      mod_pull_push_score = return_val[0].clone
+      mod_scores = return_val[1].clone
+      max_score = return_val[2]
+      min_score = mod_scores.min
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+    elsif move == 6
+      return_val = cut_max_score(pull_push_score,scores)
+      mod_pull_push_score = return_val[0].clone
+      mod_scores = return_val[1].clone
+      max_score = return_val[2]
+      min_score = mod_scores.min
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+    elsif move == 7
+      return_val = cut_max_score(pull_push_score,scores)
+      mod_pull_push_score = return_val[0].clone
+      mod_scores = return_val[1].clone
+      max_score = return_val[2]
+      min_score = mod_scores.min
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+    end
+
+    best_move = find_best_move(mod_pull_push_score,mod_scores)
+    return best_move
+  end
+  
+  def find_second_to_fourth_best_move(pull_push_score,scores,move)
+    if move == 2
+      return_val = cut_max_score(pull_push_score,scores)
+      mod_pull_push_score = return_val[0].clone
+      mod_scores = return_val[1].clone
+      max_score = return_val[2]
+    elsif move == 3
+      return_val = cut_max_score(pull_push_score,scores)
+      mod_pull_push_score = return_val[0].clone
+      mod_scores = return_val[1].clone
+      max_score = return_val[2]
+      min_score = mod_scores.min
+       if max_score > 0 || max_score > (min_score + 250)
+          return_val = cut_max_score(mod_pull_push_score,mod_scores)
+          mod_pull_push_score = return_val[0].clone
+          mod_scores = return_val[1].clone
+          max_score = return_val[2]
+        end
+    elsif move == 4
+      return_val = cut_max_score(pull_push_score,scores)
+      mod_pull_push_score = return_val[0].clone
+      mod_scores = return_val[1].clone
+      max_score = return_val[2]
+      min_score = mod_scores.min
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+      if max_score > 0 || max_score > (min_score + 250)
+        return_val = cut_max_score(mod_pull_push_score,mod_scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+      end
+    end
+    
+    best_move = find_best_move(mod_pull_push_score,mod_scores)
     return best_move
   end
   
