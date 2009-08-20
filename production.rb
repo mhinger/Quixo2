@@ -37,6 +37,7 @@ module Production
   attr_accessor :player1_wins
   attr_accessor :player2_wins
   attr_accessor :comp_pull
+  attr_accessor :comp_difficulty
 
 
 end

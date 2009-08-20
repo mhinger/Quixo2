@@ -67,7 +67,7 @@ class Minimax
     return pull_push_score
   end
   
-  def evaluate_possible_moves(board,mark)
+  def evaluate_possible_moves(board,mark,difficulty)    
     temp_board = board.clone
     possible_boards = []
     pull_push_score = evaluate_board(temp_board.clone)
@@ -91,8 +91,76 @@ class Minimax
     (pull_push_score.size).times do |i|
       scores[i] = pull_push_score[i][2]
     end
-    best_move = find_best_move(pull_push_score,scores)
+    
+    if difficulty == "easy"
+      percent = rand(8)
+      if percent < 5
+        return_val = cut_max_score(pull_push_score,scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+        if max_score > 0
+          return_val = cut_max_score(pull_push_score,scores)
+          mod_pull_push_score = return_val[0].clone
+          mod_scores = return_val[1].clone
+          max_score = return_val[2]
+        end
+        best_move = find_best_move(mod_pull_push_score,mod_scores)
+        
+      elsif percent == 5
+        best_move = find_best_move(pull_push_score,scores)
+        
+      elsif percent == 6 || percent == 7
+        return_val = cut_max_score(pull_push_score,scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        best_move = find_best_move(mod_pull_push_score,mod_scores)
+      end
+      
+    elsif difficulty == "hard"
+      percent = rand(10)
+      if percent < 5
+        return_val = cut_max_score(pull_push_score,scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        best_move = find_best_move(mod_pull_push_score,mod_scores)
+      elsif percent == 5 || percent == 6
+        best_move = find_best_move(pull_push_score,scores)
+      elsif percent == 7 || percent == 8 || percent == 9
+        return_val = cut_max_score(pull_push_score,scores)
+        mod_pull_push_score = return_val[0].clone
+        mod_scores = return_val[1].clone
+        max_score = return_val[2]
+        if max_score > 0
+          return_val = cut_max_score(pull_push_score,scores)
+          mod_pull_push_score = return_val[0].clone
+          mod_scores = return_val[1].clone
+          max_score = return_val[2]
+        end
+        best_move = find_best_move(mod_pull_push_score,mod_scores)
+      end
+      
+    elsif difficulty == "unbeatable"
+      best_move = find_best_move(pull_push_score,scores)
+    end
+        
     return best_move
+  end
+  
+  def cut_max_score(pull_push_score,scores)
+    max_score = alpha_beta(scores,0,-1000000000000000000,1000000000000000000,2)
+    mod_scores = []
+    mod_pull_push_score = []
+    pos = 0
+    (scores.size).times do |i|
+      if scores[i] != max_score
+        mod_scores[pos] = scores[i]
+        mod_pull_push_score[pos] = pull_push_score[i].clone
+        pos = pos + 1
+      end
+    end
+    max_num = mod_scores.max
+    return [mod_pull_push_score,mod_scores,max_num]
   end
   
   def find_best_move(pull_push_score, scores)
@@ -293,10 +361,7 @@ class Minimax
         5.times do |j|
           if board[col[i] + j * 5] != mark
             row = (col[i] + j * 5) / 5
-            # puts row
-            # puts col[i]
             winning_pull = check_row_for_winning_move(board,row,col[i],mark)
-            # puts "Col.size: Winning Pull: #{winning_pull}"
             if winning_pull != nil
               return true
             end
@@ -328,7 +393,6 @@ class Minimax
           if board[row[i] * 5 + j] != mark
             col = (row[i] * 5 + j) % 5
             winning_pull = check_col_for_winning_move(board,col,row[i],mark)
-            # puts "Row.size: Winning Pull: #{winning_pull}"
             if winning_pull != nil
               return true
             end

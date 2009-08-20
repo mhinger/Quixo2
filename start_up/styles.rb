@@ -27,8 +27,8 @@ buffer2 {
 }
 
 buffer3 {
-  height "100%"
-  width "36.5%"
+  height 20
+  width "100%"
 }
 
 buffer4 {
@@ -43,7 +43,7 @@ buffer5 {
 
 buffer6 {
   width "100%"
-  height 10
+  height 28
 }
 
 game_name {
@@ -53,6 +53,13 @@ game_name {
   text_color :black
   font_face :didot
   horizontal_alignment :center
+}
+
+ai_diff {
+  width 120
+  font_size 16
+  text_color :black
+  font_face :didot  
 }
 
 input_container {

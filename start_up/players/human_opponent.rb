@@ -2,32 +2,131 @@ module HumanOpponent
   
   attr_reader :checked
   
-  def mouse_clicked(event)
-    unchecked = scene.find('unchecked')
-    checked = scene.find('checked')
+  def mouse_clicked(event)    
+    unchecked = scene.find('human_unchecked')
+    checked = scene.find('human_checked')
+    speed_game = scene.find('check_box')
+    timer_checked = scene.find('checked_timer')
+    timer_unchecked = scene.find('unchecked_timer')
     player_label = scene.find("p2")
+    time_label = scene.find('time_label')
+    game_length = scene.find('game_length')
     input = scene.find("player2")
-    if checked.style.transparency == "100%"
+    ai_unchecked = scene.find('ai_unchecked')
+    ai_checked = scene.find('ai_checked')
+    ai_diff = scene.find("ai_diff")
+    easy = scene.find("easy")
+    hard = scene.find("hard")
+    unbeat = scene.find("unbeat")
+    unbeat_checked = scene.find('unbeat_checked')
+    unbeat_unchecked = scene.find('unbeat_unchecked')
+    hard_checked = scene.find('hard_checked')
+    hard_unchecked = scene.find('hard_unchecked')
+    easy_checked = scene.find('easy_checked')
+    easy_unchecked = scene.find('easy_unchecked')    
+    if id == "human_unchecked"
       unchecked.style.transparency = 100
       checked.style.transparency = 0
+      ai_unchecked.style.transparency = 0
+      ai_checked.style.transparency = 100
+      ai_unchecked.style.width = 14
+      ai_unchecked.style.height = 14
+      ai_checked.style.height = 0
+      ai_checked.style.width = 0
+      ai_diff.style.transparency = 100
+      unbeat_unchecked.style.transparency = 100
+      unbeat.style.transparency = 100
+      hard_unchecked.style.transparency = 100
+      hard.style.transparency = 100
+      easy_unchecked.style.transparency = 100
+      easy.style.transparency = 100
+      speed_game.style.transparency = 0
+      timer_unchecked.style.transparency = 0
+      speed_game.style.x = 0
+      speed_game.style.y = 107
+      timer_unchecked.style.width = 14
+      timer_unchecked.style.height = 14
+      timer_checked.style.width = 0
+      timer_checked.style.width = 0
+      time_label.style.transparency = 100
+      game_length.style.transparency = 100
+      game_length.style.width = 0
       unchecked.style.width = 0
       unchecked.style.height = 0
-      checked.style.width = 16
+      checked.style.height = 16
       checked.style.width = 15
       player_label.style.transparency = 0
       input.style.transparency = 0
+      input.style.width = 130
       production.game_type = "Two Player Game"      
-    elsif checked.style.transparency == "0%"
+    elsif id == "human_checked"
       unchecked.style.transparency = 0
       checked.style.transparency = 100
       unchecked.style.width = 14
       unchecked.style.height = 14
-      checked.style.width = 0
+      checked.style.height = 0
       checked.style.width = 0
       player_label.style.transparency = 100
+      speed_game.style.transparency = 100
+      timer_unchecked.style.transparency = 100
+      timer_unchecked.style.width = 0
+      timer_unchecked.style.height = 0
+      timer_checked.style.width = 0
+      timer_checked.style.width = 0
+      time_label.style.transparency = 100
+      game_length.style.transparency = 100
+      game_length.style.width = 0
       input.style.transparency = 100
+      input.style.width = 0
       production.game_type = "One Player Game"
-    end
+    elsif id == "ai_unchecked"
+      ai_unchecked.style.transparency = 100
+      ai_checked.style.transparency = 0
+      ai_unchecked.style.width = 0
+      ai_unchecked.style.height = 0
+      ai_checked.style.height = 16
+      ai_checked.style.width = 15
+      ai_diff.style.transparency = 0
+      unbeat_unchecked.style.transparency = 0
+      unbeat.style.transparency = 0
+      hard_unchecked.style.transparency = 0
+      hard.style.transparency = 0
+      easy_unchecked.style.transparency = 0
+      easy.style.transparency = 0
+      unchecked.style.transparency = 0
+      checked.style.transparency = 100
+      unchecked.style.width = 14
+      unchecked.style.height = 14
+      checked.style.height = 0
+      checked.style.width = 0
+      player_label.style.transparency = 100
+      speed_game.style.transparency = 100
+      timer_unchecked.style.transparency = 100
+      timer_unchecked.style.width = 0
+      timer_unchecked.style.height = 0
+      timer_checked.style.width = 0
+      timer_checked.style.width = 0
+      time_label.style.transparency = 100
+      game_length.style.transparency = 100
+      game_length.style.width = 0
+      input.style.transparency = 100
+      input.style.width = 0
+      production.game_type = "One Player Game"
+    elsif id == "ai_checked"
+      ai_unchecked.style.transparency = 0
+      ai_checked.style.transparency = 100
+      ai_unchecked.style.width = 14
+      ai_unchecked.style.height = 14
+      ai_checked.style.height = 0
+      ai_checked.style.width = 0
+      ai_diff.style.transparency = 100
+      unbeat_unchecked.style.transparency = 100
+      unbeat.style.transparency = 100
+      hard_unchecked.style.transparency = 100
+      hard.style.transparency = 100
+      easy_unchecked.style.transparency = 100
+      easy.style.transparency = 100
+      production.game_type = "Two Player Game"
+    end      
   end
-  
 end

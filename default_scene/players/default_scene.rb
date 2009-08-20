@@ -6,6 +6,12 @@ module DefaultScene
   prop_reader :timer
   
   def scene_opened(event)
+    if production.comp_difficulty == ""
+      production.comp_difficulty = "hard"
+    end
+    if production.comp_difficulty == nil
+      production.comp_difficulty = "hard"
+    end
     production.pull_position = nil
     production.push_position = nil
     production.player1_turns = 0

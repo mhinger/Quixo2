@@ -9,8 +9,9 @@ default_container {
 main_container {
   background_color :tan
   width 800
-  height 490
+  height 550
   rounded_corner_radius 20
+  transparency 40
 }
 
 instrs {
@@ -21,6 +22,14 @@ instrs {
 instrs2 {
   margin 25
   font_size 18
+}
+
+instrs3 {
+  margin 25
+  font_size 12
+  float :on
+  x 0
+  y 490
 }
 
 buffer2 {
@@ -41,7 +50,7 @@ back {
   height 25
   float :on
   x 700
-  y 450
+  y 510
   horizontal_alignment :center
   vertical_alignment :center
   rounded_corner_radius 12

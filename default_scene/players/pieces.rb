@@ -46,10 +46,13 @@ private #########################
     minmax = Minimax.new
     best_move = []
     status_bar = scene.find("status_bar")
-    best_move = minmax.evaluate_possible_moves(production.game.board,"O")
+    best_move = minmax.evaluate_possible_moves(production.game.board,"O",production.comp_difficulty)
+    # puts "Pull in makecomputermove: #{best_move[0]}"
+    # puts "Push in makecomputermove: #{best_move[1]}"
+    # puts "Score in makecomputermove: #{best_move[2]}"
     computer_pull_piece(place,best_move[0])
     # highlight_comp_pull
-    2000000.times do 
+    5000000.times do 
     end
     computer_push_piece(status_bar,place,best_move[1])
     highlight_comp_pull

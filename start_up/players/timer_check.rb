@@ -14,6 +14,7 @@ module TimerCheck
       checked.style.width = 15
       time_label.style.transparency = 0
       game_length.style.transparency = 0
+      game_length.style.width = 60
       production.timed_game = "Yes"
     elsif checked.style.transparency == "0%"
       unchecked.style.transparency = 0
@@ -24,6 +25,7 @@ module TimerCheck
       checked.style.width = 0
       time_label.style.transparency = 100
       game_length.style.transparency = 100
+      game_length.style.width = 0
       production.timed_game = "No"
     end
   end
