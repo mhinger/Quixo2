@@ -26,10 +26,6 @@ pieces {
   height 70
   margin 1
   font_size 40
-  # background_color "#D99963" #:tan #9E6835
-  # background_image_fill_strategy :static
-  # text_color "#004358"
-  # font_style :italic
   font_face :didot
   vertical_alignment :center
   horizontal_alignment :center
@@ -83,7 +79,7 @@ smaller_buffer {
 }
 
 player {
-  background_color "#D99963"#:tan
+  background_color "#D99963"
   width "70%"
   vertical_alignment :center
   font_size 18
@@ -111,7 +107,7 @@ buffer2 {
 }
 
 turn {
-  background_color "#D99963"#:tan
+  background_color "#D99963"
   vertical_alignment :center
   horizontal_alignment :center  
   font_size 18
@@ -125,7 +121,7 @@ turn {
 }
 
 timer {
-  background_color "#D99963"#:tan
+  background_color "#D99963"
   vertical_alignment :center
   horizontal_alignment :center  
   float :on
@@ -139,7 +135,7 @@ timer {
 }
 
 status {
-  background_color "#D99963"#:tan
+  background_color "#D99963"
   vertical_alignment :center
   horizontal_alignment :center  
   font_size 18
