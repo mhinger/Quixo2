@@ -5,7 +5,7 @@ default_container {
 }
 
 main_container {
-  background_color :tan
+  background_color "#D99963"#:tan
   float :on
   x 270
   y 250

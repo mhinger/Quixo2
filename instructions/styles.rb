@@ -7,7 +7,7 @@ default_container {
 }
 
 main_container {
-  background_color :tan
+  background_color "#D99963"#:tan
   width 800
   height 550
   rounded_corner_radius 20

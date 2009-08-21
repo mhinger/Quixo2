@@ -67,7 +67,7 @@ class Minimax
     return pull_push_score
   end
   
-  def evaluate_possible_moves(board,mark,difficulty)    
+  def evaluate_possible_moves(board,mark,difficulty)  
     temp_board = board.clone
     possible_boards = []
     pull_push_score = evaluate_board(temp_board.clone)
@@ -77,6 +77,7 @@ class Minimax
       possible_boards[pos] = new_board.clone
       pos = pos + 1
     end
+    
     (possible_boards.size).times do |i|
       pull_push_score[i][2] = score_for(possible_boards[i],mark)
       if four_in_a_line_win_opportunity(possible_boards[i],"X") == true
@@ -446,71 +447,62 @@ class Minimax
     game_board = @game.board_shift(pull,push,mark,board)
     return game_board.clone
   end
- 
-  def four_in_a_line_win_opportunity(board,mark)
-    row_win_opportunity = row_line(board,mark,4)
+
+  def check_col_win_opportunity(board,mark)
     col_win_opportunity = col_line(board,mark,4)
-    diag_win_opportunity = diag_line(board,mark,4)
-    
-    col = []
-    diag = []
+    cols = []
     count = 0
-    winning_spot = nil
-    
     if col_win_opportunity != 0
-      5.times do |i|
-        5.times do |j|
-          if board[i + j * 5] == mark
+      5.times do |col|
+        5.times do |row|
+          if board[col + row * 5] == mark
             count = count + 1
           end
         end
         if count == 4
-          col[i] = i
+          cols <<  col
         end
         count = 0
       end
     end
-        
-    (col.size).times do |i|
-      if col[i] != nil
+    
+    (cols.size).times do |i|
+      if cols[i] != nil
         5.times do |j|
-          if board[col[i] + j * 5] != mark
-            row = (col[i] + j * 5) / 5
-            winning_pull = check_row_for_winning_move(board,row,col[i],mark)
-            if winning_pull != nil
-              return true
-            end
+          if board[cols[i] + j * 5] != mark
+            row = (cols[i] + j * 5) / 5
+            return true if check_row_for_winning_move(board,row,cols[i],mark)
           end
         end
       end
     end
-    
-    row = []
+    return false
+  end
+  
+  def check_row_win_opportunity(board,mark)
+    row_win_opportunity = row_line(board,mark,4)
+    rows = []
     count = 0
-    
     if row_win_opportunity != 0
-      5.times do |i|
-        5.times do |j|
-          if board[i * 5 + j] == mark
+      5.times do |row|
+        5.times do |col|
+          if board[row * 5 + col] == mark
             count = count + 1
           end
         end
         if count == 4
-          row[i] = i
+          rows << row
         end
         count = 0
       end
     end
     
-    (row.size).times do |i|
-      if row[i] != nil
+    (rows.size).times do |i|
+      if rows[i] != nil
         5.times do |j|
-          if board[row[i] * 5 + j] != mark
-            col = (row[i] * 5 + j) % 5
-            winning_pull = check_col_for_winning_move(board,col,row[i],mark)
-            if winning_pull != nil
-              return true
-            end
+          if board[rows[i] * 5 + j] != mark
+            col = (rows[i] * 5 + j) % 5
+            return true if check_col_for_winning_move(board,col,rows[i],mark)
           end
         end
       end
@@ -518,19 +510,32 @@ class Minimax
     return false
   end
 
+  def four_in_a_line_win_opportunity(board,mark)   
+    return true if check_col_win_opportunity(board,mark)
+    return true if check_row_win_opportunity(board,mark)
+    return false
+  end
+  
+  def blank?(value)
+    return true if value.nil?
+    return true if value.empty?
+    return false
+  end
+
   def check_row_for_winning_move(board,row,win_col,mark)
     if row == 0 || row == 4
       5.times do |i|
-        if board[row * 5 + i] == mark || board[row * 5 + i] == ""
+        if board[row * 5 + i] == mark || blank?(board[row * 5 + i])
           return row * 5 + i
         end
       end
     else
-      if board[row * 5] == mark || board[row * 5] == ""
+      if board[row * 5] == mark || blank?(board[row * 5])
         return row * 5
-      elsif board[row * 5 + 4] == mark || board[row * 5 + 4] == ""
+      elsif board[row * 5 + 4] == mark || blank?(board[row * 5 + 4])
         return row * 5 + 4
-      end    
+      end
+          
     end
     return nil
   end
@@ -538,14 +543,14 @@ class Minimax
   def check_col_for_winning_move(board,col,win_row,mark)
     if col == 0 || col == 4
       5.times do |i|
-        if board[col + i * 5] == mark || board[col + i * 5] == ""
+        if board[col + i * 5] == mark || blank?(board[col + i * 5])
           return col + i * 5
         end
       end
     else
-      if board[col] == mark || board[col] == ""
+      if board[col] == mark || blank?(board[col])
         return col
-      elsif board[col + 20] == mark || board[col + 20] == ""
+      elsif board[col + 20] == mark || blank?(board[col + 20])
         return col + 20
       end
     end

@@ -1,6 +1,7 @@
 require "game"
 require "placement"
 require "minimax"
+require "ai"
 
 module Pieces
   
@@ -47,22 +48,22 @@ private #########################
     best_move = []
     status_bar = scene.find("status_bar")
     best_move = minmax.evaluate_possible_moves(production.game.board,"O",production.comp_difficulty)
-    # puts "Pull in makecomputermove: #{best_move[0]}"
-    # puts "Push in makecomputermove: #{best_move[1]}"
-    # puts "Score in makecomputermove: #{best_move[2]}"
     computer_pull_piece(place,best_move[0])
-    # highlight_comp_pull
-    5000000.times do 
-    end
+    delay
     computer_push_piece(status_bar,place,best_move[1])
     highlight_comp_pull
     check_victory
   end
 
+  def delay
+    5000000.times do 
+    end    
+  end
+
   def computer_pull_piece(place,pull)
     pull_pos = pull
     game_piece = scene.find(pull)
-    game_piece.style.background_color = "black"
+    game_piece.style.background_color = "#5E0900"#"black"
     game_piece.style.text_color = "tan"
     if place.legal_pull_position(pull_pos) && pull_pos != nil
       if production.game.board[pull_pos] == "O"
@@ -288,7 +289,7 @@ private #########################
   
   def pull_piece
     production.pull_position = (self.id).to_i
-    self.style.background_color = "black"#{}"#004358"
+    self.style.background_color = "#5E0900"#"black"#"#004358"
     self.style.text_color = "tan"
   end
   
@@ -408,16 +409,16 @@ private #########################
     p1 = scene.find("p1")
     p2 = scene.find("p2") 
     if production.game.current_turn == "X"
-      p1.style.background_color = 'teal'
-      p2.style.background_color = 'tan'
+      p1.style.background_color = "#CCFFFF"#'teal'
+      p2.style.background_color = "#D99963"#'tan'
       if production.player1 == ""
         turn_bar.text = "It's #{production.game.current_turn}'s Turn"
       else          
         turn_bar.text = "It's #{production.player1}'s Turn"
       end
     else
-      p1.style.background_color = 'tan'
-      p2.style.background_color = 'teal'
+      p1.style.background_color = "#D99963"#'tan'
+      p2.style.background_color = "#CCFFFF"#'teal'
       if production.player2 == ""
         turn_bar.text = "It's #{production.game.current_turn}'s Turn"
       else

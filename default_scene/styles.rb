@@ -83,7 +83,7 @@ smaller_buffer {
 }
 
 player {
-  background_color :tan
+  background_color "#D99963"#:tan
   width "70%"
   vertical_alignment :center
   font_size 18
@@ -111,7 +111,7 @@ buffer2 {
 }
 
 turn {
-  background_color :tan
+  background_color "#D99963"#:tan
   vertical_alignment :center
   horizontal_alignment :center  
   font_size 18
@@ -125,7 +125,7 @@ turn {
 }
 
 timer {
-  background_color :tan
+  background_color "#D99963"#:tan
   vertical_alignment :center
   horizontal_alignment :center  
   float :on
@@ -139,7 +139,7 @@ timer {
 }
 
 status {
-  background_color :tan
+  background_color "#D99963"#:tan
   vertical_alignment :center
   horizontal_alignment :center  
   font_size 18
