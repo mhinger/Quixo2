@@ -16,15 +16,12 @@ class Minimax
       else
         return [minimax(tree[0],lvl+1,total_levels),minimax(tree[1],lvl+1,total_levels),minimax(tree[2],lvl+1,total_levels)].max 
       end
-    # elsif lvl == 2
-    #   return [minimax(tree[0],lvl+1),minimax(tree[1],lvl+1),minimax(tree[2],lvl+1)].max 
     elsif lvl % 2 == 1 
       return [minimax(tree[0],lvl+1,total_levels),minimax(tree[1],lvl+1,total_levels)].min
     end
   end
   
-  #At the start, alpha is most neg num, beta is most pos num. This represents worst possible situation
-  def alpha_beta(tree,lvl,alpha,beta,total_levels)     
+  def alpha_beta(tree,lvl,alpha,beta,total_levels)
     if lvl == total_levels - 1
       return tree
     end    
@@ -67,7 +64,7 @@ class Minimax
     return pull_push_score
   end
   
-  def evaluate_possible_moves(board,mark,difficulty)  
+  def evaluate_possible_moves(board,mark,difficulty)
     temp_board = board.clone
     possible_boards = []
     pull_push_score = evaluate_board(temp_board.clone)
@@ -77,7 +74,6 @@ class Minimax
       possible_boards[pos] = new_board.clone
       pos = pos + 1
     end
-    
     (possible_boards.size).times do |i|
       pull_push_score[i][2] = score_for(possible_boards[i],mark)
       if four_in_a_line_win_opportunity(possible_boards[i],"X") == true
@@ -87,12 +83,10 @@ class Minimax
         pull_push_score[i][2] = pull_push_score[i][2] + 1000        
       end
     end  
-      
     scores = []    
     (pull_push_score.size).times do |i|
       scores[i] = pull_push_score[i][2]
     end
-    
     if difficulty == "easy"
       percent = rand(8)
       if percent < 5
@@ -104,7 +98,6 @@ class Minimax
         move = rand(3) + 2
         best_move = find_second_to_fourth_best_move(pull_push_score,scores,move)
       end
-      
     elsif difficulty == "hard"
       percent = rand(10)
       if percent < 5
@@ -116,7 +109,6 @@ class Minimax
         move = rand(3) + 5
         best_move = find_fifth_to_seventh_best_move(pull_push_score,scores,move)
       end
-      
     elsif difficulty == "unbeatable"
       best_move = find_best_move(pull_push_score,scores)
     end
@@ -280,13 +272,10 @@ class Minimax
   end
   
   def find_best_move(pull_push_score, scores)
-    # alpha_beta(tree,lvl,alpha,beta,total_levels) 
     max_score = alpha_beta(scores,0,-1000000000000000000,1000000000000000000,2)  
-    ###best move has the push pull and score in an array [pull, push, score]
     best_move = nil
     possible_good_moves = []
     pos = 0
-    
     (pull_push_score.size).times do |i|
       if pull_push_score[i][2] == max_score
         possible_good_moves[pos] = pull_push_score[i].clone
@@ -465,7 +454,6 @@ class Minimax
         count = 0
       end
     end
-    
     (cols.size).times do |i|
       if cols[i] != nil
         5.times do |j|
@@ -496,7 +484,6 @@ class Minimax
         count = 0
       end
     end
-    
     (rows.size).times do |i|
       if rows[i] != nil
         5.times do |j|
@@ -510,7 +497,7 @@ class Minimax
     return false
   end
 
-  def four_in_a_line_win_opportunity(board,mark)   
+  def four_in_a_line_win_opportunity(board,mark)
     return true if check_col_win_opportunity(board,mark)
     return true if check_row_win_opportunity(board,mark)
     return false
@@ -535,7 +522,6 @@ class Minimax
       elsif board[row * 5 + 4] == mark || blank?(board[row * 5 + 4])
         return row * 5 + 4
       end
-          
     end
     return nil
   end
@@ -556,6 +542,5 @@ class Minimax
     end
     return nil
   end
-
 
 end

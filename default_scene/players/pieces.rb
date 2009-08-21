@@ -63,7 +63,7 @@ private #########################
   def computer_pull_piece(place,pull)
     pull_pos = pull
     game_piece = scene.find(pull)
-    game_piece.style.background_color = "#5E0900"#"black"
+    game_piece.style.background_color = "#5E0900"
     game_piece.style.text_color = "tan"
     if place.legal_pull_position(pull_pos) && pull_pos != nil
       if production.game.board[pull_pos] == "O"
@@ -289,7 +289,7 @@ private #########################
   
   def pull_piece
     production.pull_position = (self.id).to_i
-    self.style.background_color = "#5E0900"#"black"#"#004358"
+    self.style.background_color = "#5E0900"
     self.style.text_color = "tan"
   end
   
@@ -341,7 +341,6 @@ private #########################
     strike.style.transparency = 20
     strike.style.width = 354
     strike.style.height = 354
-    
     if production.game.win_row == 0
       strike.style.top_padding = 30
       strike.style.left_padding = 2
@@ -409,16 +408,16 @@ private #########################
     p1 = scene.find("p1")
     p2 = scene.find("p2") 
     if production.game.current_turn == "X"
-      p1.style.background_color = "#CCFFFF"#'teal'
-      p2.style.background_color = "#D99963"#'tan'
+      p1.style.background_color = "#CCFFFF"
+      p2.style.background_color = "#D99963"
       if production.player1 == ""
         turn_bar.text = "It's #{production.game.current_turn}'s Turn"
       else          
         turn_bar.text = "It's #{production.player1}'s Turn"
       end
     else
-      p1.style.background_color = "#D99963"#'tan'
-      p2.style.background_color = "#CCFFFF"#'teal'
+      p1.style.background_color = "#D99963"
+      p2.style.background_color = "#CCFFFF"
       if production.player2 == ""
         turn_bar.text = "It's #{production.game.current_turn}'s Turn"
       else

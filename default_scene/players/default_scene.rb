@@ -24,8 +24,8 @@ module DefaultScene
     turn_bar = scene.find("turn_bar")
     p1.text = production.player1
     p2.text = production.player2
-    p1.style.background_color = "#CCFFFF"#"teal"
-    p2.style.background_color = "#D99963"#"tan"
+    p1.style.background_color = "#CCFFFF"
+    p2.style.background_color = "#D99963"
     timer1 = scene.find("player1_timer")
     timer2 = scene.find("player2_timer")
     production.new_game = "Yes"
